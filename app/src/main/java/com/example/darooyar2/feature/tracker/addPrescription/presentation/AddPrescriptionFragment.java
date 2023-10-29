@@ -17,6 +17,7 @@ import com.example.darooyar2.them.component.FormFieldView;
 import com.google.android.material.button.MaterialButton;
 
 public class AddPrescriptionFragment extends BaseFragment {
+
     private int baseId = 5464;
     protected final int idFieldDoctorName = baseId + 1;
     protected final int idFieldDate = idFieldDoctorName + 1;

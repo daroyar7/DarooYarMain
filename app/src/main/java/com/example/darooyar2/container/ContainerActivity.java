@@ -2,6 +2,7 @@ package com.example.darooyar2.container;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -14,10 +15,14 @@ import com.example.darooyar2.them.Param;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.ArrayList;
+
 public class ContainerActivity extends AppCompatActivity {
 
     protected final static int PARENT_ID = 27;
     protected final static int BOTTOM_NAVIGATION_ID = 278;
+
+    public ArrayList<BaseFragment> fragmentStack = new ArrayList<>(4);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,4 +53,26 @@ public class ContainerActivity extends AppCompatActivity {
         containerView.setId(PARENT_ID);
         parent.addView(containerView, Param.consParam(0, 0, 0, 0, 0, -BOTTOM_NAVIGATION_ID));
     }
+
+    public void pushFragment(BaseFragment fragment, String tag) {
+        pushFragment(fragment, tag, R.anim.scale_open_transition, R.anim.scale_exit_transition, 500);
+    }
+
+    public void pushFragment(BaseFragment fragment, String tag, int openAnimation, int exitAnimation) {
+        pushFragment(fragment, tag, openAnimation, exitAnimation, 500);
+    }
+
+    public void pushFragment(BaseFragment fragment, String tag, int openAnimation, int exitAnimation, int delayHide) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.beginTransaction().setCustomAnimations(openAnimation, exitAnimation)
+                .setReorderingAllowed(true).add(PARENT_ID, fragment, tag).commit();
+        fragmentStack.add(fragment);
+
+        AppLoader.handler.postDelayed(() -> {
+            if (fragmentStack.size() > 1)
+                fragmentStack.get(fragmentStack.size() - 2).hideFragment(fragmentManager, false);
+        }, delayHide);
+    }
+
 }
