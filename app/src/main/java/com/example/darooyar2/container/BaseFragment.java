@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.darooyar2.them.AppTheme;
+import com.example.darooyar2.them.Color;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -26,6 +27,7 @@ public abstract class BaseFragment extends Fragment {
         if (activity == null)
             return null;
         parent = new ConstraintLayout(activity);
+        parent.setBackgroundColor(Color.getBackgroundColor());
         parent.setMotionEventSplittingEnabled(false);
         parent.setFocusableInTouchMode(true);
         parent.setFocusable(true);

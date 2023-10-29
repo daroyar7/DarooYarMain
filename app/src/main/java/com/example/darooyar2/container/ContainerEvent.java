@@ -2,14 +2,13 @@ package com.example.darooyar2.container;
 
 import android.view.MenuItem;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.darooyar2.feature.alert.presentation.AlertFragment;
 import com.example.darooyar2.feature.tracker.prescription.presentation.PrescriptionFragment;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class ContainerEventActivity implements NavigationBarView.OnItemSelectedListener {
+public class ContainerEvent implements NavigationBarView.OnItemSelectedListener {
 
     private int itemSelected = 1;
 
@@ -17,7 +16,7 @@ public class ContainerEventActivity implements NavigationBarView.OnItemSelectedL
     private AlertFragment alertFragment;
     private FragmentManager fragmentManager;
 
-    public ContainerEventActivity(ContainerActivity containerActivity) {
+    public ContainerEvent(ContainerActivity containerActivity) {
         prescriptionFragment = new PrescriptionFragment();
 
         fragmentManager = containerActivity.getSupportFragmentManager();
