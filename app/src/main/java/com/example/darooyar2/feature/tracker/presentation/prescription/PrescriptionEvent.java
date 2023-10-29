@@ -2,7 +2,7 @@ package com.example.darooyar2.feature.tracker.presentation.prescription;
 
 import android.view.View;
 
-import com.example.darooyar2.feature.tracker.addPrescription.presentation.AddPrescriptionFragment;
+import com.example.darooyar2.feature.tracker.presentation.addPrescription.AddPrescriptionFragment;
 
 public class PrescriptionEvent implements View.OnClickListener {
 

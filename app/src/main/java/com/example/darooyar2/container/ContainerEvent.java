@@ -5,7 +5,7 @@ import android.view.MenuItem;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.darooyar2.feature.alert.presentation.AlertFragment;
-import com.example.darooyar2.feature.tracker.prescription.presentation.PrescriptionFragment;
+import com.example.darooyar2.feature.tracker.presentation.prescription.PrescriptionFragment;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class ContainerEvent implements NavigationBarView.OnItemSelectedListener {
