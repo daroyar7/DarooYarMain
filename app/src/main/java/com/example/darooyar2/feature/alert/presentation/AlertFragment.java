@@ -1,16 +1,14 @@
-package com.example.darooyar2.feature.tracker.prescription.presentation;
+package com.example.darooyar2.feature.alert.presentation;
 
 import android.view.ViewGroup;
 
 import com.example.darooyar2.container.BaseFragment;
 import com.example.darooyar2.them.Color;
 
-public class PrescriptionFragment extends BaseFragment {
-
+public class AlertFragment extends BaseFragment {
     @Override
     protected ViewGroup onViewFragmentCreate() {
-        parent.setBackgroundColor(Color.getErrorColor());
+        parent.setBackgroundColor(Color.getOutlineColor());
         return parent;
     }
-
 }

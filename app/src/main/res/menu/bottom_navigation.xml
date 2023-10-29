@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_notification"
+        android:enabled="true"
+        android:orderInCategory="0"
+        android:icon="@drawable/ic_notification"
+        android:title="یادآور" />
+    <item
+        android:id="@+id/navigation_prescription"
+        android:enabled="true"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_prescriptions"
+        android:title="نسخه‌ها" />
+</menu>

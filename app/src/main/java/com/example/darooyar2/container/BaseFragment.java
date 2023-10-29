@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.health.daroyar.them.AppTheme;
+import com.example.darooyar2.them.AppTheme;
 
 public abstract class BaseFragment extends Fragment {
 
