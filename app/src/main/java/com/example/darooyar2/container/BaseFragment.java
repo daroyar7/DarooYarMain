@@ -20,9 +20,9 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        activity = (ContainerActivity) getActivity();
         appTheme = AppTheme.getInstance();
 
-        activity = (ContainerActivity) getActivity();
         if (activity == null)
             return null;
         parent = new ConstraintLayout(activity);
