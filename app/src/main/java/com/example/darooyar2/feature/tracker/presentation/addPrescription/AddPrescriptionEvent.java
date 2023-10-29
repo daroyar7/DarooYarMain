@@ -1,4 +1,4 @@
-package com.example.darooyar2.feature.tracker.addPrescription.presentation;
+package com.example.darooyar2.feature.tracker.presentation.addPrescription;
 
 import android.view.View;
 
