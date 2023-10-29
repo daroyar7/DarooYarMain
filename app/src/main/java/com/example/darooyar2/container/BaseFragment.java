@@ -15,9 +15,9 @@ import com.example.darooyar2.them.Color;
 
 public abstract class BaseFragment extends Fragment {
 
-    protected AppTheme appTheme;
-    protected ContainerActivity activity;
-    protected ConstraintLayout parent;
+    public AppTheme appTheme;
+    public ContainerActivity activity;
+    public ConstraintLayout parent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
