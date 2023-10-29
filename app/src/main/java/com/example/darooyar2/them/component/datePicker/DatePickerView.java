@@ -1,6 +1,7 @@
-package com.example.darooyar2.them.component;
+package com.example.darooyar2.them.component.datePicker;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,6 @@ public class DatePickerView extends ConstraintLayout {
         editText.setOnClickListener(v->{
 
         });
-        textInputLayout.addView(editText , Param.consParam(-1 , -2));
+        textInputLayout.addView(editText , Param.linearParam(-1 , -2 , Gravity.CENTER, -1 ,-1 ,-1 ,-1));
     }
 }

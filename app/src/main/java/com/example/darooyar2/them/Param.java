@@ -1,5 +1,7 @@
 package com.example.darooyar2.them;
 
+import android.widget.LinearLayout;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class Param {
@@ -97,6 +99,17 @@ public class Param {
         if (mR != -1)
             layoutParams.rightMargin = mR;
 
+        return layoutParams;
+    }
+    public static LinearLayout.LayoutParams linearParam(int w, int h, int mT, int mL, int mR, int mB) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(w, h);
+        layoutParams.setMargins(mL, mT, mR, mB);
+        return layoutParams;
+    }
+
+    public static LinearLayout.LayoutParams linearParam(int w, int h, float weight, int mT, int mL, int mR, int mB) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(w, h, weight);
+        layoutParams.setMargins(mL, mT, mR, mB);
         return layoutParams;
     }
 }

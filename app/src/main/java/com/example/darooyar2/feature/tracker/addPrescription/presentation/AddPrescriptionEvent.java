@@ -2,7 +2,7 @@ package com.example.darooyar2.feature.tracker.addPrescription.presentation;
 
 import android.view.View;
 
-import com.example.darooyar2.them.component.DatePickerView;
+import com.example.darooyar2.them.component.datePicker.DatePickerView;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 

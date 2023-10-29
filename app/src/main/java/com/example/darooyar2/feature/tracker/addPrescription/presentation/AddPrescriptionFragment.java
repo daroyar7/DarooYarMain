@@ -1,10 +1,7 @@
 package com.example.darooyar2.feature.tracker.addPrescription.presentation;
 
-import android.media.Image;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.darooyar2.R;
 import com.example.darooyar2.container.BaseFragment;
@@ -12,7 +9,7 @@ import com.example.darooyar2.them.AppTheme;
 import com.example.darooyar2.them.Color;
 import com.example.darooyar2.them.Dimen;
 import com.example.darooyar2.them.Param;
-import com.example.darooyar2.them.component.DatePickerView;
+import com.example.darooyar2.them.component.datePicker.DatePickerView;
 import com.example.darooyar2.them.component.FormFieldView;
 import com.google.android.material.button.MaterialButton;
 
@@ -27,6 +24,8 @@ public class AddPrescriptionFragment extends BaseFragment {
     protected ViewGroup onViewFragmentCreate() {
         parent.setBackgroundColor(Color.getBackgroundColor());
         AppTheme.getInstance().setUpStatusBar(activity, Color.getBackgroundColor(), false);
+
+        AddPrescriptionEvent event=new AddPrescriptionEvent(this);
 
         ImageView imgPrescription = new ImageView(activity);
         imgPrescription.setImageResource(R.drawable.image_add_prescription);
@@ -45,6 +44,7 @@ public class AddPrescriptionFragment extends BaseFragment {
         parent.addView(fieldDate ,Param.consParam(-1, -2, -fieldDoctorName.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
         MaterialButton btnSubmit =new MaterialButton(activity);
+        btnSubmit.setOnClickListener(event);
         btnSubmit.setText("ثبت نسخه");
         btnSubmit.setId(idBtnSubmit);
         parent.addView(btnSubmit, Param.consParam(-1 , Dimen.m64 , -1 ,0,0,0, -1 , Dimen.m40, Dimen.m40, Dimen.m40 ));

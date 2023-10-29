@@ -1,6 +1,7 @@
 package com.example.darooyar2.them.component;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
@@ -39,6 +40,6 @@ public class FormFieldView extends ConstraintLayout {
         addView(textInputLayout, Param.consParam(0, -2, icField.getId(), -1, -icField.getId(), icField.getId(), -1, -1, Dimen.m16, -1));
 
         TextInputEditText editText=new TextInputEditText(activity);
-        textInputLayout.addView(editText , Param.consParam(-1 , -2));
+        textInputLayout.addView(editText , Param.linearParam(-1 , -2 , Gravity.CENTER, -1 ,-1 ,-1 ,-1));
     }
 }
