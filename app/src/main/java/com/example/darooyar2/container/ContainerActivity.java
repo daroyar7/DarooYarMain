@@ -28,7 +28,7 @@ public class ContainerActivity extends AppCompatActivity {
         AppTheme appTheme = AppTheme.getInstance();
 
         setContentView(parent);
-        appTheme.setUpStatusBar(this, Color.getBackgroundColor(), true);
+        appTheme.setUpStatusBar(this, Color.getBackgroundColor(), false);
 
         int[][] states = new int[][]{new int[]{android.R.attr.state_checked}, new int[]{-android.R.attr.state_checked}};
         int[] colors = new int[]{Color.getOnBackgroundColor(), Color.getSurfaceColor()};
