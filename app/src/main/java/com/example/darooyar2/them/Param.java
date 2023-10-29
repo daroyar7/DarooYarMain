@@ -1,0 +1,102 @@
+package com.example.darooyar2.them;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+public class Param {
+
+    public static ConstraintLayout.LayoutParams consParam(int w, int h) {
+        return new ConstraintLayout.LayoutParams(w, h);
+    }
+
+    public static ConstraintLayout.LayoutParams consParam(int w, int h, int top, int left, int right, int bottom) {
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(w, h);
+        if (top != -1)
+            if (top >= 0)
+                layoutParams.topToTop = top;
+            else
+                layoutParams.topToBottom = top * -1;
+        if (bottom != -1)
+            if (bottom >= 0)
+                layoutParams.bottomToBottom = bottom;
+            else
+                layoutParams.bottomToTop = bottom * -1;
+        if (left != -1)
+            if (left >= 0)
+                layoutParams.leftToLeft = left;
+            else
+                layoutParams.leftToRight = left * -1;
+        if (right != -1)
+            if (right >= 0)
+                layoutParams.rightToRight = right;
+            else
+                layoutParams.rightToLeft = right * -1;
+        return layoutParams;
+    }
+
+    public static ConstraintLayout.LayoutParams consParam(int w, int h, int top, int left, int right, int bottom, float bV, float bH) {
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(w, h);
+        if (top != -1)
+            if (top >= 0)
+                layoutParams.topToTop = top;
+            else
+                layoutParams.topToBottom = top * -1;
+        if (bottom != -1)
+            if (bottom >= 0)
+                layoutParams.bottomToBottom = bottom;
+            else
+                layoutParams.bottomToTop = bottom * -1;
+        if (left != -1)
+            if (left >= 0)
+                layoutParams.leftToLeft = left;
+            else
+                layoutParams.leftToRight = left * -1;
+        if (right != -1)
+            if (right >= 0)
+                layoutParams.rightToRight = right;
+            else
+                layoutParams.rightToLeft = right * -1;
+
+        if (bV != -1)
+            layoutParams.verticalBias = bV;
+
+        if (bH != -1)
+            layoutParams.horizontalBias = bH;
+
+        return layoutParams;
+    }
+
+    public static ConstraintLayout.LayoutParams consParam(int w, int h, int top, int left, int right, int bottom, int mT, int mL, int mR, int mB) {
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(w, h);
+        if (top != -1)
+            if (top >= 0)
+                layoutParams.topToTop = top;
+            else
+                layoutParams.topToBottom = top * -1;
+        if (bottom != -1)
+            if (bottom >= 0)
+                layoutParams.bottomToBottom = bottom;
+            else
+                layoutParams.bottomToTop = bottom * -1;
+        if (left != -1)
+            if (left >= 0)
+                layoutParams.leftToLeft = left;
+            else
+                layoutParams.leftToRight = left * -1;
+        if (right != -1)
+            if (right >= 0)
+                layoutParams.rightToRight = right;
+            else
+                layoutParams.rightToLeft = right * -1;
+
+        if (mT != -1)
+            layoutParams.topMargin = mT;
+        if (mB != -1)
+            layoutParams.bottomMargin = mB;
+        if (mL != -1)
+            layoutParams.leftMargin = mL;
+        if (mR != -1)
+            layoutParams.rightMargin = mR;
+
+        return layoutParams;
+    }
+}
