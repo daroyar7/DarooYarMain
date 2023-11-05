@@ -2,6 +2,7 @@ package com.example.darooyar2.container;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.res.ColorStateList;
@@ -74,5 +75,34 @@ public class ContainerActivity extends AppCompatActivity {
                 fragmentStack.get(fragmentStack.size() - 2).hideFragment(fragmentManager, false);
         }, delayHide);
     }
+
+    public void popFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().setReorderingAllowed(true).remove(fragment).commit();
+        fragmentStack.remove(fragmentStack.size() - 2);
+    }
+
+    public void popFragment(boolean isBack) {
+        popFragment(isBack, R.anim.scale_open_transition, R.anim.scale_exit_transition);
+    }
+
+    public void popFragment(boolean isBack, int openAnimation, int exitAnimation) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        try {
+            fragmentManager.beginTransaction().setCustomAnimations(openAnimation, exitAnimation)
+                    .setReorderingAllowed(true).remove(getCurrentFragment()).commit();
+            if (isBack)
+                fragmentStack.get(fragmentStack.size() - 2).showFragment(fragmentManager, false);
+            fragmentStack.remove(fragmentStack.size() - 1);
+        } catch (Exception ignored) {
+        }
+    }
+
+    public BaseFragment getCurrentFragment() {
+        if (fragmentStack.size() == 0)
+            return null;
+        return fragmentStack.get(fragmentStack.size() - 1);
+    }
+
 
 }
