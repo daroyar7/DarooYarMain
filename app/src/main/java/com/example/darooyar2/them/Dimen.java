@@ -37,5 +37,5 @@ public class Dimen {
     public static int fontSize60 = appTheme.getAf(150);
 
     //time
-    public static int timeDelayIDoNotKnow = 5000;
+    public static int elevation = appTheme.getAf(30);
 }

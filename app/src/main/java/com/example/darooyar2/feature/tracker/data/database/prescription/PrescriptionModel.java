@@ -6,18 +6,26 @@ import org.json.JSONObject;
 public class PrescriptionModel {
 
     private String doctorName;
-    private String seeingDoctorDate;
+    private String date;
 
-    public PrescriptionModel(String doctorName, String seeingDoctorDate) {
+    public PrescriptionModel(String doctorName, String date) {
         this.doctorName = doctorName;
-        this.seeingDoctorDate = seeingDoctorDate;
+        this.date = date;
+    }
+
+    public String getDoctorName(){
+        return doctorName;
+    }
+
+    public String getDate(){
+        return date;
     }
 
     public JSONObject toJSON() {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("doctorName", doctorName);
-            jsonObject.put("seeingDoctorDate", seeingDoctorDate);
+            jsonObject.put("date", date);
             return jsonObject;
         } catch (Exception e) {
             return new JSONObject();
@@ -26,8 +34,8 @@ public class PrescriptionModel {
 
     public static PrescriptionModel toPrescriptionModel(JSONObject prescriptionJSON) {
         String doctorName = prescriptionJSON.optString("doctorName");
-        String seeingDoctorDate = prescriptionJSON.optString("seeingDoctorDate");
-        return new PrescriptionModel(doctorName, seeingDoctorDate);
+        String date = prescriptionJSON.optString("date");
+        return new PrescriptionModel(doctorName, date);
     }
 
     public static PrescriptionModel[] toPrescriptionModel(JSONArray jsonArray) {
