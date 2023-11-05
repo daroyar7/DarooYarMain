@@ -1,5 +1,7 @@
 package com.example.darooyar2.feature.tracker.data.database.prescription;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,6 +16,18 @@ public class PrescriptionModel {
     public PrescriptionModel(String doctorName, String date) {
         this.doctorName = doctorName;
         this.date = date;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void createId() {
@@ -45,12 +59,16 @@ public class PrescriptionModel {
     }
 
     public static PrescriptionModel toPrescriptionModel(JSONObject prescriptionJSON) {
+        long id = prescriptionJSON.optLong("id");
         String doctorName = prescriptionJSON.optString("doctorName");
         String date = prescriptionJSON.optString("date");
-        return new PrescriptionModel(doctorName, date);
+        PrescriptionModel prescriptionModel = new PrescriptionModel(doctorName, date);
+        prescriptionModel.setId(id);
+        return prescriptionModel;
     }
 
     public static ArrayList<PrescriptionModel> toPrescriptionModel(JSONArray jsonArray) {
+        Log.i("TAG", "toPrescriptionModel: "+jsonArray);
         ArrayList<PrescriptionModel> prescriptionModels = new ArrayList<>(jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++)
             prescriptionModels.add(toPrescriptionModel(jsonArray.optJSONObject(i)));

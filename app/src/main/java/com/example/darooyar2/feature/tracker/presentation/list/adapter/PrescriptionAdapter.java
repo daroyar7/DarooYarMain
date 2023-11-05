@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.darooyar2.container.ContainerActivity;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
+import com.example.darooyar2.feature.tracker.presentation.detail.PrescriptionDetailFragment;
 import com.example.darooyar2.theme.Color;
 import com.example.darooyar2.theme.Dimen;
 import com.example.darooyar2.theme.Param;
 import com.example.darooyar2.theme.Shape;
 
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionQueryImp;
-import com.example.darooyar2.feature.tracker.presentation.add.AddPrescriptionFragment;
+import com.example.darooyar2.feature.tracker.presentation.put.PutPrescriptionFragment;
 
 import java.util.ArrayList;
 
@@ -49,8 +50,13 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
         });
 
         holder.editClicked(view -> {
-            AddPrescriptionFragment addPrescriptionFragment = new AddPrescriptionFragment();
-            containerActivity.pushFragment(addPrescriptionFragment, AddPrescriptionFragment.class.getName());
+            PutPrescriptionFragment putPrescriptionFragment = new PutPrescriptionFragment();
+            putPrescriptionFragment.setDefaultPrescription(prescriptionModel);
+            containerActivity.pushFragment(putPrescriptionFragment, PutPrescriptionFragment.class.getName());
+        });
+
+        holder.parentClicked(view -> {
+            containerActivity.pushFragment(new PrescriptionDetailFragment(), PrescriptionDetailFragment.class.getName());
         });
 
     }

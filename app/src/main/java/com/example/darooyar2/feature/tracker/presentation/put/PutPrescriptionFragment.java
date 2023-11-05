@@ -1,4 +1,4 @@
-package com.example.darooyar2.feature.tracker.presentation.add;
+package com.example.darooyar2.feature.tracker.presentation.put;
 
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,7 +14,7 @@ import com.example.darooyar2.theme.component.FormFieldView;
 import com.example.darooyar2.theme.component.DatePickerView;
 import com.google.android.material.button.MaterialButton;
 
-public class AddPrescriptionFragment extends BaseFragment {
+public class PutPrescriptionFragment extends BaseFragment {
 
     private int baseId = 5464;
     protected final int idFieldDoctorName = baseId + 1;
@@ -32,7 +32,7 @@ public class AddPrescriptionFragment extends BaseFragment {
         parent.setBackgroundColor(Color.getBackgroundColor());
         AppTheme.getInstance().setUpStatusBar(activity, Color.getBackgroundColor(), false);
 
-        AddPrescriptionEvent event = new AddPrescriptionEvent(this);
+        PutPrescriptionEvent event = new PutPrescriptionEvent(this, prescriptionModel);
 
         ImageView imgPrescription = new ImageView(activity);
         imgPrescription.setImageResource(R.drawable.image_add_prescription);
@@ -41,13 +41,13 @@ public class AddPrescriptionFragment extends BaseFragment {
         parent.addView(imgPrescription, Param.consParam(-1, (int) (0.4 * appTheme.heightPixels), 0, 0, 0, -1));
 
         FormFieldView fieldDoctorName = new FormFieldView(activity);
-        fieldDoctorName.setUp(R.drawable.ic_doctor, "نام پزشک");
+        fieldDoctorName.setUp(R.drawable.ic_doctor, "نام پزشک", prescriptionModel == null ? "" : prescriptionModel.getDoctorName());
         fieldDoctorName.setId(idFieldDoctorName);
         parent.addView(fieldDoctorName, Param.consParam(0, -2, -imgPrescription.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
         DatePickerView fieldDate = new DatePickerView(activity);
         fieldDate.setId(idFieldDate);
-        fieldDate.setUp(R.drawable.ic_date, "تاریخ مراجعه");
+        fieldDate.setUp(R.drawable.ic_date, "تاریخ مراجعه", prescriptionModel == null ? "" : prescriptionModel.getDate());
         parent.addView(fieldDate, Param.consParam(0, -2, -fieldDoctorName.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
         MaterialButton btnSubmit = new MaterialButton(activity);

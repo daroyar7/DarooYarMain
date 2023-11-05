@@ -1,6 +1,7 @@
 package com.example.darooyar2.feature.tracker.data.database.prescription;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.darooyar2.common.QueryDatabase;
 
@@ -33,16 +34,32 @@ public class PrescriptionQueryImp extends QueryDatabase {
         super(context);
     }
 
-    public void addPrescription(PrescriptionModel prescriptionModel) {
+    public void putPrescription(PrescriptionModel prescriptionModel) {
         ensureCacheData();
-        prescriptionModel.createId();
-        JSONObject jsonObject = prescriptionModel.toJSON();
-        cacheData.put(jsonObject);
-        writeFile(cacheData.toString(), PRESCRIPTION_DATABASE);
+        Log.i("TAG", "putPrescription: " + prescriptionModel.getId());
+        if (prescriptionModel.getId() == 0) {
+            prescriptionModel.createId();
+            JSONObject jsonObject = prescriptionModel.toJSON();
+            cacheData.put(jsonObject);
+            writeFile(cacheData.toString(), PRESCRIPTION_DATABASE);
+        }else {
+            for (int i = 0; i < cacheData.length(); i++) {
+                if (cacheData.optJSONObject(i).optLong("id") == prescriptionModel.getId()){
+                    try {
+                        cacheData.remove(i);
+                        cacheData.put(i, prescriptionModel.toJSON());
+                        writeFile(cacheData.toString(), PRESCRIPTION_DATABASE);
+                    } catch (Exception ignored) {
+                    }
+                    return;
+                }
+            }
+        }
     }
 
     public ArrayList<PrescriptionModel> getPrescriptions() {
         ensureCacheData();
+        Log.i("TAG", "cacheData: "+ cacheData);
         return PrescriptionModel.toPrescriptionModel(cacheData);
     }
 
@@ -60,6 +77,7 @@ public class PrescriptionQueryImp extends QueryDatabase {
         if (cacheData == null || cacheData.length() == 0) {
             try {
                 cacheData = new JSONArray(readFile(PRESCRIPTION_DATABASE));
+                Log.i("TAG", "ensureCacheData: "+cacheData);
             } catch (JSONException e) {
                 cacheData = new JSONArray();
             }

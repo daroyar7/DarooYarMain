@@ -10,6 +10,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.darooyar2.R;
+import com.example.darooyar2.container.ContainerActivity;
+import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
+import com.example.darooyar2.feature.tracker.presentation.detail.PrescriptionDetailFragment;
 import com.example.darooyar2.theme.AppTheme;
 import com.example.darooyar2.theme.Color;
 import com.example.darooyar2.theme.Dimen;
@@ -21,11 +24,13 @@ public class PrescriptionHolder extends RecyclerView.ViewHolder {
     private TextView txtDate;
     private ImageView imgEdit;
     private ImageView imgDelete;
+    private ConstraintLayout parent;
 
     protected PrescriptionHolder(ConstraintLayout parent) {
         super(parent);
         Context context = parent.getContext();
         AppTheme appTheme = AppTheme.getInstance();
+        this.parent = parent;
 
         final int TXT_DOCTOR_ID = 484;
         txtDoctorName = new TextView(context);
@@ -69,5 +74,9 @@ public class PrescriptionHolder extends RecyclerView.ViewHolder {
 
     public void deleteClicked(View.OnClickListener onClickListener){
         imgDelete.setOnClickListener(onClickListener);
+    }
+
+    public void parentClicked(View.OnClickListener onClickListener){
+        parent.setOnClickListener(onClickListener);
     }
 }

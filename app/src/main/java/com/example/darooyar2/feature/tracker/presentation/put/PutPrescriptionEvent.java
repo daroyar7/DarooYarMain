@@ -1,4 +1,4 @@
-package com.example.darooyar2.feature.tracker.presentation.add;
+package com.example.darooyar2.feature.tracker.presentation.put;
 
 import android.view.View;
 
@@ -7,11 +7,17 @@ import com.example.darooyar2.feature.tracker.data.database.prescription.Prescrip
 import com.example.darooyar2.theme.component.DatePickerView;
 import com.example.darooyar2.theme.component.FormFieldView;
 
-public class AddPrescriptionEvent implements View.OnClickListener {
-    private AddPrescriptionFragment fragment;
+public class PutPrescriptionEvent implements View.OnClickListener {
 
-    public AddPrescriptionEvent(AddPrescriptionFragment fragment) {
+    private PutPrescriptionFragment fragment;
+    private PrescriptionModel prescriptionModel;
+
+    public PutPrescriptionEvent(PutPrescriptionFragment fragment, PrescriptionModel prescriptionModel) {
         this.fragment=fragment;
+        if (prescriptionModel == null)
+            this.prescriptionModel = new PrescriptionModel("", "");
+        else
+            this.prescriptionModel = prescriptionModel;
     }
 
     @Override
@@ -26,7 +32,9 @@ public class AddPrescriptionEvent implements View.OnClickListener {
             ((FormFieldView) fragment.parent.findViewById(fragment.idFieldDoctorName)).setError(isDoctorNameEmpty ? "لطفا نام را وارد کنید." : "");
 
             if (!isDateEmpty && !isDoctorNameEmpty) {
-                PrescriptionQueryImp.getInstance(fragment.activity).addPrescription(new PrescriptionModel(doctorName, date));
+                prescriptionModel.setDoctorName(doctorName);
+                prescriptionModel.setDate(date);
+                PrescriptionQueryImp.getInstance(fragment.activity).putPrescription(prescriptionModel);
                 fragment.onBackPressed();
             }
         }
