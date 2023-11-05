@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class PrescriptionQueryImp extends QueryDatabase {
 
     private static final String PRESCRIPTION_DATABASE = "/Prescription.txt";
@@ -39,12 +41,22 @@ public class PrescriptionQueryImp extends QueryDatabase {
         writeFile(cacheData.toString(), PRESCRIPTION_DATABASE);
     }
 
-    public PrescriptionModel[] getPrescriptions(){
+    public ArrayList<PrescriptionModel> getPrescriptions() {
         ensureCacheData();
         return PrescriptionModel.toPrescriptionModel(cacheData);
     }
 
-    public void ensureCacheData() {
+    public void removePrescription(PrescriptionModel prescriptionModel){
+        ensureCacheData();
+        for (int i = 0; i < cacheData.length(); i++) {
+            if (cacheData.optJSONObject(i).optLong("id") == prescriptionModel.getId()){
+                cacheData.remove(i);
+                return;
+            }
+        }
+    }
+
+    private void ensureCacheData() {
         if (cacheData == null || cacheData.length() == 0) {
             try {
                 cacheData = new JSONArray(readFile(PRESCRIPTION_DATABASE));

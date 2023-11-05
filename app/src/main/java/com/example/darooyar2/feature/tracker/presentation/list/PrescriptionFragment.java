@@ -32,7 +32,7 @@ public class PrescriptionFragment extends BaseFragment {
         fabButton.setIcon(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.ic_add, null));
         parent.addView(fabButton, Param.consParam(appTheme.getAf(400), appTheme.getAf(165), -1, -1, 0, 0, -1, -1, Dimen.m40, Dimen.m40));
 
-        PrescriptionQueryImp.getInstance(activity).addPrescription(new PrescriptionModel("علی", "1380/5/5"));
+        PrescriptionQueryImp.getInstance(activity).addPrescription(new PrescriptionModel("علی " + System.currentTimeMillis(), "1380/5/5"));
 
         RecyclerView recyclerView = new RecyclerView(activity);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));

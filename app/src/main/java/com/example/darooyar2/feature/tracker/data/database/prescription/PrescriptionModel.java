@@ -3,6 +3,8 @@ package com.example.darooyar2.feature.tracker.data.database.prescription;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class PrescriptionModel {
 
     private long id;
@@ -14,25 +16,26 @@ public class PrescriptionModel {
         this.date = date;
     }
 
-    public void createId(){
+    public void createId() {
         id = System.currentTimeMillis();
     }
 
-    public long getId(){
+    public long getId() {
         return id;
     }
 
-    public String getDoctorName(){
+    public String getDoctorName() {
         return doctorName;
     }
 
-    public String getDate(){
+    public String getDate() {
         return date;
     }
 
     public JSONObject toJSON() {
         try {
             JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", id);
             jsonObject.put("doctorName", doctorName);
             jsonObject.put("date", date);
             return jsonObject;
@@ -47,10 +50,10 @@ public class PrescriptionModel {
         return new PrescriptionModel(doctorName, date);
     }
 
-    public static PrescriptionModel[] toPrescriptionModel(JSONArray jsonArray) {
-        PrescriptionModel[] prescriptionModels = new PrescriptionModel[jsonArray.length()];
+    public static ArrayList<PrescriptionModel> toPrescriptionModel(JSONArray jsonArray) {
+        ArrayList<PrescriptionModel> prescriptionModels = new ArrayList<>(jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++)
-            prescriptionModels[i] = toPrescriptionModel(jsonArray.optJSONObject(i));
+            prescriptionModels.add(toPrescriptionModel(jsonArray.optJSONObject(i)));
         return prescriptionModels;
     }
 }

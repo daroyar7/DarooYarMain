@@ -1,6 +1,7 @@
-package com.example.darooyar2.feature.tracker.presentation.prescription.adapter;
+package com.example.darooyar2.feature.tracker.presentation.list.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,8 @@ public class PrescriptionHolder extends RecyclerView.ViewHolder {
 
     private TextView txtDoctorName;
     private TextView txtDate;
+    private ImageView imgEdit;
+    private ImageView imgDelete;
 
     protected PrescriptionHolder(ConstraintLayout parent) {
         super(parent);
@@ -40,12 +43,12 @@ public class PrescriptionHolder extends RecyclerView.ViewHolder {
         parent.addView(txtDate, Param.consParam(-2, -2, TXT_DOCTOR_ID, -1, 0, 0, Dimen.m40, -1, Dimen.m40, Dimen.m40));
 
         final int IMG_EDIT_ID = 8485;
-        ImageView imgEdit = new ImageView(context);
+        imgEdit = new ImageView(context);
         imgEdit.setId(IMG_EDIT_ID);
         imgEdit.setImageResource(R.drawable.ic_edit);
         parent.addView(imgEdit, Param.consParam(appTheme.getAf(55), appTheme.getAf(55), 0, 0, -1, 0, -1, Dimen.m40, -1, -1));
 
-        ImageView imgDelete = new ImageView(context);
+        imgDelete = new ImageView(context);
         imgDelete.setImageResource(R.drawable.ic_remove);
         parent.addView(imgDelete, Param.consParam(appTheme.getAf(55), appTheme.getAf(55), 0, -IMG_EDIT_ID, -1, 0, -1, Dimen.m40, -1, -1));
     }
@@ -59,5 +62,13 @@ public class PrescriptionHolder extends RecyclerView.ViewHolder {
 
     public void setDate(String date) {
         txtDate.setText("تاریخ مراجعه: " + date);
+    }
+
+    public void editClicked(View.OnClickListener onClickListener){
+        imgEdit.setOnClickListener(onClickListener);
+    }
+
+    public void deleteClicked(View.OnClickListener onClickListener){
+        imgDelete.setOnClickListener(onClickListener);
     }
 }
