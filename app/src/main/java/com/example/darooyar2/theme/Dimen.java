@@ -1,4 +1,4 @@
-package com.example.darooyar2.them;
+package com.example.darooyar2.theme;
 
 public class Dimen {
     private static AppTheme appTheme=AppTheme.getInstance();

@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.darooyar2.R;
 import com.example.darooyar2.container.BaseFragment;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
-import com.example.darooyar2.them.Dimen;
-import com.example.darooyar2.them.Param;
-import com.example.darooyar2.them.Text;
+import com.example.darooyar2.theme.Dimen;
+import com.example.darooyar2.theme.Param;
+import com.example.darooyar2.theme.Text;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class PrescriptionDetailFragment extends BaseFragment {
@@ -47,6 +47,8 @@ public class PrescriptionDetailFragment extends BaseFragment {
         parent.addView(tvHovaShafi, Param.consParam(-2, -2, -tvDate.getId(), -1, 0, -1, Dimen.m24, -1, Dimen.m40, -1));
 
         RecyclerView rvMedicine = new RecyclerView(activity);
+        rvMedicine.setVerticalFadingEdgeEnabled(true);
+        rvMedicine.setFadingEdgeLength(150);
         rvMedicine.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         parent.addView(rvMedicine, Param.consParam(-2, -2,-tvHovaShafi.getId(),0,0,0));
 

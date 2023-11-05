@@ -10,9 +10,9 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.example.darooyar2.R;
-import com.example.darooyar2.them.AppTheme;
-import com.example.darooyar2.them.Color;
-import com.example.darooyar2.them.Param;
+import com.example.darooyar2.theme.AppTheme;
+import com.example.darooyar2.theme.Color;
+import com.example.darooyar2.theme.Param;
 import com.example.darooyar2.utils.PersianDate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
