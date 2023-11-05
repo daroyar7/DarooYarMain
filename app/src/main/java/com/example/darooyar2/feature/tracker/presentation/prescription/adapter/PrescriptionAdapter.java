@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
 import com.example.darooyar2.them.Color;
 import com.example.darooyar2.them.Dimen;
+import com.example.darooyar2.them.Param;
 import com.example.darooyar2.them.Shape;
 
 public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder> {
@@ -23,6 +24,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
         ConstraintLayout constraintLayout = new ConstraintLayout(parent.getContext());
         constraintLayout.setBackground(Shape.createRoundDrawable(Dimen.r12, Color.getBackgroundColor()));
         constraintLayout.setElevation(Dimen.elevation);
+        constraintLayout.setLayoutParams(Param.consParam(-1, -2, -1, -1, -1, -1, Dimen.m32, Dimen.m32, Dimen.m32, -1));
         return new PrescriptionHolder(constraintLayout);
     }
 

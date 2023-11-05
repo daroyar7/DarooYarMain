@@ -5,12 +5,21 @@ import org.json.JSONObject;
 
 public class PrescriptionModel {
 
+    private long id;
     private String doctorName;
     private String date;
 
     public PrescriptionModel(String doctorName, String date) {
         this.doctorName = doctorName;
         this.date = date;
+    }
+
+    public void createId(){
+        id = System.currentTimeMillis();
+    }
+
+    public long getId(){
+        return id;
     }
 
     public String getDoctorName(){

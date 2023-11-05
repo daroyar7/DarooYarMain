@@ -2,11 +2,13 @@ package com.example.darooyar2.feature.tracker.presentation.prescription.adapter;
 
 import android.content.Context;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.darooyar2.R;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
 import com.example.darooyar2.them.AppTheme;
 import com.example.darooyar2.them.Color;
@@ -35,8 +37,17 @@ public class PrescriptionHolder extends RecyclerView.ViewHolder {
         txtDate.setTextSize(0, appTheme.getAf(Dimen.fontSize20));
         txtDate.setTypeface(appTheme.getRegularTypeface());
         txtDate.setTextColor(Color.getOnBackgroundColor());
-        parent.addView(txtDate, Param.consParam(-2, -2, TXT_DOCTOR_ID, -1, 0, -1, Dimen.m40, -1, Dimen.m40, -1));
+        parent.addView(txtDate, Param.consParam(-2, -2, TXT_DOCTOR_ID, -1, 0, 0, Dimen.m40, -1, Dimen.m40, Dimen.m40));
 
+        final int IMG_EDIT_ID = 8485;
+        ImageView imgEdit = new ImageView(context);
+        imgEdit.setId(IMG_EDIT_ID);
+        imgEdit.setImageResource(R.drawable.ic_edit);
+        parent.addView(imgEdit, Param.consParam(appTheme.getAf(55), appTheme.getAf(55), 0, 0, -1, 0, -1, Dimen.m40, -1, -1));
+
+        ImageView imgDelete = new ImageView(context);
+        imgDelete.setImageResource(R.drawable.ic_remove);
+        parent.addView(imgDelete, Param.consParam(appTheme.getAf(55), appTheme.getAf(55), 0, -IMG_EDIT_ID, -1, 0, -1, Dimen.m40, -1, -1));
     }
 
     public void setDoctorName(String doctorName) {

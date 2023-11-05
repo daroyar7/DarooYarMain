@@ -33,6 +33,7 @@ public class PrescriptionQueryImp extends QueryDatabase {
 
     public void addPrescription(PrescriptionModel prescriptionModel) {
         ensureCacheData();
+        prescriptionModel.createId();
         JSONObject jsonObject = prescriptionModel.toJSON();
         cacheData.put(jsonObject);
         writeFile(cacheData.toString(), PRESCRIPTION_DATABASE);
