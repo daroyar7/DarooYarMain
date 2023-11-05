@@ -1,13 +1,11 @@
-package com.example.darooyar2.feature.tracker.presentation.prescription.adapter;
+package com.example.darooyar2.feature.tracker.presentation.list.adapter;
 
 import android.content.Context;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
 import com.example.darooyar2.them.AppTheme;
 import com.example.darooyar2.them.Color;
 import com.example.darooyar2.them.Dimen;

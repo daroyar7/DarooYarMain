@@ -1,4 +1,4 @@
-package com.example.darooyar2.feature.tracker.presentation.prescription.adapter;
+package com.example.darooyar2.feature.tracker.presentation.list.adapter;
 
 import android.view.ViewGroup;
 

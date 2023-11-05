@@ -1,4 +1,4 @@
-package com.example.darooyar2.feature.tracker.presentation.prescription;
+package com.example.darooyar2.feature.tracker.presentation.list;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,7 @@ import com.example.darooyar2.R;
 import com.example.darooyar2.container.BaseFragment;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionQueryImp;
-import com.example.darooyar2.feature.tracker.presentation.prescription.adapter.PrescriptionAdapter;
+import com.example.darooyar2.feature.tracker.presentation.list.adapter.PrescriptionAdapter;
 import com.example.darooyar2.them.Dimen;
 import com.example.darooyar2.them.Param;
 import com.example.darooyar2.them.Text;

@@ -1,7 +1,6 @@
-package com.example.darooyar2.feature.tracker.presentation.addPrescription;
+package com.example.darooyar2.feature.tracker.presentation.add;
 
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionQueryImp;
