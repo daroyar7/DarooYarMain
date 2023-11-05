@@ -10,7 +10,7 @@ import com.example.darooyar2.them.Color;
 import com.example.darooyar2.them.Dimen;
 import com.example.darooyar2.them.Param;
 import com.example.darooyar2.them.component.FormFieldView;
-import com.example.darooyar2.them.component.datePicker.DatePickerView;
+import com.example.darooyar2.them.component.DatePickerView;
 import com.google.android.material.button.MaterialButton;
 
 public class AddPrescriptionFragment extends BaseFragment {
@@ -31,17 +31,17 @@ public class AddPrescriptionFragment extends BaseFragment {
         imgPrescription.setImageResource(R.drawable.image_add_prescription);
         imgPrescription.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imgPrescription.setId(baseId + 468);
-        parent.addView(imgPrescription, Param.consParam(-2, -2, 0, 0, 0, -1));
+        parent.addView(imgPrescription, Param.consParam(-2, appTheme.getAf(400), 0, 0, 0, -1));
 
         FormFieldView fieldDoctorName = new FormFieldView(activity);
-        fieldDoctorName.setUp(R.drawable.ic_doctor, "تام پزشک");
+        fieldDoctorName.setUp(R.drawable.ic_doctor, "نام پزشک");
         fieldDoctorName.setId(idFieldDoctorName);
-        parent.addView(fieldDoctorName, Param.consParam(-1, -2, -imgPrescription.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
+        parent.addView(fieldDoctorName, Param.consParam(0, -2, -imgPrescription.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
         DatePickerView fieldDate = new DatePickerView(activity);
         fieldDate.setId(idFieldDate);
         fieldDate.setUp(R.drawable.ic_date, "تاریخ مراجعه");
-        parent.addView(fieldDate ,Param.consParam(-1, -2, -fieldDoctorName.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
+        parent.addView(fieldDate ,Param.consParam(0, -2, -fieldDoctorName.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
         MaterialButton btnSubmit =new MaterialButton(activity);
         btnSubmit.setOnClickListener(event);

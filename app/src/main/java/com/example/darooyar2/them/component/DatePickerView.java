@@ -1,4 +1,4 @@
-package com.example.darooyar2.them.component.datePicker;
+package com.example.darooyar2.them.component;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -43,11 +43,19 @@ public class DatePickerView extends ConstraintLayout {
         TextInputLayout textInputLayout = new TextInputLayout(activity);
         textInputLayout.setHint(hint);
         textInputLayout.setId(idTextField);
-        addView(textInputLayout, Param.consParam(0, -2, icField.getId(), -1, -icField.getId(), icField.getId(), -1, -1, Dimen.m16, -1));
+        addView(textInputLayout, Param.consParam(0, -2, icField.getId(), 0, -icField.getId(), icField.getId(), -1, -1, Dimen.m16, -1));
 
         TextInputEditText editText=new TextInputEditText(activity);
         editText.setOnClickListener(v->{
-
+            MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Select Date")
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build();
+            materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+                String date = new SimpleDateFormat("MM/dd/yyy", Locale.getDefault()).format(new Date(selection));
+                (editText).setText(MessageFormat.format("{0}", date));
+            });
+            materialDatePicker.show(activity.getSupportFragmentManager(), "tag");
         });
         textInputLayout.addView(editText , Param.linearParam(-1 , -2 , Gravity.CENTER, -1 ,-1 ,-1 ,-1));
     }
