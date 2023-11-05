@@ -13,6 +13,7 @@ import com.example.darooyar2.R;
 import com.example.darooyar2.them.AppTheme;
 import com.example.darooyar2.them.Color;
 import com.example.darooyar2.them.Param;
+import com.example.darooyar2.utils.PersianDate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -53,6 +54,7 @@ public class ContainerActivity extends AppCompatActivity {
         FrameLayout containerView = new FrameLayout(this);
         containerView.setId(PARENT_ID);
         parent.addView(containerView, Param.consParam(0, 0, 0, 0, 0, -BOTTOM_NAVIGATION_ID));
+        PersianDate.install();
     }
 
     public void pushFragment(BaseFragment fragment, String tag) {
@@ -104,5 +106,13 @@ public class ContainerActivity extends AppCompatActivity {
         return fragmentStack.get(fragmentStack.size() - 1);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (fragmentStack.size()>=1){
+            popFragment(true);
+        }else{
+            super.onBackPressed();
+        }
+    }
 
 }

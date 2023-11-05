@@ -1,9 +1,11 @@
 package com.example.darooyar2.feature.tracker.presentation.addPrescription;
 
+import android.content.res.Resources;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.darooyar2.R;
+import com.example.darooyar2.container.AppLoader;
 import com.example.darooyar2.container.BaseFragment;
 import com.example.darooyar2.them.AppTheme;
 import com.example.darooyar2.them.Color;
@@ -31,7 +33,7 @@ public class AddPrescriptionFragment extends BaseFragment {
         imgPrescription.setImageResource(R.drawable.image_add_prescription);
         imgPrescription.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imgPrescription.setId(baseId + 468);
-        parent.addView(imgPrescription, Param.consParam(-2, appTheme.getAf(400), 0, 0, 0, -1));
+        parent.addView(imgPrescription, Param.consParam(-1,(int) (0.4*appTheme.heightPixels) , 0, 0, 0, -1));
 
         FormFieldView fieldDoctorName = new FormFieldView(activity);
         fieldDoctorName.setUp(R.drawable.ic_doctor, "نام پزشک");
@@ -50,5 +52,10 @@ public class AddPrescriptionFragment extends BaseFragment {
         parent.addView(btnSubmit, Param.consParam(-1 , Dimen.m64 , -1 ,0,0,0, -1 , Dimen.m40, Dimen.m40, Dimen.m40 ));
 
         return parent;
+    }
+
+    @Override
+    public void onBackPressed() {
+        activity.onBackPressed();
     }
 }

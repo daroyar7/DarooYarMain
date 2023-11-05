@@ -23,6 +23,8 @@ public class AppTheme {
 
     private int diameter;
     private volatile static AppTheme appTheme;
+    public float widthPixels = Resources.getSystem().getDisplayMetrics().widthPixels;
+    public float heightPixels = Resources.getSystem().getDisplayMetrics().heightPixels;
 
     private Typeface regularTypeface;
     private Typeface mediumTypeface;
@@ -40,8 +42,6 @@ public class AppTheme {
     }
 
     private AppTheme() {
-        float widthPixels = Resources.getSystem().getDisplayMetrics().widthPixels;
-        float heightPixels = Resources.getSystem().getDisplayMetrics().heightPixels;
         diameter = (int) (Math.sqrt(Math.pow(widthPixels, 2) + Math.pow(heightPixels, 2)) / 2.3f);
 
         regularTypeface = Typeface.createFromAsset(AppLoader.getAppContext().getAssets(), "regular.ttf");

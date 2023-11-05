@@ -21,6 +21,8 @@ public class FormFieldView extends ConstraintLayout {
     private AppTheme appTheme = AppTheme.getInstance();
     public static final int idIcon=8485;
     public static final int idTextField=8488;
+    private TextInputEditText editText;
+    private TextInputLayout textInputLayout;
 
     public FormFieldView(@NonNull Context context) {
         super(context);
@@ -34,12 +36,20 @@ public class FormFieldView extends ConstraintLayout {
         icField.setColorFilter(Color.getOnBackgroundColor());
         addView(icField, Param.consParam(appTheme.getAf(120), appTheme.getAf(120), 0, -1, 0, 0));
 
-        TextInputLayout textInputLayout = new TextInputLayout(activity);
+        textInputLayout = new TextInputLayout(activity);
         textInputLayout.setHint(hint);
+        textInputLayout.setPadding(0,0,appTheme.getAf(30),0);
         textInputLayout.setId(idTextField);
         addView(textInputLayout, Param.consParam(0, -2, icField.getId(), 0, -icField.getId(), icField.getId(), -1, -1, Dimen.m16, -1));
 
-        TextInputEditText editText=new TextInputEditText(activity);
+        editText=new TextInputEditText(activity);
         textInputLayout.addView(editText , Param.linearParam(-1 , -2 , Gravity.CENTER, -1 ,-1 ,-1 ,-1));
     }
+    public String getText(){
+        return editText.getText().toString();
+    }
+    public void setError(String err){
+        textInputLayout.setError(err.trim());
+    }
+
 }
