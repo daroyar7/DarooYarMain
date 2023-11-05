@@ -4,15 +4,16 @@ import android.content.Context;
 
 import com.example.darooyar2.common.QueryDatabase;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PrescriptionQueryImp extends QueryDatabase {
 
-    private static final String prescriptionDatabase = "/Prescription.txt";
+    private static final String PRESCRIPTION_DATABASE = "/Prescription.txt";
 
     private volatile static PrescriptionQueryImp prescriptionQueryImp;
-    private static JSONObject cacheData = new JSONObject();
+    private static JSONArray cacheData = new JSONArray();
 
     public static PrescriptionQueryImp getInstance(Context context) {
         PrescriptionQueryImp localInstance = prescriptionQueryImp;
@@ -30,16 +31,25 @@ public class PrescriptionQueryImp extends QueryDatabase {
         super(context);
     }
 
-//    public void addPrescription() {
-//        ensureCacheData();
-//        for (int i = 0; i < cacheData.length(); i++) {
-//            JSONObject lessonJSON = cacheData.optJSONObject(i);
-//            if (lessonJSON.optString("level").equals(level) && lessonJSON.optInt("lesson") == lessonNumber) {
-//                cacheData.optJSONObject(i).optJSONArray("skills").optJSONObject(skill).put("key", 1);
-//                DatabaseFileManager.getInstance().writeFile(cacheData.toString(), LESSON_FILE);
-//                break;
-//            }
-//        }
-//    }
+    public void addPrescription(PrescriptionModel prescriptionModel) {
+        ensureCacheData();
+        JSONObject jsonObject = prescriptionModel.toJSON();
+        cacheData.put(jsonObject);
+        writeFile(cacheData.toString(), PRESCRIPTION_DATABASE);
+    }
 
+    public PrescriptionModel[] getPrescriptions(){
+        ensureCacheData();
+        return PrescriptionModel.toPrescriptionModel(cacheData);
+    }
+
+    public void ensureCacheData() {
+        if (cacheData == null || cacheData.length() == 0) {
+            try {
+                cacheData = new JSONArray(readFile(PRESCRIPTION_DATABASE));
+            } catch (JSONException e) {
+                cacheData = new JSONArray();
+            }
+        }
+    }
 }
