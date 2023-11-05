@@ -1,11 +1,9 @@
-package com.example.darooyar2.feature.tracker.presentation.addPrescription;
+package com.example.darooyar2.feature.tracker.presentation.add;
 
-import android.content.res.Resources;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.darooyar2.R;
-import com.example.darooyar2.container.AppLoader;
 import com.example.darooyar2.container.BaseFragment;
 import com.example.darooyar2.them.AppTheme;
 import com.example.darooyar2.them.Color;
