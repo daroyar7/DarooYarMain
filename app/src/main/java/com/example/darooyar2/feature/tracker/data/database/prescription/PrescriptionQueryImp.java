@@ -1,4 +1,4 @@
-package com.example.darooyar2.feature.tracker.data.prescription;
+package com.example.darooyar2.feature.tracker.data.database.prescription;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 public class PrescriptionQueryImp extends QueryDatabase {
 
-    private static final String prescriptionDatabase = "/LanguageMedal.txt";
+    private static final String prescriptionDatabase = "/Prescription.txt";
 
     private volatile static PrescriptionQueryImp prescriptionQueryImp;
     private static JSONObject cacheData = new JSONObject();
@@ -27,6 +27,10 @@ public class PrescriptionQueryImp extends QueryDatabase {
 
     public PrescriptionQueryImp(Context context) {
         super(context);
+    }
+
+    public void addPrescription(){
+
     }
 
 }
