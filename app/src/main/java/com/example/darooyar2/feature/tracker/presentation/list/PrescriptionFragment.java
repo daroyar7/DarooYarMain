@@ -12,9 +12,9 @@ import com.example.darooyar2.container.BaseFragment;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionQueryImp;
 import com.example.darooyar2.feature.tracker.presentation.list.adapter.PrescriptionAdapter;
-import com.example.darooyar2.them.Dimen;
-import com.example.darooyar2.them.Param;
-import com.example.darooyar2.them.Text;
+import com.example.darooyar2.theme.Dimen;
+import com.example.darooyar2.theme.Param;
+import com.example.darooyar2.theme.Text;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class PrescriptionFragment extends BaseFragment {

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+Copyright 2016 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<resources>
+    <declare-styleable name="FlexboxLayout">
+        <attr name="flexDirection">
+            <enum name="row" value="0" />
+            <enum name="row_reverse" value="1" />
+            <enum name="column" value="2" />
+            <enum name="column_reverse" value="3" />
+        </attr>
+
+        <attr name="flexWrap">
+            <enum name="nowrap" value="0" />
+            <enum name="wrap" value="1" />
+            <enum name="wrap_reverse" value="2" />
+        </attr>
+
+        <!--
+            Omitting flex-flow property since it's reflected in the parent flex container.
+            Set the flexDirection and/or flexWrap to the parent flex container explicitly if you
+            want to use the flex-flow similar way to the web.
+         -->
+
+        <attr name="justifyContent">
+            <enum name="flex_start" value="0" />
+            <enum name="flex_end" value="1" />
+            <enum name="center" value="2" />
+            <enum name="space_between" value="3" />
+            <enum name="space_around" value="4" />
+            <enum name="space_evenly" value="5" />
+        </attr>
+
+        <attr name="alignItems">
+            <enum name="flex_start" value="0" />
+            <enum name="flex_end" value="1" />
+            <enum name="center" value="2" />
+            <enum name="baseline" value="3" />
+            <enum name="stretch" value="4" />
+        </attr>
+
+        <attr name="alignContent">
+            <enum name="flex_start" value="0" />
+            <enum name="flex_end" value="1" />
+            <enum name="center" value="2" />
+            <enum name="space_between" value="3" />
+            <enum name="space_around" value="4" />
+            <enum name="stretch" value="5" />
+        </attr>
+
+        <attr name="dividerDrawable" format="reference" />
+        <attr name="dividerDrawableHorizontal" format="reference" />
+        <attr name="dividerDrawableVertical" format="reference" />
+
+        <attr name="showDivider">
+            <flag name="none" value="0" />
+            <flag name="beginning" value="1" />
+            <flag name="middle" value="2" />
+            <flag name="end" value="4" />
+        </attr>
+        <attr name="showDividerHorizontal">
+            <flag name="none" value="0" />
+            <flag name="beginning" value="1" />
+            <flag name="middle" value="2" />
+            <flag name="end" value="4" />
+        </attr>
+        <attr name="showDividerVertical">
+            <flag name="none" value="0" />
+            <flag name="beginning" value="1" />
+            <flag name="middle" value="2" />
+            <flag name="end" value="4" />
+        </attr>
+
+        <!--
+            The attribute that specifies the maximum number of flex lines. This attribute is
+            effective only when the flexWrap attribute is "wrap" or "wrap_reverse".
+        -->
+        <attr name="maxLine" format="integer" />
+
+    </declare-styleable>
+
+    <declare-styleable name="FlexboxLayout_Layout">
+        <attr name="layout_order" format="integer" />
+
+        <!-- Negative numbers are invalid. -->
+        <attr name="layout_flexGrow" format="float" />
+
+        <!-- Negative numbers are invalid. -->
+        <attr name="layout_flexShrink" format="float" />
+
+        <!--
+            The initial length in a percentage format relative to its parent. This is similar to the
+            flex-basis property in the original CSS specification.
+            (https://www.w3.org/TR/css-flexbox-1/#flex-basis-property)
+            But unlike the flex-basis property, this attribute only accepts a value in fraction
+            (percentage), whereas flex-basis property accepts width values such as 1em, 10px and
+            the 'content' string.
+            But specifying initial fixed width values can be done by specifying width values in
+            layout_width (or layout_height, varies depending on the flexDirection). Also the same
+            effect can be done by specifying "wrap_content" in layout_width (or layout_height) if
+            developers want to achieve the same effect as 'content'.
+            Thus, this attribute only accepts fraction values, which can't be done through
+            layout_width (or layout_height) for simplicity.
+        -->
+        <attr name="layout_flexBasisPercent" format="fraction" />
+
+        <!--
+            Omitting flex property since it's a shorthand for layout_flexGrow and layout_flexShrink
+            and layout_percentInParent (flex-basis in the original CSS spec).
+        -->
+
+        <attr name="layout_alignSelf">
+            <enum name="auto" value="-1" />
+            <!-- The values below need to match the values of alignItems -->
+            <enum name="flex_start" value="0" />
+            <enum name="flex_end" value="1" />
+            <enum name="center" value="2" />
+            <enum name="baseline" value="3" />
+            <enum name="stretch" value="4" />
+        </attr>
+
+        <attr name="layout_minWidth" format="dimension" />
+        <attr name="layout_minHeight" format="dimension" />
+        <attr name="layout_maxWidth" format="dimension" />
+        <attr name="layout_maxHeight" format="dimension" />
+
+        <!--
+            This attribute forces a flex line wrapping. i.e. if this is set to true for a
+            flex item, the item will become the first item of a flex line. (A wrapping happens
+            regardless of the flex items being processed in the the previous flex line)
+            This attribute is ignored if the flex_wrap attribute is set to nowrap.
+            The equivalent attribute isn't defined in the original CSS Flexible Box Module
+            specification, but having this attribute is useful for Android developers to flatten
+            the layouts when building a grid like layout or for a situation where developers want
+            to put a new flex line to make a semantic difference from the previous one, etc.
+        -->
+        <attr name="layout_wrapBefore" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SwipeButton">
+        <attr name="inner_text" format="string" />
+        <attr name="inner_text_color" format="color" />
+        <attr name="inner_text_size" format="dimension" />
+        <attr name="inner_text_left_padding" format="dimension" />
+        <attr name="inner_text_right_padding" format="dimension" />
+        <attr name="inner_text_top_padding" format="dimension" />
+        <attr name="inner_text_bottom_padding" format="dimension" />
+        <attr name="inner_text_background" format="reference" />
+        <attr name="button_image_width" format="dimension" />
+        <attr name="button_image_height" format="dimension" />
+        <attr name="button_trail_enabled" format="boolean" />
+        <attr name="button_trail_drawable" format="reference" />
+        <attr name="button_image_disabled" format="reference" />
+        <attr name="button_image_enabled" format="reference" />
+        <attr name="button_left_padding" format="dimension" />
+        <attr name="button_right_padding" format="dimension" />
+        <attr name="button_top_padding" format="dimension" />
+        <attr name="button_bottom_padding" format="dimension" />
+        <attr name="button_background" format="reference" />
+        <attr name="has_activate_state" format="boolean" />
+        <attr name="initial_state" format="enum">
+            <enum name="enabled" value="0" />
+            <enum name="disabled" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CropImageView">
+        <attr name="cropGuidelines">
+            <enum name="off" value="0" />
+            <enum name="onTouch" value="1" />
+            <enum name="on" value="2" />
+        </attr>
+        <attr name="cropScaleType">
+            <enum name="fitCenter" value="0" />
+            <enum name="center" value="1" />
+            <enum name="centerCrop" value="2" />
+            <enum name="centerInside" value="3" />
+        </attr>
+        <attr name="cropShape">
+            <enum name="rectangle" value="0" />
+            <enum name="oval" value="1" />
+        </attr>
+        <attr name="cropAutoZoomEnabled" format="boolean" />
+        <attr name="cropMaxZoom" format="integer" />
+        <attr name="cropMultiTouchEnabled" format="boolean" />
+        <attr name="cropFixAspectRatio" format="boolean" />
+        <attr name="cropAspectRatioX" format="integer" />
+        <attr name="cropAspectRatioY" format="integer" />
+        <attr name="cropInitialCropWindowPaddingRatio" format="float" />
+        <attr name="cropBorderLineThickness" format="dimension" />
+        <attr name="cropBorderLineColor" format="color" />
+        <attr name="cropBorderCornerThickness" format="dimension" />
+        <attr name="cropBorderCornerOffset" format="dimension" />
+        <attr name="cropBorderCornerLength" format="dimension" />
+        <attr name="cropBorderCornerColor" format="color" />
+        <attr name="cropGuidelinesThickness" format="dimension" />
+        <attr name="cropGuidelinesColor" format="color" />
+        <attr name="cropBackgroundColor" format="color" />
+        <attr name="cropSnapRadius" format="dimension" />
+        <attr name="cropTouchRadius" format="dimension" />
+        <attr name="cropSaveBitmapToInstanceState" format="boolean" />
+        <attr name="cropShowCropOverlay" format="boolean" />
+        <attr name="cropShowProgressBar" format="boolean" />
+        <attr name="cropMinCropWindowWidth" format="dimension" />
+        <attr name="cropMinCropWindowHeight" format="dimension" />
+        <attr name="cropMinCropResultWidthPX" format="float" />
+        <attr name="cropMinCropResultHeightPX" format="float" />
+        <attr name="cropMaxCropResultWidthPX" format="float" />
+        <attr name="cropMaxCropResultHeightPX" format="float" />
+        <attr name="cropFlipHorizontally" format="boolean" />
+        <attr name="cropFlipVertically" format="boolean" />
+    </declare-styleable>
+
+    // numberPicker
+    <attr name="numberPickerStyle" format="reference" />
+
+    <declare-styleable name="NumberPicker">
+        <attr name="np_width" format="dimension" />
+        <attr name="np_height" format="dimension" />
+        <attr name="np_accessibilityDescriptionEnabled" format="boolean" />
+        <attr name="np_divider" format="reference" />
+        <attr name="np_dividerType" format="enum">
+            <enum name="side_lines" value="0" />
+            <enum name="underline" value="1" />
+        </attr>
+        <attr name="np_dividerColor" format="color" />
+        <attr name="np_dividerDistance" format="dimension" />
+        <attr name="np_dividerLength" format="dimension" />
+        <attr name="np_dividerThickness" format="dimension" />
+        <attr name="np_fadingEdgeEnabled" format="boolean" />
+        <attr name="np_fadingEdgeStrength" format="float" />
+        <attr name="np_formatter" format="string" />
+        <attr name="np_hideWheelUntilFocused" format="boolean" />
+        <attr name="np_itemSpacing" format="dimension" />
+        <attr name="np_lineSpacingMultiplier" format="float" />
+        <attr name="np_max" format="integer" />
+        <attr name="np_maxFlingVelocityCoefficient" format="integer" />
+        <attr name="np_min" format="integer" />
+        <attr name="np_order" format="enum">
+            <enum name="ascending" value="0" />
+            <enum name="descending" value="1" />
+        </attr>
+        <attr name="np_orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+        <attr name="np_scrollerEnabled" format="boolean" />
+        <attr name="np_selectedTextAlign" format="enum">
+            <enum name="selectedTextAlignRight" value="0" />
+            <enum name="selectedTextAlignCenter" value="1" />
+            <enum name="selectedTextAlignLeft" value="2" />
+        </attr>
+        <attr name="np_selectedTextColor" format="color" />
+        <attr name="np_selectedTextSize" format="dimension" />
+        <attr name="np_selectedTextStrikeThru" format="boolean" />
+        <attr name="np_selectedTextUnderline" format="boolean" />
+        <attr name="np_selectedTypeface" format="string" />
+        <attr name="np_textAlign" format="enum">
+            <enum name="textAlignRight" value="0" />
+            <enum name="textAlignCenter" value="1" />
+            <enum name="textAlignLeft" value="2" />
+        </attr>
+        <attr name="np_textColor" format="color" />
+        <attr name="np_textSize" format="dimension" />
+        <attr name="np_textStrikeThru" format="boolean" />
+        <attr name="np_textUnderline" format="boolean" />
+        <attr name="np_typeface" format="string" />
+        <attr name="np_value" format="integer" />
+        <attr name="np_wheelItemCount" format="integer" />
+        <attr name="np_wrapSelectorWheel" format="boolean" />
+    </declare-styleable>
+
+</resources>

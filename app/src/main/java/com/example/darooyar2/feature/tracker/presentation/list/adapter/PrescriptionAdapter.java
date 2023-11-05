@@ -6,10 +6,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
-import com.example.darooyar2.them.Color;
-import com.example.darooyar2.them.Dimen;
-import com.example.darooyar2.them.Param;
-import com.example.darooyar2.them.Shape;
+import com.example.darooyar2.theme.Color;
+import com.example.darooyar2.theme.Dimen;
+import com.example.darooyar2.theme.Param;
+import com.example.darooyar2.theme.Shape;
 
 public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder> {
 

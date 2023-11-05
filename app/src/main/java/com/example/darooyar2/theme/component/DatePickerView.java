@@ -1,4 +1,4 @@
-package com.example.darooyar2.them.component;
+package com.example.darooyar2.theme.component;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -8,10 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.darooyar2.container.ContainerActivity;
-import com.example.darooyar2.them.AppTheme;
-import com.example.darooyar2.them.Color;
-import com.example.darooyar2.them.Dimen;
-import com.example.darooyar2.them.Param;
+import com.example.darooyar2.theme.AppTheme;
+import com.example.darooyar2.theme.Color;
+import com.example.darooyar2.theme.Dimen;
+import com.example.darooyar2.theme.Param;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;

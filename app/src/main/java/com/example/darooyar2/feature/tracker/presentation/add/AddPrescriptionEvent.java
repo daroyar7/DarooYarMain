@@ -4,8 +4,8 @@ import android.view.View;
 
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionQueryImp;
-import com.example.darooyar2.them.component.DatePickerView;
-import com.example.darooyar2.them.component.FormFieldView;
+import com.example.darooyar2.theme.component.DatePickerView;
+import com.example.darooyar2.theme.component.FormFieldView;
 
 public class AddPrescriptionEvent implements View.OnClickListener {
     private AddPrescriptionFragment fragment;

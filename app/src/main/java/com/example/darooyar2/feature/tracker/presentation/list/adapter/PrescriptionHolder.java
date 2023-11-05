@@ -1,7 +1,6 @@
 package com.example.darooyar2.feature.tracker.presentation.prescription.adapter;
 
 import android.content.Context;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,11 +8,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.darooyar2.R;
-import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
-import com.example.darooyar2.them.AppTheme;
-import com.example.darooyar2.them.Color;
-import com.example.darooyar2.them.Dimen;
-import com.example.darooyar2.them.Param;
+import com.example.darooyar2.theme.AppTheme;
+import com.example.darooyar2.theme.Color;
+import com.example.darooyar2.theme.Dimen;
+import com.example.darooyar2.theme.Param;
 
 public class PrescriptionHolder extends RecyclerView.ViewHolder {
 

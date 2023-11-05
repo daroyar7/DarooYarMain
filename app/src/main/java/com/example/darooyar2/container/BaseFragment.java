@@ -10,8 +10,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.darooyar2.them.AppTheme;
-import com.example.darooyar2.them.Color;
+import com.example.darooyar2.theme.AppTheme;
+import com.example.darooyar2.theme.Color;
 
 public abstract class BaseFragment extends Fragment {
 

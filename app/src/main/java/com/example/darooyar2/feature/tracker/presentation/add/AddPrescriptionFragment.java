@@ -5,12 +5,12 @@ import android.widget.ImageView;
 
 import com.example.darooyar2.R;
 import com.example.darooyar2.container.BaseFragment;
-import com.example.darooyar2.them.AppTheme;
-import com.example.darooyar2.them.Color;
-import com.example.darooyar2.them.Dimen;
-import com.example.darooyar2.them.Param;
-import com.example.darooyar2.them.component.FormFieldView;
-import com.example.darooyar2.them.component.DatePickerView;
+import com.example.darooyar2.theme.AppTheme;
+import com.example.darooyar2.theme.Color;
+import com.example.darooyar2.theme.Dimen;
+import com.example.darooyar2.theme.Param;
+import com.example.darooyar2.theme.component.FormFieldView;
+import com.example.darooyar2.theme.component.DatePickerView;
 import com.google.android.material.button.MaterialButton;
 
 public class AddPrescriptionFragment extends BaseFragment {
