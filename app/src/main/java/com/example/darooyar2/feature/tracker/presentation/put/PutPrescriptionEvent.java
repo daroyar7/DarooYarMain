@@ -7,6 +7,8 @@ import com.example.darooyar2.feature.tracker.data.database.prescription.Prescrip
 import com.example.darooyar2.theme.component.DatePickerView;
 import com.example.darooyar2.theme.component.FormFieldView;
 
+import org.json.JSONException;
+
 public class PutPrescriptionEvent implements View.OnClickListener {
 
     private PutPrescriptionFragment fragment;
@@ -34,7 +36,11 @@ public class PutPrescriptionEvent implements View.OnClickListener {
             if (!isDateEmpty && !isDoctorNameEmpty) {
                 prescriptionModel.setDoctorName(doctorName);
                 prescriptionModel.setDate(date);
-                PrescriptionQueryImp.getInstance(fragment.activity).putPrescription(prescriptionModel);
+                try {
+                    PrescriptionQueryImp.getInstance(fragment.activity).putPrescription(prescriptionModel);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
                 fragment.onBackPressed();
             }
         }

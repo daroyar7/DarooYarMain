@@ -3,6 +3,9 @@ package com.example.darooyar2.theme;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.view.View;
 
 import com.example.darooyar2.container.AppLoader;
@@ -52,5 +55,13 @@ public class AppTheme {
         View decorView = activity.getWindow().getDecorView();
         decorView.setSystemUiVisibility(isStatusIconLight ? decorView.getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         activity.getWindow().setStatusBarColor(statusBarColor);
+    }
+    public static Drawable createRoundDrawable(int radius, int backgroundColor) {
+        ShapeDrawable defaultDrawable = new ShapeDrawable();
+        if (radius != 0)
+            defaultDrawable.setShape(new RoundRectShape(new float[]{radius, radius, radius, radius
+                    , radius, radius, radius, radius}, null, null));
+        defaultDrawable.getPaint().setColor(backgroundColor);
+        return defaultDrawable;
     }
 }

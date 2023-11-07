@@ -35,7 +35,7 @@ public class DatePickerView extends ConstraintLayout {
         super(context);
         activity = (ContainerActivity) context;
     }
-    public void setUp(int icon , String hint){
+    public void setUp(int icon , String hint ,String text){
         ImageView icField = new ImageView(activity);
         icField.setId(idIcon);
         icField.setImageResource(icon);
@@ -48,6 +48,7 @@ public class DatePickerView extends ConstraintLayout {
         addView(textInputLayout, Param.consParam(0, -2, icField.getId(), 0, -icField.getId(), icField.getId(), -1, -1, Dimen.m16, -1));
 
         editText=new TextInputEditText(activity);
+        editText.setText(text);
         editText.setOnClickListener(v->{
             MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
                     .setTitleText("انتخاب تاریخ")

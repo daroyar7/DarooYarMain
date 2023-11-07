@@ -2,6 +2,12 @@ package com.example.darooyar2.common;
 
 import android.content.Context;
 
+import com.example.darooyar2.feature.tracker.data.database.Model;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,6 +56,36 @@ public class QueryDatabase {
 
         } catch (Exception ignored) {
             return "";
+        }
+    }
+    protected void put(Model model ,String CACHE_PATH) throws JSONException {
+        JSONArray cacheData = new JSONArray(readFile(CACHE_PATH));
+        if (model.getId() == 0) {
+            model.createId();
+            JSONObject jsonObject = model.toJSON();
+            cacheData.put(jsonObject);
+            writeFile(cacheData.toString(), CACHE_PATH);
+        }else {
+            for (int i = 0; i < cacheData.length(); i++) {
+                if (cacheData.optJSONObject(i).optLong("id") == model.getId()){
+                    try {
+                        cacheData.remove(i);
+                        cacheData.put(i, model.toJSON());
+                        writeFile(cacheData.toString(), CACHE_PATH);
+                    } catch (Exception ignored) {
+                    }
+                    return;
+                }
+            }
+        }
+    }
+    protected void delete(Model model ,String CACHE_PATH) throws JSONException {
+        JSONArray cacheData = new JSONArray(readFile(CACHE_PATH));
+        for (int i = 0; i < cacheData.length(); i++) {
+            if (cacheData.optJSONObject(i).optLong("id") == model.getId()){
+                cacheData.remove(i);
+                return;
+            }
         }
     }
 }

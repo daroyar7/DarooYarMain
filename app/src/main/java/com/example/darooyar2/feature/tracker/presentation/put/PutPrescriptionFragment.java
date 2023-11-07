@@ -1,5 +1,6 @@
 package com.example.darooyar2.feature.tracker.presentation.put;
 
+import android.app.DatePickerDialog;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -12,6 +13,7 @@ import com.example.darooyar2.theme.Dimen;
 import com.example.darooyar2.theme.Param;
 import com.example.darooyar2.theme.component.FormFieldView;
 import com.example.darooyar2.theme.component.DatePickerView;
+import com.example.darooyar2.utils.PersianDate;
 import com.google.android.material.button.MaterialButton;
 
 public class PutPrescriptionFragment extends BaseFragment {
@@ -49,6 +51,15 @@ public class PutPrescriptionFragment extends BaseFragment {
         fieldDate.setId(idFieldDate);
         fieldDate.setUp(R.drawable.ic_date, "تاریخ مراجعه", prescriptionModel == null ? "" : prescriptionModel.getDate());
         parent.addView(fieldDate, Param.consParam(0, -2, -fieldDoctorName.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
+
+//        PersianDate.install();
+//        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+//                activity,
+//                PersianDate.year,
+//                PersianDate.month,
+//                PersianDate.day
+//        );
+//        datePickerDialog.show();
 
         MaterialButton btnSubmit = new MaterialButton(activity);
         btnSubmit.setOnClickListener(event);

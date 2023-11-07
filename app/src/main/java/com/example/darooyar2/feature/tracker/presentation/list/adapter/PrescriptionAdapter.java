@@ -1,6 +1,5 @@
 package com.example.darooyar2.feature.tracker.presentation.list.adapter;
 
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -16,6 +15,8 @@ import com.example.darooyar2.theme.Shape;
 
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionQueryImp;
 import com.example.darooyar2.feature.tracker.presentation.put.PutPrescriptionFragment;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,11 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
         holder.setDate(prescriptionModel.getDate());
         holder.deleteClicked(view -> {
             prescriptionModels.remove(prescriptionModel);
-            PrescriptionQueryImp.getInstance(view.getContext()).removePrescription(prescriptionModel);
+            try {
+                PrescriptionQueryImp.getInstance(view.getContext()).deletePrescription(prescriptionModel);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
             notifyItemRemoved(position);
         });
 
@@ -56,7 +61,9 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
         });
 
         holder.parentClicked(view -> {
-            containerActivity.pushFragment(new PrescriptionDetailFragment(), PrescriptionDetailFragment.class.getName());
+            PrescriptionDetailFragment prescriptionDetailFragment=new PrescriptionDetailFragment();
+            prescriptionDetailFragment.setPrescriptionModel(prescriptionModel);
+            containerActivity.pushFragment(prescriptionDetailFragment, PrescriptionDetailFragment.class.getName());
         });
 
     }

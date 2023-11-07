@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.darooyar2.R;
 import com.example.darooyar2.container.BaseFragment;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
+import com.example.darooyar2.feature.tracker.presentation.detail.Medicine.add.PutMedicineFragment;
 import com.example.darooyar2.theme.Dimen;
 import com.example.darooyar2.theme.Param;
-import com.example.darooyar2.theme.Text;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class PrescriptionDetailFragment extends BaseFragment {
@@ -29,7 +29,7 @@ public class PrescriptionDetailFragment extends BaseFragment {
 
     @Override
     protected ViewGroup onViewFragmentCreate() {
-        PrescriptionDetailEvent prescriptionDetailEvent=new PrescriptionDetailEvent(this);
+        PrescriptionDetailEvent prescriptionDetailEvent = new PrescriptionDetailEvent(this);
 
         TextView tvDoctorName = new TextView(activity);
         tvDoctorName.setText("دکتر: " + prescriptionModel.getDoctorName());
@@ -43,21 +43,25 @@ public class PrescriptionDetailFragment extends BaseFragment {
 
         TextView tvHovaShafi = new TextView(activity);
         tvHovaShafi.setText("او شفادهنده است!!!");
-        tvHovaShafi.setId(idDate);
-        parent.addView(tvHovaShafi, Param.consParam(-2, -2, -tvDate.getId(), -1, 0, -1, Dimen.m24, -1, Dimen.m40, -1));
+        tvHovaShafi.setId(idHovaShafi);
+        parent.addView(tvHovaShafi, Param.consParam(-2, -2, -tvDate.getId(), 0, 0, -1, Dimen.m24, -1, Dimen.m40, -1));
 
         RecyclerView rvMedicine = new RecyclerView(activity);
         rvMedicine.setVerticalFadingEdgeEnabled(true);
         rvMedicine.setFadingEdgeLength(150);
         rvMedicine.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        parent.addView(rvMedicine, Param.consParam(-2, -2,-tvHovaShafi.getId(),0,0,0));
+        parent.addView(rvMedicine, Param.consParam(-2, -2, -tvHovaShafi.getId(), 0, 0, 0));
 
         ExtendedFloatingActionButton fabButton = new ExtendedFloatingActionButton(activity);
-        fabButton.setText(Text.ADD_PRESCRIPTION);
+        fabButton.setText("افزودن دارو");
         fabButton.setTypeface(appTheme.getRegularTypeface());
         fabButton.setOnClickListener(prescriptionDetailEvent);
         fabButton.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        fabButton.setElevation(0);
         fabButton.setIcon(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.ic_add, null));
+        fabButton.setOnClickListener(v -> {
+            activity.pushFragment(new PutMedicineFragment(),null);
+        });
         parent.addView(fabButton, Param.consParam(appTheme.getAf(400), appTheme.getAf(165), -1, -1, 0, 0, -1, -1, Dimen.m40, Dimen.m40));
 
         return parent;
