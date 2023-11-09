@@ -59,7 +59,12 @@ public class QueryDatabase {
         }
     }
     protected void put(Model model ,String CACHE_PATH) throws JSONException {
-        JSONArray cacheData = new JSONArray(readFile(CACHE_PATH));
+        String data=readFile(CACHE_PATH);
+        JSONArray cacheData;
+        if (data.isEmpty())
+            cacheData= new JSONArray();
+        else
+            cacheData=new JSONArray(data);
         if (model.getId() == 0) {
             model.createId();
             JSONObject jsonObject = model.toJSON();

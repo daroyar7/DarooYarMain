@@ -12,6 +12,8 @@ import com.example.darooyar2.theme.AppTheme;
 import com.example.darooyar2.theme.Color;
 import com.example.darooyar2.theme.Dimen;
 import com.example.darooyar2.theme.Param;
+import com.example.darooyar2.theme.component.PersionDateTime.date.DatePickerDialog;
+import com.example.darooyar2.theme.component.PersionDateTime.utils.PersianCalendar;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -50,15 +52,16 @@ public class DatePickerView extends ConstraintLayout {
         editText=new TextInputEditText(activity);
         editText.setText(text);
         editText.setOnClickListener(v->{
-            MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
-                    .setTitleText("انتخاب تاریخ")
-                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                    .build();
-            materialDatePicker.addOnPositiveButtonClickListener(selection -> {
-                String date = new SimpleDateFormat("yyy/MM/dd", Locale.getDefault()).format(new Date(selection));
-                (editText).setText(MessageFormat.format("{0}", date));
-            });
-            materialDatePicker.show(activity.getSupportFragmentManager(), "tag");
+            PersianCalendar persianCalendar = new PersianCalendar();
+            DatePickerDialog datePickerDialog = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
+                        String date = year+"/"+monthOfYear+"/"+dayOfMonth;
+                        (editText).setText(MessageFormat.format("{0}", date));
+                    },
+                    persianCalendar.getPersianYear(),
+                    persianCalendar.getPersianMonth(),
+                    persianCalendar.getPersianDay()
+            );
+            datePickerDialog.show(activity.getFragmentManager(), null);
         });
         textInputLayout.addView(editText , Param.linearParam(-1 , -2 , Gravity.CENTER, -1 ,-1 ,-1 ,-1));
     }
