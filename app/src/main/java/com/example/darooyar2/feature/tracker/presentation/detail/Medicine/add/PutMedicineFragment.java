@@ -11,18 +11,22 @@ import com.example.darooyar2.theme.AppTheme;
 import com.example.darooyar2.theme.Color;
 import com.example.darooyar2.theme.Dimen;
 import com.example.darooyar2.theme.Param;
+import com.example.darooyar2.theme.component.DatePickerView;
 import com.example.darooyar2.theme.component.FormFieldView;
 import com.example.darooyar2.theme.component.NumberPicker.DurationPicker;
 import com.example.darooyar2.theme.component.PersionDateTime.date.DatePickerDialog;
 import com.example.darooyar2.theme.component.PersionDateTime.utils.PersianCalendar;
 import com.example.darooyar2.theme.component.PersionDateTime.utils.PersianDateParser;
+import com.example.darooyar2.theme.component.TimePickerView;
 import com.google.android.material.button.MaterialButton;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 public class PutMedicineFragment extends BaseFragment {
     protected int idBtnSubmit = 5455;
     protected int idFormNameView = 8544;
-    protected int idFormDetailView = 8484;
+    protected int idFormDetailView = 554;
+    protected int idFieldDate = 8084;
+    protected int idFieldTime = 541;
     private MedicineModel medicineModel;
 
     @Override
@@ -40,18 +44,28 @@ public class PutMedicineFragment extends BaseFragment {
 
         FormFieldView formNameView = new FormFieldView(activity);
         formNameView.setId(idFormNameView);
-        formNameView.setUp(R.drawable.ic_medicine, "نام دارو", "");
+        formNameView.setUp(R.drawable.ic_medicine, "نام دارو", medicineModel == null ? "" : medicineModel.getName());
         parent.addView(formNameView, Param.consParam(-1, -2, 0, 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
         FormFieldView formDetailView = new FormFieldView(activity);
-        formDetailView.setUp(R.drawable.ic_info, "توضیحات", "");
+        formDetailView.setUp(R.drawable.ic_info, "توضیحات", medicineModel == null ? "" : medicineModel.getDetail());
         formDetailView.setId(idFormDetailView);
         parent.addView(formDetailView, Param.consParam(-1, -2, -formNameView.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
-        DurationPicker durationPicker = new DurationPicker(activity);
+        DatePickerView fieldDate = new DatePickerView(activity);
+        fieldDate.setId(idFieldDate);
+        fieldDate.setUp(R.drawable.ic_date, "تاریخ شروع", medicineModel == null ? "" : medicineModel.getStartDate());
+        parent.addView(fieldDate, Param.consParam(0, -2, -formDetailView.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
+
+        TimePickerView fieldTime = new TimePickerView(activity);
+        fieldTime.setId(idFieldTime);
+        fieldTime.setUp(R.drawable.ic_date, "زمان شروع", medicineModel == null ? "" : medicineModel.getStartTime());
+        parent.addView(fieldTime, Param.consParam(0, -2, -fieldDate.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
+
+        DurationPicker durationPicker = new DurationPicker(activity , medicineModel == null ? 0 : medicineModel.getDurationNumber());
         durationPicker.setId(58845);
         durationPicker.setListener(event::setDuration);
-        parent.addView(durationPicker, Param.consParam(-2, appTheme.getAf(250), -formDetailView.getId(), 0, 0, -1, Dimen.m24, -1, -1, -1));
+        parent.addView(durationPicker, Param.consParam(-2, appTheme.getAf(250), -fieldTime.getId(), 0, 0, -1, Dimen.m24, -1, -1, -1));
 
         TextView tvDuration = new TextView(activity);
         tvDuration.setText("دوره ی مصرف:");
@@ -62,6 +76,7 @@ public class PutMedicineFragment extends BaseFragment {
         spinner.setBackground(appTheme.createRoundDrawable(appTheme.getAf(100), Color.getOnPrimaryColor()));
         spinner.setItems(PutMedicineEvent.durationUnits);
         spinner.setGravity(Gravity.CENTER);
+        spinner.setSelectedIndex(medicineModel == null ? 0 : (PutMedicineEvent.durationUnits.indexOf(medicineModel.getDurationUnit())));
         spinner.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> {
             event.setDurationUnit(item);
         });

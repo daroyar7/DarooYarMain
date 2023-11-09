@@ -23,6 +23,30 @@ public class MedicineModel extends Model {
         this.startTime = startTime;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public int getDurationNumber() {
+        return durationNumber;
+    }
+
+    public String getDurationUnit() {
+        return durationUnit;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
     public void setDetail(String detail) {
         this.detail = detail;
     }

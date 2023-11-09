@@ -3,6 +3,7 @@ package com.example.darooyar2.theme.component;
 import android.content.Context;
 import android.view.Gravity;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -31,6 +32,7 @@ public class DatePickerView extends ConstraintLayout {
     public static final int idTextField=8488;
     private TextInputEditText editText;
     private TextInputLayout textInputLayout;
+    private DatePickerDialog datePickerDialog;
 
 
     public DatePickerView(@NonNull Context context) {
@@ -47,24 +49,31 @@ public class DatePickerView extends ConstraintLayout {
         textInputLayout = new TextInputLayout(activity);
         textInputLayout.setHint(hint);
         textInputLayout.setId(idTextField);
+        textInputLayout.setOnClickListener(onClickListener);
         addView(textInputLayout, Param.consParam(0, -2, icField.getId(), 0, -icField.getId(), icField.getId(), -1, -1, Dimen.m16, -1));
 
         editText=new TextInputEditText(activity);
         editText.setText(text);
-        editText.setOnClickListener(v->{
-            PersianCalendar persianCalendar = new PersianCalendar();
-            DatePickerDialog datePickerDialog = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
+        editText.setGravity(Gravity.CENTER);
+        editText.setOnClickListener(onClickListener);
+        textInputLayout.addView(editText , Param.linearParam(-1 , -2 , Gravity.CENTER, -1 ,-1 ,-1 ,-1));
+    }
+
+    private OnClickListener onClickListener=v->{
+        PersianCalendar persianCalendar = new PersianCalendar();
+        if (datePickerDialog==null){ //dashtam say mikardam bugesho raf konam ke nashod =(
+            datePickerDialog = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
                         String date = year+"/"+monthOfYear+"/"+dayOfMonth;
                         (editText).setText(MessageFormat.format("{0}", date));
+                        datePickerDialog=null;
                     },
                     persianCalendar.getPersianYear(),
                     persianCalendar.getPersianMonth(),
                     persianCalendar.getPersianDay()
             );
             datePickerDialog.show(activity.getFragmentManager(), null);
-        });
-        textInputLayout.addView(editText , Param.linearParam(-1 , -2 , Gravity.CENTER, -1 ,-1 ,-1 ,-1));
-    }
+        }
+    };
 
     public String getText(){
         return editText.getText().toString();

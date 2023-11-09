@@ -12,21 +12,21 @@ import com.example.darooyar2.theme.numberpicker.NumberPicker;
 
 public class DurationPicker extends LinearLayout {
     private NumberPicker numberPicker;
-    private AppTheme appTheme=AppTheme.getInstance();
+    private AppTheme appTheme = AppTheme.getInstance();
     private OnDurationChangedListener listener;
 
     public void setListener(OnDurationChangedListener listener) {
         this.listener = listener;
     }
 
-    public DurationPicker(Context context) {
+    public DurationPicker(Context context, int defaultValue) {
         super(context);
 
         int minNumber = 1;
         int maxNumber = 30;
 
         View v = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.duration_picker, this);
-        numberPicker=v.findViewById(R.id.numberPicker_duration);
+        numberPicker = v.findViewById(R.id.numberPicker_duration);
         numberPicker.setTypeface(appTheme.getMediumTypeface());
         numberPicker.setSelectedTypeface(appTheme.getRegularTypeface());
         numberPicker.setTextColor(Color.parseColor("#818181"));
@@ -41,11 +41,13 @@ public class DurationPicker extends LinearLayout {
         };
         numberPicker.setMinValue(minNumber);
         numberPicker.setMaxValue(maxNumber);
-        numberPicker.setValue(minNumber);
+        numberPicker.setValue(defaultValue == 0 ? minNumber : defaultValue);
 
         numberPicker.setOnValueChangedListener(dateChangeListener);
 
-    }public interface OnDurationChangedListener{
+    }
+
+    public interface OnDurationChangedListener {
         void onDurationChanged(int duration);
     }
 }
