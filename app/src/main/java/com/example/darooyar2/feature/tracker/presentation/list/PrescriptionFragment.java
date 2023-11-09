@@ -16,6 +16,8 @@ import com.example.darooyar2.feature.tracker.presentation.list.adapter.Prescript
 import com.example.darooyar2.theme.Dimen;
 import com.example.darooyar2.theme.Param;
 import com.example.darooyar2.theme.Text;
+import com.example.darooyar2.theme.component.PersionDateTime.date.DatePickerDialog;
+import com.example.darooyar2.theme.component.PersionDateTime.utils.PersianCalendar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class PrescriptionFragment extends BaseFragment {
@@ -34,6 +36,16 @@ public class PrescriptionFragment extends BaseFragment {
         fabButton.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         fabButton.setIcon(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.ic_add, null));
         parent.addView(fabButton, Param.consParam(appTheme.getAf(400), appTheme.getAf(165), -1, -1, 0, 0, -1, -1, Dimen.m40, Dimen.m40));
+
+        PersianCalendar persianCalendar = new PersianCalendar();
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
+
+                },
+                persianCalendar.getPersianYear(),
+                persianCalendar.getPersianMonth(),
+                persianCalendar.getPersianDay()
+        );
+        datePickerDialog.show(activity.getFragmentManager(),null);
 
         recyclerView = new RecyclerView(activity);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));

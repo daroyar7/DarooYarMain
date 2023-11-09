@@ -1,5 +1,6 @@
 package com.example.darooyar2.feature.tracker.presentation.put;
 
+import android.util.Log;
 import android.view.View;
 
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
@@ -39,7 +40,7 @@ public class PutPrescriptionEvent implements View.OnClickListener {
                 try {
                     PrescriptionQueryImp.getInstance(fragment.activity).putPrescription(prescriptionModel);
                 } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    Log.i("TAG", "onClick: " + e);
                 }
                 fragment.onBackPressed();
             }
