@@ -42,6 +42,17 @@ public class MedicineQueryImp extends QueryDatabase {
         ensureCacheData();
         return MedicineModel.toMedicineModels(cacheData);
     }
+    public ArrayList<MedicineModel> getMedicines(long prescriptionId){
+        ensureCacheData();
+        ArrayList<MedicineModel> medicines=getMedicines();
+        ArrayList<MedicineModel> result=new ArrayList<>();
+        for (int i = 0; i < medicines.size(); i++) {
+            if (medicines.get(i).getPrescriptionId()==prescriptionId){
+                result.add(medicines.get(i));
+            }
+        }
+        return result;
+    }
     private void ensureCacheData() {
         if (cacheData == null || cacheData.length() == 0) {
             try {

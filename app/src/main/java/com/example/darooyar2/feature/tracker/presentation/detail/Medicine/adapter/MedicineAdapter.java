@@ -1,4 +1,76 @@
 package com.example.darooyar2.feature.tracker.presentation.detail.Medicine.adapter;
 
-public class MedicineAdapter {
+import android.view.ViewGroup;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.darooyar2.container.ContainerActivity;
+import com.example.darooyar2.feature.tracker.data.database.medicine.MedicineModel;
+import com.example.darooyar2.feature.tracker.data.database.medicine.MedicineQueryImp;
+import com.example.darooyar2.feature.tracker.presentation.detail.Medicine.add.PutMedicineFragment;
+import com.example.darooyar2.theme.Color;
+import com.example.darooyar2.theme.Dimen;
+import com.example.darooyar2.theme.Param;
+import com.example.darooyar2.theme.Shape;
+
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
+public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
+
+    private ArrayList<MedicineModel> medicineModels;
+    private ContainerActivity containerActivity;
+    private long prescriptionId;
+
+    public MedicineAdapter(ArrayList<MedicineModel> medicineModels, ContainerActivity containerActivity , long prescriptionId) {
+        this.medicineModels = medicineModels;
+        this.containerActivity = containerActivity;
+        this.prescriptionId =prescriptionId;
+    }
+
+    @Override
+    public final MedicineHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ConstraintLayout constraintLayout = new ConstraintLayout(parent.getContext());
+        constraintLayout.setBackground(Shape.createRoundDrawable(Dimen.r12, Color.getOnSecondaryColor()));
+        constraintLayout.setLayoutParams(Param.consParam(-1, -2, -1, -1, -1, -1, Dimen.m32, Dimen.m40, Dimen.m40, -1));
+        return new MedicineHolder(constraintLayout);
+    }
+
+    @Override
+    public final void onBindViewHolder(final MedicineHolder holder, int position) {
+        MedicineModel medicineModel = medicineModels.get(position);
+        holder.setTvName(medicineModel.getName());
+        holder.setTvDuration(medicineModel.getDurationNumber() + " " + medicineModel.getDurationUnit());
+        holder.setTvDate(medicineModel.getStartDate()+"   "+medicineModel.getStartTime());
+        holder.deleteClicked(view -> {
+            try {
+                MedicineQueryImp.getInstance(view.getContext()).deleteMedicine(medicineModel);
+                medicineModels.remove(medicineModel);
+                notifyItemRemoved(position);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        holder.editClicked(view -> {
+            PutMedicineFragment putMedicineFragment = new PutMedicineFragment();
+            putMedicineFragment.setDefaultModel(medicineModel);
+            putMedicineFragment.setPrescriptionId(prescriptionId);
+            containerActivity.pushFragment(putMedicineFragment, PutMedicineFragment.class.getName());
+        });
+
+    }
+
+    public void addItem(MedicineModel medicineModel){
+        medicineModels.add(0,medicineModel);
+        notifyDataSetChanged();
+    }
+    @Override
+    public final int getItemCount() {
+        return medicineModels.size();
+    }
+
+
 }

@@ -52,15 +52,6 @@ public class PutPrescriptionFragment extends BaseFragment {
         fieldDate.setUp(R.drawable.ic_date, "تاریخ مراجعه", prescriptionModel == null ? "" : prescriptionModel.getDate());
         parent.addView(fieldDate, Param.consParam(0, -2, -fieldDoctorName.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
-//        PersianDate.install();
-//        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-//                activity,
-//                PersianDate.year,
-//                PersianDate.month,
-//                PersianDate.day
-//        );
-//        datePickerDialog.show();
-
         MaterialButton btnSubmit = new MaterialButton(activity);
         btnSubmit.setOnClickListener(event);
         btnSubmit.setText("ثبت نسخه");

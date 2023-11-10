@@ -14,13 +14,23 @@ public class MedicineModel extends Model {
     private String durationUnit;
     private String startDate;
     private String startTime;
+    private long prescriptionId;
 
-    public MedicineModel(String name, int durationNumber, String durationUnit, String startDate, String startTime) {
+    public MedicineModel(String name, int durationNumber, String durationUnit, String startDate, String startTime, long prescriptionId) {
         this.name = name;
         this.durationNumber = durationNumber;
         this.durationUnit = durationUnit;
         this.startDate = startDate;
         this.startTime = startTime;
+        this.prescriptionId = prescriptionId;
+    }
+
+    public long getPrescriptionId() {
+        return prescriptionId;
+    }
+
+    public void setPrescriptionId(long prescriptionId) {
+        this.prescriptionId = prescriptionId;
     }
 
     public String getName() {
@@ -79,13 +89,13 @@ public class MedicineModel extends Model {
         String durationUnit = prescriptionJSON.optString("durationUnit");
         String startDate = prescriptionJSON.optString("startDate");
         String startTime = prescriptionJSON.optString("startTime");
+        long prescriptionId = prescriptionJSON.optLong("prescriptionId");
 
-        MedicineModel model = new MedicineModel(name, durationNumber, durationUnit, startDate, startTime);
+        MedicineModel model = new MedicineModel(name, durationNumber, durationUnit, startDate, startTime, prescriptionId);
         model.setDetail(detail);
         model.setId(id);
         return model;
     }
-
 
 
     public static ArrayList<MedicineModel> toMedicineModels(JSONArray jsonArray) {
@@ -106,6 +116,7 @@ public class MedicineModel extends Model {
             jsonObject.put("durationUnit", durationUnit);
             jsonObject.put("startDate", startDate);
             jsonObject.put("startTime", startTime);
+            jsonObject.put("prescriptionId", prescriptionId);
             return jsonObject;
         } catch (Exception e) {
             return new JSONObject();

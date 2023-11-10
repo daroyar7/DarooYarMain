@@ -2,6 +2,9 @@ package com.example.darooyar2.theme;
 
 public class Color {
 
+    public static int black10Op() {
+        return android.graphics.Color.parseColor("#1A000000");
+    }
     public static int getPrimaryColor() {
         return  android.graphics.Color.parseColor("#6750A4");
     }

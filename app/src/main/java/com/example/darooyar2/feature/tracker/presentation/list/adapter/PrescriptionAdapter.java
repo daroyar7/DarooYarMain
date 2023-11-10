@@ -33,9 +33,8 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
     @Override
     public final PrescriptionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ConstraintLayout constraintLayout = new ConstraintLayout(parent.getContext());
-        constraintLayout.setBackground(Shape.createRoundDrawable(Dimen.r12, Color.getBackgroundColor()));
-        constraintLayout.setElevation(Dimen.elevation);
-        constraintLayout.setLayoutParams(Param.consParam(-1, -2, -1, -1, -1, -1, Dimen.m32, Dimen.m32, Dimen.m32, -1));
+        constraintLayout.setBackground(Shape.createRoundDrawable(Dimen.r12, Color.getOnSecondaryColor()));
+        constraintLayout.setLayoutParams(Param.consParam(-1, -2, -1, -1, -1, -1, Dimen.m32, Dimen.m40, Dimen.m40, -1));
         return new PrescriptionHolder(constraintLayout);
     }
 
@@ -67,7 +66,6 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
         });
 
     }
-
 
     @Override
     public final int getItemCount() {

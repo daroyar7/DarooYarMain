@@ -13,6 +13,7 @@ import com.example.darooyar2.container.BaseFragment;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionModel;
 import com.example.darooyar2.feature.tracker.data.database.prescription.PrescriptionQueryImp;
 import com.example.darooyar2.feature.tracker.presentation.list.adapter.PrescriptionAdapter;
+import com.example.darooyar2.theme.Color;
 import com.example.darooyar2.theme.Dimen;
 import com.example.darooyar2.theme.Param;
 import com.example.darooyar2.theme.Text;
@@ -26,6 +27,8 @@ public class PrescriptionFragment extends BaseFragment {
 
     @Override
     protected ViewGroup onViewFragmentCreate() {
+        appTheme.setUpStatusBar(activity,android.graphics.Color.parseColor("#f5f5f5"),false);
+        parent.setBackgroundColor(android.graphics.Color.parseColor("#f5f5f5"));//android.graphics.Color.parseColor("#f5f5f5") //Color.getSurfaceColor()
 
         PrescriptionEvent prescriptionEvent = new PrescriptionEvent(this);
 
@@ -55,11 +58,10 @@ public class PrescriptionFragment extends BaseFragment {
         return parent;
     }
 
+
     @Override
     protected void onHideChange(boolean isHide) {
-        Log.i("TAG", "onHideChange: " + isHide);
         if (!isHide) {
-
             recyclerView.setAdapter(new PrescriptionAdapter(PrescriptionQueryImp.getInstance(activity).getPrescriptions(), activity));
         }
     }

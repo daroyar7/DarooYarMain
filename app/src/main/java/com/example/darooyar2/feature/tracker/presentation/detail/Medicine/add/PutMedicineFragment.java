@@ -14,9 +14,6 @@ import com.example.darooyar2.theme.Param;
 import com.example.darooyar2.theme.component.DatePickerView;
 import com.example.darooyar2.theme.component.FormFieldView;
 import com.example.darooyar2.theme.component.NumberPicker.DurationPicker;
-import com.example.darooyar2.theme.component.PersionDateTime.date.DatePickerDialog;
-import com.example.darooyar2.theme.component.PersionDateTime.utils.PersianCalendar;
-import com.example.darooyar2.theme.component.PersionDateTime.utils.PersianDateParser;
 import com.example.darooyar2.theme.component.TimePickerView;
 import com.google.android.material.button.MaterialButton;
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -28,13 +25,27 @@ public class PutMedicineFragment extends BaseFragment {
     protected int idFieldDate = 8084;
     protected int idFieldTime = 541;
     private MedicineModel medicineModel;
+    private long prescriptionId;
+    private AddDataListener listener;
+
+    public void setListener(AddDataListener listener) {
+        this.listener = listener;
+    }
+
+    public void setPrescriptionId(long prescriptionId) {
+        this.prescriptionId = prescriptionId;
+    }
+
+    public void setDefaultModel(MedicineModel medicineModel) {
+        this.medicineModel = medicineModel;
+    }
 
     @Override
     protected ViewGroup onViewFragmentCreate() {
         parent.setBackgroundColor(Color.getBackgroundColor());
         AppTheme.getInstance().setUpStatusBar(activity, Color.getBackgroundColor(), false);
 
-        PutMedicineEvent event = new PutMedicineEvent(this, medicineModel);
+        PutMedicineEvent event = new PutMedicineEvent(this, medicineModel , prescriptionId);
 
 //        ImageView imgMedicine = new ImageView(activity);
 //        imgMedicine.setImageResource(R.drawable.img_medicine);
@@ -89,6 +100,13 @@ public class PutMedicineFragment extends BaseFragment {
         parent.addView(btnSubmit, Param.consParam(-1, Dimen.m64, -1, 0, 0, 0, -1, Dimen.m40, Dimen.m40, Dimen.m40));
 
         return parent;
+    }
+
+    public void itemAdded(MedicineModel model){
+        listener.onAddData(model);
+    }
+    public interface AddDataListener{
+        void onAddData(MedicineModel model);
     }
 
     @Override
