@@ -24,10 +24,10 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
     private ContainerActivity containerActivity;
     private long prescriptionId;
 
-    public MedicineAdapter(ArrayList<MedicineModel> medicineModels, ContainerActivity containerActivity , long prescriptionId) {
+    public MedicineAdapter(ArrayList<MedicineModel> medicineModels, ContainerActivity containerActivity, long prescriptionId) {
         this.medicineModels = medicineModels;
         this.containerActivity = containerActivity;
-        this.prescriptionId =prescriptionId;
+        this.prescriptionId = prescriptionId;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
         MedicineModel medicineModel = medicineModels.get(position);
         holder.setTvName(medicineModel.getName());
         holder.setTvDuration(medicineModel.getDurationNumber() + " " + medicineModel.getDurationUnit());
-        holder.setTvDate(medicineModel.getStartDate()+"   "+medicineModel.getStartTime());
+        holder.setTvDate(medicineModel.getStartDate() + "     " + medicineModel.getStartTime());
         holder.deleteClicked(view -> {
             try {
                 MedicineQueryImp.getInstance(view.getContext()).deleteMedicine(medicineModel);
@@ -63,10 +63,11 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
 
     }
 
-    public void addItem(MedicineModel medicineModel){
-        medicineModels.add(0,medicineModel);
+    public void addItem(MedicineModel medicineModel) {
+        medicineModels.add(0, medicineModel);
         notifyDataSetChanged();
     }
+
     @Override
     public final int getItemCount() {
         return medicineModels.size();

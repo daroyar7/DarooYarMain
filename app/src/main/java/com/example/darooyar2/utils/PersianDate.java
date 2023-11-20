@@ -3,7 +3,7 @@ package com.example.darooyar2.utils;
 import java.util.Calendar;
 
 public class PersianDate {
-    public static String[] monthNames={"فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"};
+    public static String[] monthNames = {"فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"};
 
     //Vaghti inja ro edit mikonin, taghirato agar mishe tooye GregorianDate ham emal konin ke tarikhaye miladi ham ok bashan
     private static long timeMillis;
@@ -30,10 +30,39 @@ public class PersianDate {
         dayWeek = calendar.get(Calendar.DAY_OF_WEEK);
     }
 
+    public static long getTimeTimeStamp() {
+        long yearTimeStamp = (long) (year - 1400) * 365 * 24 * 60 * 60;
+        long monthTimeStamp = month * 30 * 24L * 60 * 60;
+        long dayTimeStamp = day * 24L * 60 * 60;
+        long hourTimeStamp = getHour() * 60L * 60;
+        long minTimeStamp = getMinute() * 60L;
+        long secTimeStamp = getSecond();
+        return yearTimeStamp + monthTimeStamp + dayTimeStamp + hourTimeStamp + minTimeStamp + secTimeStamp;
+    }
+
+    public static long getTimeTimeStamp(int year, int month, int day, int h, int m, int s) {
+        long yearTimeStamp = (long) (year - 1400) * 365 * 24 * 60 * 60;
+        long monthTimeStamp = month * 30 * 24L * 60 * 60;
+        long dayTimeStamp = day * 24L * 60 * 60;
+        long hourTimeStamp = h * 60L * 60;
+        long minTimeStamp = m * 60L;
+        return yearTimeStamp + monthTimeStamp + dayTimeStamp + hourTimeStamp + minTimeStamp + s;
+    }
+
+    public static long convertSecondTimeStampToYear(long timeStamp){
+        return timeStamp / 60 / 60 / 24;
+    }
+
     public static int getMinute() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timeMillis);
         return calendar.get(Calendar.MINUTE);
+    }
+
+    public static int getSecond() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timeMillis);
+        return calendar.get(Calendar.SECOND);
     }
 
     public static int getHour() {
@@ -101,7 +130,7 @@ public class PersianDate {
         return Math.max(diffInDays - 1, 0);
     }
 
-    // function to get the day of year for a given PersianDate
+    // function to get the day of year for a given NewPersianDate
     public static int getDayOfYear(int year, int month, int day) {
         int dayOfYear = day;
         for (int i = 1; i < month; i++) {

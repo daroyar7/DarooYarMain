@@ -7,9 +7,13 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.example.darooyar2.R;
+import com.example.darooyar2.common.solarDate.NewPersianDate;
+import com.example.darooyar2.feature.tracker.data.database.medicine.MedicineModel;
+import com.example.darooyar2.feature.tracker.data.database.medicine.MedicineQueryImp;
 import com.example.darooyar2.theme.AppTheme;
 import com.example.darooyar2.theme.Color;
 import com.example.darooyar2.theme.Param;
@@ -17,6 +21,8 @@ import com.example.darooyar2.utils.PersianDate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ContainerActivity extends AppCompatActivity {
@@ -54,7 +60,6 @@ public class ContainerActivity extends AppCompatActivity {
         FrameLayout containerView = new FrameLayout(this);
         containerView.setId(PARENT_ID);
         parent.addView(containerView, Param.consParam(0, 0, 0, 0, 0, -BOTTOM_NAVIGATION_ID));
-        PersianDate.install();
     }
 
     public void pushFragment(BaseFragment fragment, String tag) {
@@ -108,9 +113,9 @@ public class ContainerActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (fragmentStack.size()>=1){
+        if (fragmentStack.size() >= 1) {
             popFragment(true);
-        }else{
+        } else {
             super.onBackPressed();
         }
     }

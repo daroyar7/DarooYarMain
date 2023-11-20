@@ -25,7 +25,7 @@ public class PersianCalendar extends GregorianCalendar {
   private int persianYear;
   private int persianMonth;
   private int persianDay;
-  // use to separate PersianDate's field and also Parse the DateString based
+  // use to separate NewPersianDate's field and also Parse the DateString based
   // on this delimiter
   private String delimiter = "/";
 
@@ -73,7 +73,7 @@ public class PersianCalendar extends GregorianCalendar {
   }
 
   /**
-   * set the persian date it converts PersianDate to the Julian and assigned
+   * set the persian date it converts NewPersianDate to the Julian and assigned
    * equivalent milliseconds to the instance
    *
    * @param persianYear
@@ -238,7 +238,7 @@ public class PersianCalendar extends GregorianCalendar {
   @Override
   public String toString() {
     String str = super.toString();
-    return str.substring(0, str.length() - 1) + ",PersianDate="
+    return str.substring(0, str.length() - 1) + ",NewPersianDate="
       + getPersianShortDate() + "]";
   }
 
