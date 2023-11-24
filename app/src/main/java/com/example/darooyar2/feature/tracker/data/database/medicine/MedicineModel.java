@@ -100,7 +100,7 @@ public class MedicineModel extends Model {
     public ArrayList<MedicineModel> shouldTakingToday() {
         ArrayList<MedicineModel> medicineModels = new ArrayList<>();
 
-        LocalDate persianDate = NewPersianDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy/M/dd")).toGregorian();
+        LocalDate persianDate = NewPersianDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy/M/d")).toGregorian();
         int yearStart = persianDate.getYear();
         int monthStart = persianDate.getMonthValue();
         int dayStart = persianDate.getDayOfMonth();
@@ -121,7 +121,7 @@ public class MedicineModel extends Model {
         }
         int periodTime = periodUnit * durationNumber * 1000;
 
-        while (startTimeStamp / 60 / 60 / 24 / 1000 <= nowTimeStamp / 60 / 60 / 24 / 1000) {
+        while (startTimeStamp / 60 / 60 / 24 / 1000 <= (nowTimeStamp / 60 / 60 / 24 / 1000 + 1)) {
             Calendar calendar1 = Calendar.getInstance();
             calendar1.setTimeInMillis(startTimeStamp);
             Calendar calendar2 = Calendar.getInstance();
@@ -179,7 +179,7 @@ public class MedicineModel extends Model {
     }
 
     public long nearestTaking() {
-        LocalDate persianDate = NewPersianDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy/M/dd")).toGregorian();
+        LocalDate persianDate = NewPersianDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy/M/d")).toGregorian();
         int yearStart = persianDate.getYear();
         int monthStart = persianDate.getMonthValue();
         int dayStart = persianDate.getDayOfMonth();
@@ -204,9 +204,14 @@ public class MedicineModel extends Model {
         }
         int periodTime = periodUnit * durationNumber * 1000;
 
-        while (startTimeStamp / 60 / 60 / 24 / 1000 <= nowTimeStamp / 60 / 60 / 24 / 1000) {
-            if (startTimeStamp / 60 / 60 / 24 / 1000 == nowTimeStamp / 60 / 60 / 24 / 1000 && startTimeStamp > nowTimeStamp)
+        while (startTimeStamp / 60 / 60 / 24 / 1000 <= (nowTimeStamp / 60 / 60 / 24 / 1000 + 1)) {
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTimeInMillis(startTimeStamp);
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTimeInMillis(nowTimeStamp);
+            if (calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH)  && startTimeStamp > nowTimeStamp) {
                 return startTimeStamp;
+            }
             startTimeStamp += periodTime;
         }
         return -1;

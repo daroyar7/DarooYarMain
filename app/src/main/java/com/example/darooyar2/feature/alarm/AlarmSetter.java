@@ -27,9 +27,11 @@ public class AlarmSetter {
             Log.i("TAG", "startingAlarm nearest: " + nearest);
             Log.i("TAG", "startingAlarm currentTimeMillis: " +  System.currentTimeMillis());
             if (medicineModels.get(i).nearestTaking() > System.currentTimeMillis() && medicineModels.get(i).nearestTaking() < nearest) {
+                Log.i("TAG", "startingAlarm: chose");
                 nearest = medicineModels.get(i).nearestTaking();
                 chosenMedicine = medicineModels.get(i);
             }
+            Log.i("TAG", "startingAlarm: ---------------------------------");
         }
         Log.i("TAG", "setAlarm3: "+(chosenMedicine != null));
         if (chosenMedicine != null) {
@@ -38,7 +40,7 @@ public class AlarmSetter {
         }
     }
 
-    public static void setAlarm(Context activity, MedicineModel medicineModel) {
+    private static void setAlarm(Context activity, MedicineModel medicineModel) {
         ComponentName receiver = new ComponentName(activity, AlarmReceiver.class);
         PackageManager pm = activity.getPackageManager();
 
@@ -54,7 +56,7 @@ public class AlarmSetter {
         else
             pendingIntent = PendingIntent.getBroadcast(activity, medicineModel.getNotificationId(), i, 0);
 
-        long timeTrigger = medicineModel.getTimeMustUsed();
+        long timeTrigger = medicineModel.nearestTaking();
         long tenMin = 10 * 60 * 1000;
         Log.i("TAG", "setAlarm4: "+timeTrigger);
         if (Build.VERSION.SDK_INT < 31)
