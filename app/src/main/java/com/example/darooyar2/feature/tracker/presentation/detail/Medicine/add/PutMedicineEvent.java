@@ -1,5 +1,6 @@
 package com.example.darooyar2.feature.tracker.presentation.detail.Medicine.add;
 
+import android.util.Log;
 import android.view.View;
 
 import com.example.darooyar2.feature.tracker.data.database.medicine.MedicineModel;
@@ -19,7 +20,7 @@ public class PutMedicineEvent implements View.OnClickListener {
     MedicineModel medicineModel;
     int duration = 1;
     String durationUnit = durationUnits.get(0);
-    protected static ArrayList<String> durationUnits = new ArrayList<>(Arrays.asList("ساعت", "روز", "هفته", "ماه", "سال"));
+    protected static ArrayList<String> durationUnits = new ArrayList<>(Arrays.asList("ساعت", "روز", "هفته"));
 
     public PutMedicineEvent(PutMedicineFragment fragment, MedicineModel model , long prescriptionId) {
         this.fragment = fragment;
@@ -36,6 +37,7 @@ public class PutMedicineEvent implements View.OnClickListener {
             String detail = ((FormFieldView) fragment.parent.findViewById(fragment.idFormDetailView)).getText();
             String date = ((DatePickerView) fragment.parent.findViewById(fragment.idFieldDate)).getText();
             String time = ((TimePickerView) fragment.parent.findViewById(fragment.idFieldTime)).getText();
+            Log.i("TAG", "onClick: "+time);
 
             boolean isNameFieldEmpty = name.isEmpty();
             boolean isDateFieldEmpty = date.isEmpty();

@@ -77,7 +77,8 @@ public class MedicineHolder extends RecyclerView.ViewHolder {
         tvDuration.setText("دوزه: " + duration);
     }
     public void setTvDate(String duration) {
-        tvDate.setText("شروع: " + duration);
+        tvDate.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+        tvDate.setText(duration);
     }
 
     public void editClicked(View.OnClickListener onClickListener){
