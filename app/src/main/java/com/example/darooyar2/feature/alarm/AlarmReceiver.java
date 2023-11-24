@@ -35,17 +35,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         createNotification(context);
 
-        ArrayList<MedicineModel> medicineModels = MedicineQueryImp.getInstance(context).getMedicinesToday();
-        MedicineModel chosenMedicine = null;
-        long nearest = Long.MAX_VALUE;
-        for (int i = 0; i < medicineModels.size(); i++) {
-            if (medicineModels.get(i).nearestTaking() > System.currentTimeMillis() && medicineModels.get(i).nearestTaking() < nearest) {
-                nearest = medicineModels.get(i).nearestTaking();
-                chosenMedicine = medicineModels.get(i);
-            }
-        }
-        if (chosenMedicine != null)
-            AlarmSetter.setAlarm(context, chosenMedicine);
+        AlarmSetter.startingAlarm(context);
 
         wakeLock.release();
     }
@@ -64,7 +54,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Intent intent = new Intent(context, ContainerActivity.class);
         PendingIntent pendingIntent;
-        if (Build.VERSION.SDK_INT > 31)
+        if (Build.VERSION.SDK_INT >= 31)
             pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         else
             pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
