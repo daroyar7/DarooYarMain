@@ -1,6 +1,7 @@
 package com.example.darooyar2.theme.component;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.text.Html;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.google.android.exoplayer2.PlaybackException;
 import com.google.android.exoplayer2.Player;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,6 +45,7 @@ public class VoiceDescriptionView extends ConstraintLayout {
     private String location;
     private Boolean isRecorder = true;
     private ExoPlayer player;
+    private MediaPlayer mediaPlayer;
     private String fileName;
 
     public VoiceDescriptionView(@NonNull Context context, boolean isRecorder) {
@@ -82,18 +85,27 @@ public class VoiceDescriptionView extends ConstraintLayout {
         tvTimer.setTextColor(Color.getOnBackgroundColor());
         addView(tvTimer, Param.consParam(-2, -2, btnRecord.getId(), -1, -btnRecord.getId(), btnRecord.getId(), -1, -1, Dimen.m16, -1));
 
+        Log.i("Sarina", "setUp: "+location);
         if (!isRecorder) {
-            player = new ExoPlayer.Builder(activity).build();
-            Log.i("Sarina", "setUp: "+location);
-            MediaItem mediaItem = MediaItem.fromUri( location);
-            player.setMediaItem(mediaItem);
-            player.prepare();
-            player.addListener(new Player.Listener() {
-                @Override
-                public void onPlayerError(PlaybackException error) {
-                    Log.i("Sarian", "onPlayerError: "+error.getMessage());
-                }
-            });
+            mediaPlayer=new MediaPlayer();
+            try {
+                mediaPlayer.setDataSource(location);
+                mediaPlayer.prepare();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+//            player = new ExoPlayer.Builder(activity).build();
+//            MediaItem mediaItem = MediaItem.fromUri( location);
+//            player.setMediaItem(mediaItem);
+//            player.prepare();
+//            player.addListener(new Player.Listener() {
+//                @Override
+//                public void onPlayerError(PlaybackException error) {
+//                    Log.i("Sarian", "onPlayerError: "+error.getMessage());
+//                }
+//            });
         }
     }
 
@@ -106,14 +118,16 @@ public class VoiceDescriptionView extends ConstraintLayout {
             }
         } else {
             //todo handle play pause
-            if (player != null) {
-                if (!player.isPlaying()) {
+            if (mediaPlayer != null) {
+                if (!mediaPlayer.isPlaying()) {
                     btnRecord.setImageResource(R.drawable.ic_pause_state);
-                    player.seekTo(0);
-                    player.play();
+                    mediaPlayer.seekTo(0);
+                    mediaPlayer.start();
+//                    player.seekTo(0);
+//                    player.play();
                 } else {
                     btnRecord.setImageResource(R.drawable.ic_play_state);
-                    player.stop();
+                    mediaPlayer.pause();
                 }
             }
 
@@ -160,7 +174,7 @@ public class VoiceDescriptionView extends ConstraintLayout {
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-            recorder.setOutputFile(location); //???
+            recorder.setOutputFile(location);
             recorder.prepare();
             recorder.start();
         } catch (Exception ignored) {
@@ -195,7 +209,18 @@ public class VoiceDescriptionView extends ConstraintLayout {
     }
 
     private String getFilePath(String name) {
-        return activity.getCacheDir().getAbsolutePath() + "/descriptions/" + name + ".mp3";
+        String directoryPath = activity.getCacheDir().getAbsolutePath() + "/descriptions/";
+
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                Log.d("Sarina", "Directory created");
+            } else {
+                Log.e("Sarina", "Failed to create directory");
+            }
+        }
+
+        return directoryPath + name.trim() + ".mp3";
     }
 
     public String getFileName() {
@@ -225,9 +250,9 @@ public class VoiceDescriptionView extends ConstraintLayout {
             }
 
         }
-        if (player != null) {
-            player.release();
-            player = null;
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
     }
 
