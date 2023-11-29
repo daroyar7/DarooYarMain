@@ -39,6 +39,7 @@ public class PutPrescriptionEvent implements View.OnClickListener {
                 prescriptionModel.setDate(date);
                 try {
                     PrescriptionQueryImp.getInstance(fragment.activity).putPrescription(prescriptionModel);
+                    fragment.itemAdded(prescriptionModel);
                 } catch (JSONException e) {
                     Log.i("TAG", "onClick: " + e);
                 }

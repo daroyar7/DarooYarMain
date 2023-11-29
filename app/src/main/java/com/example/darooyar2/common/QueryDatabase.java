@@ -74,7 +74,6 @@ public class QueryDatabase {
             for (int i = 0; i < cacheData.length(); i++) {
                 if (cacheData.optJSONObject(i).optLong("id") == model.getId()){
                     try {
-                        cacheData.remove(i);
                         cacheData.put(i, model.toJSON());
                         writeFile(cacheData.toString(), CACHE_PATH);
                     } catch (Exception ignored) {
@@ -89,6 +88,7 @@ public class QueryDatabase {
         for (int i = 0; i < cacheData.length(); i++) {
             if (cacheData.optJSONObject(i).optLong("id") == model.getId()){
                 cacheData.remove(i);
+                writeFile(cacheData.toString(), CACHE_PATH);
                 return;
             }
         }

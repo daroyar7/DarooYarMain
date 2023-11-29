@@ -14,6 +14,8 @@ public class PrescriptionEvent implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        prescriptionFragment.activity.pushFragment(new PutPrescriptionFragment(), PutPrescriptionFragment.class.getName());
+        PutPrescriptionFragment putPrescriptionFragment=new PutPrescriptionFragment();
+        putPrescriptionFragment.setListener((prescriptionModel)->prescriptionFragment.adapter.reloadItems(prescriptionFragment.activity ,prescriptionModel));
+        prescriptionFragment.activity.pushFragment(putPrescriptionFragment, PutPrescriptionFragment.class.getName());
     }
 }

@@ -24,6 +24,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 public class PrescriptionFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
+    public PrescriptionAdapter adapter;
 
     @Override
     protected ViewGroup onViewFragmentCreate() {
@@ -52,7 +53,8 @@ public class PrescriptionFragment extends BaseFragment {
 
         recyclerView = new RecyclerView(activity);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new PrescriptionAdapter(PrescriptionQueryImp.getInstance(activity).getPrescriptions(), activity));
+        adapter=new PrescriptionAdapter(PrescriptionQueryImp.getInstance(activity).getPrescriptions(), activity);
+        recyclerView.setAdapter(adapter);
         parent.addView(recyclerView, Param.consParam(0, 0, 0, 0, 0, 0));
 
         return parent;

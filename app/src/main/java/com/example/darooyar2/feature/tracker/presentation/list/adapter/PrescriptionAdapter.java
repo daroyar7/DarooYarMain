@@ -56,15 +56,21 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
         holder.editClicked(view -> {
             PutPrescriptionFragment putPrescriptionFragment = new PutPrescriptionFragment();
             putPrescriptionFragment.setDefaultPrescription(prescriptionModel);
+            putPrescriptionFragment.setListener((prescriptionModel1)->reloadItems(containerActivity,prescriptionModel1));
             containerActivity.pushFragment(putPrescriptionFragment, PutPrescriptionFragment.class.getName());
         });
 
         holder.parentClicked(view -> {
-            PrescriptionDetailFragment prescriptionDetailFragment=new PrescriptionDetailFragment();
+            PrescriptionDetailFragment prescriptionDetailFragment = new PrescriptionDetailFragment();
             prescriptionDetailFragment.setPrescriptionModel(prescriptionModel);
             containerActivity.pushFragment(prescriptionDetailFragment, PrescriptionDetailFragment.class.getName());
         });
 
+    }
+
+    public void reloadItems(ContainerActivity activity ,PrescriptionModel prescriptionModel) {
+        this.prescriptionModels.add(0,prescriptionModel);
+        notifyDataSetChanged();
     }
 
     @Override

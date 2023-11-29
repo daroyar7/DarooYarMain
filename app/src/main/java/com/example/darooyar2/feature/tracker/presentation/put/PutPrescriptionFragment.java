@@ -24,6 +24,14 @@ public class PutPrescriptionFragment extends BaseFragment {
     protected final int idBtnSubmit = idFieldDate + 1;
 
     private PrescriptionModel prescriptionModel;
+    public OnAddItemListener listener;
+
+    public void setListener(OnAddItemListener listener) {
+        this.listener = listener;
+    }
+    public void itemAdded(PrescriptionModel prescriptionModel){
+        listener.onAdd(prescriptionModel);
+    }
 
     public void setDefaultPrescription(PrescriptionModel prescriptionModel) {
         this.prescriptionModel = prescriptionModel;
@@ -64,5 +72,9 @@ public class PutPrescriptionFragment extends BaseFragment {
     @Override
     public void onBackPressed() {
         activity.onBackPressed();
+    }
+
+    public interface OnAddItemListener{
+        void onAdd(PrescriptionModel prescriptionModel);
     }
 }
