@@ -15,14 +15,10 @@ import com.example.darooyar2.theme.Dimen;
 import com.example.darooyar2.theme.Param;
 import com.example.darooyar2.theme.component.PersionDateTime.date.DatePickerDialog;
 import com.example.darooyar2.theme.component.PersionDateTime.utils.PersianCalendar;
-import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class DatePickerView extends ConstraintLayout {
     private ContainerActivity activity;
@@ -80,5 +76,8 @@ public class DatePickerView extends ConstraintLayout {
     }
     public void setError(String err){
         textInputLayout.setError(err);
+    }
+    public void setEnabled(boolean isEnabled){
+        editText.setEnabled(false);
     }
 }

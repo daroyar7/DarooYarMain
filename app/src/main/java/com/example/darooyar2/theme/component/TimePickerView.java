@@ -66,6 +66,9 @@ public class TimePickerView extends ConstraintLayout {
         });
         textInputLayout.addView(editText , Param.linearParam(-1 , -2 , Gravity.CENTER, -1 ,-1 ,-1 ,-1));
     }
+    public void setEnabled(boolean isEnabled){
+        editText.setEnabled(false);
+    }
 
     public String getText(){
         return editText.getText().toString();

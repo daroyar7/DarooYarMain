@@ -47,6 +47,10 @@ public class DurationPicker extends LinearLayout {
 
     }
 
+    public void disable(){
+        numberPicker.setEnabled(false);
+    }
+
     public interface OnDurationChangedListener {
         void onDurationChanged(int duration);
     }

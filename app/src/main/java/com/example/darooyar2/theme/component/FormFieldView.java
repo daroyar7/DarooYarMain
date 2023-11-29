@@ -52,5 +52,8 @@ public class FormFieldView extends ConstraintLayout {
     public void setError(String err){
         textInputLayout.setError(err.trim());
     }
+    public void setEnabled(boolean isEnabled){
+        editText.setEnabled(false);
+    }
 
 }

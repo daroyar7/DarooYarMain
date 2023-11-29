@@ -58,6 +58,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
             PutMedicineFragment putMedicineFragment = new PutMedicineFragment();
             putMedicineFragment.setDefaultModel(medicineModel);
             putMedicineFragment.setPrescriptionId(prescriptionId);
+            putMedicineFragment.setReadOnly("mew","hop");
             containerActivity.pushFragment(putMedicineFragment, PutMedicineFragment.class.getName());
         });
 

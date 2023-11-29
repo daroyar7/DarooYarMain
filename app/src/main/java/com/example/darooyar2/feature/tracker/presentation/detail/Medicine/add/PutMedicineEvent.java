@@ -8,6 +8,7 @@ import com.example.darooyar2.feature.tracker.data.database.medicine.MedicineQuer
 import com.example.darooyar2.theme.component.DatePickerView;
 import com.example.darooyar2.theme.component.FormFieldView;
 import com.example.darooyar2.theme.component.TimePickerView;
+import com.example.darooyar2.theme.component.VoiceDescriptionView;
 
 import org.json.JSONException;
 
@@ -34,7 +35,7 @@ public class PutMedicineEvent implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == fragment.idBtnSubmit) {
             String name = ((FormFieldView) fragment.parent.findViewById(fragment.idFormNameView)).getText();
-            String detail = ((FormFieldView) fragment.parent.findViewById(fragment.idFormDetailView)).getText();
+            String detail = fragment.getDescriptionLink();
             String date = ((DatePickerView) fragment.parent.findViewById(fragment.idFieldDate)).getText();
             String time = ((TimePickerView) fragment.parent.findViewById(fragment.idFieldTime)).getText();
             Log.i("TAG", "onClick: "+time);
