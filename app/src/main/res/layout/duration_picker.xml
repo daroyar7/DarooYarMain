@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <com.example.darooyar2.theme.numberpicker.NumberPicker
+    <com.health.darooyar.theme.numberpicker.NumberPicker
         android:id="@+id/numberPicker_duration"
         android:layout_width="40sp"
         android:layout_height="wrap_content"

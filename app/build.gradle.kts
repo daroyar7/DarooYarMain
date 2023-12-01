@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.darooyar2"
+    namespace = "com.health.darooyar"
     compileSdk = 34
 
     defaultConfig {

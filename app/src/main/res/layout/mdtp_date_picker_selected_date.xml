@@ -9,7 +9,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.example.darooyar2.theme.component.PersionDateTime.AccessibleLinearLayout
+    <com.health.darooyar.theme.component.PersionDateTime.AccessibleLinearLayout
         android:id="@+id/date_picker_month_and_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,9 +42,9 @@
             android:textColor="#FFFFFF"
             android:textSize="@dimen/mdtp_selected_date_day_size"
             tools:text="15"/>
-    </com.example.darooyar2.theme.component.PersionDateTime.AccessibleLinearLayout>
+    </com.health.darooyar.theme.component.PersionDateTime.AccessibleLinearLayout>
 
-    <com.example.darooyar2.theme.component.PersionDateTime.AccessibleTextView
+    <com.health.darooyar.theme.component.PersionDateTime.AccessibleTextView
         android:id="@+id/date_picker_year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
