@@ -70,6 +70,7 @@ public class VoiceDescriptionView extends ConstraintLayout {
 
         tvTitle = new TextView(activity);
         tvTitle.setText(text);
+        tvTitle.setTypeface(appTheme.getRegularTypeface());
         tvTitle.setId(695);
         addView(tvTitle, Param.consParam(-2, -2, icField.getId(), -1, -icField.getId(), icField.getId(), -1, -1, Dimen.m16, -1));
 
@@ -81,13 +82,13 @@ public class VoiceDescriptionView extends ConstraintLayout {
         btnRecord.setColorFilter(Color.getPrimaryColor());
         btnRecord.setBackground(AppTheme.createRoundDrawable(appTheme.getAf(200), appTheme.getAf(200), Color.getOnSecondaryColor()));
         btnRecord.setPadding(Dimen.m24, Dimen.m24, Dimen.m24, Dimen.m24);
-        addView(btnRecord, Param.consParam(appTheme.getAf(210), appTheme.getAf(210), tvTitle.getId(), -1, -tvTitle.getId(), tvTitle.getId(), -1, -1, Dimen.m16, -1));
+        addView(btnRecord, Param.consParam(appTheme.getAf(210), appTheme.getAf(210), tvTitle.getId(),0, 0, tvTitle.getId(), -1, -1, Dimen.m48, -1));
 
         tvTimer = new TextView(activity);
         tvTimer.setId(idTvTimer);
         tvTimer.setText("00:00");
         tvTimer.setTextColor(Color.getOnBackgroundColor());
-        addView(tvTimer, Param.consParam(-2, -2, btnRecord.getId(), -1, -btnRecord.getId(), btnRecord.getId(), -1, -1, Dimen.m16, -1));
+        addView(tvTimer, Param.consParam(-2, -2, btnRecord.getId(), 0, -1, btnRecord.getId(), -1, Dimen.m40, -1, -1));
 
         Log.i("Sarina", "setUp: " + location);
         if (!isRecorder) {

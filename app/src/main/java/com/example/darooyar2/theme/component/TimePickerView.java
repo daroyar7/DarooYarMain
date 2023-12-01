@@ -41,14 +41,22 @@ public class TimePickerView extends ConstraintLayout {
         icField.setId(idIcon);
         icField.setImageResource(icon);
         icField.setColorFilter(Color.getOnBackgroundColor());
-        addView(icField, Param.consParam(appTheme.getAf(120), appTheme.getAf(120), 0, -1, 0, 0));
+        addView(icField, Param.consParam(appTheme.getAf(170), appTheme.getAf(170), 0, -1, 0, 0));
 
         textInputLayout = new TextInputLayout(activity);
         textInputLayout.setHint(hint);
+        textInputLayout.setTypeface(appTheme.getRegularTypeface());
+        textInputLayout.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_OUTLINE);
+        textInputLayout.setBoxCornerRadii(appTheme.getAf(25), appTheme.getAf(25), appTheme.getAf(25), appTheme.getAf(25));
+        textInputLayout.setPadding(appTheme.getAf(5), appTheme.getAf(5), appTheme.getAf(35), appTheme.getAf(5));
         textInputLayout.setId(idTextField);
-        addView(textInputLayout, Param.consParam(0, -2, icField.getId(), 0, -icField.getId(), icField.getId(), -1, -1, Dimen.m16, -1));
+        addView(textInputLayout, Param.consParam(0, -2, icField.getId(), 0, -icField.getId(), icField.getId(), -1, -1, -1, -1));
 
         editText=new TextInputEditText(activity);
+        editText.setPadding(appTheme.getAf(0), appTheme.getAf(35), appTheme.getAf(20), appTheme.getAf(30));
+        editText.setTypeface(appTheme.getRegularTypeface());
+        editText.setBackground(null);
+        editText.setTextSize(0, appTheme.getAf(40));
         editText.setGravity(Gravity.CENTER);
         editText.setText(text);
         editText.setOnClickListener(v->{
@@ -64,7 +72,7 @@ public class TimePickerView extends ConstraintLayout {
             );
             timePickerDialog.show(activity.getFragmentManager(), null);
         });
-        textInputLayout.addView(editText , Param.linearParam(-1 , -2 , Gravity.CENTER, -1 ,-1 ,-1 ,-1));
+        textInputLayout.addView(editText, Param.linearParam(-1, -2, Gravity.CENTER, appTheme.getAf(5), appTheme.getAf(5), appTheme.getAf(5), appTheme.getAf(5)));
     }
     public void setEnabled(boolean isEnabled){
         editText.setEnabled(false);

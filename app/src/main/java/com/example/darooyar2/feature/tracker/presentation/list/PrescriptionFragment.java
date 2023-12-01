@@ -28,8 +28,8 @@ public class PrescriptionFragment extends BaseFragment {
 
     @Override
     protected ViewGroup onViewFragmentCreate() {
-        appTheme.setUpStatusBar(activity,android.graphics.Color.parseColor("#f5f5f5"),false);
-        parent.setBackgroundColor(android.graphics.Color.parseColor("#f5f5f5"));//android.graphics.Color.parseColor("#f5f5f5") //Color.getSurfaceColor()
+        appTheme.setUpStatusBar(activity, Color.getBackgroundColor(), false);
+        parent.setBackgroundColor(Color.getBackgroundColor());
 
         PrescriptionEvent prescriptionEvent = new PrescriptionEvent(this);
 
@@ -41,19 +41,9 @@ public class PrescriptionFragment extends BaseFragment {
         fabButton.setIcon(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.ic_add, null));
         parent.addView(fabButton, Param.consParam(appTheme.getAf(400), appTheme.getAf(165), -1, -1, 0, 0, -1, -1, Dimen.m40, Dimen.m40));
 
-//        PersianCalendar persianCalendar = new PersianCalendar();
-//        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
-//
-//                },
-//                persianCalendar.getPersianYear(),
-//                persianCalendar.getPersianMonth(),
-//                persianCalendar.getPersianDay()
-//        );
-//        datePickerDialog.show(activity.getFragmentManager(),null);
-
         recyclerView = new RecyclerView(activity);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        adapter=new PrescriptionAdapter(PrescriptionQueryImp.getInstance(activity).getPrescriptions(), activity);
+        adapter = new PrescriptionAdapter(PrescriptionQueryImp.getInstance(activity).getPrescriptions(), activity);
         recyclerView.setAdapter(adapter);
         parent.addView(recyclerView, Param.consParam(0, 0, 0, 0, 0, 0));
 

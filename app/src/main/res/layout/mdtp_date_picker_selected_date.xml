@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-     Copyright (C) 2013 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/day_picker_selected_date_layout"
     android:layout_width="@dimen/mdtp_date_picker_component_width"
     android:layout_height="@dimen/mdtp_selected_date_height"
     android:layout_weight="1"
-    android:background="@color/mdtp_accent_color"
+    android:background="@drawable/calendar_background"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -32,7 +16,7 @@
         android:layout_gravity="center"
         android:clickable="true"
         android:orientation="vertical"
-        android:textColor="@color/mdtp_date_picker_selector" >
+        android:textColor="#FFFFFF" >
 
         <TextView
             android:id="@+id/date_picker_month"
@@ -41,7 +25,7 @@
             android:duplicateParentState="true"
             android:gravity="center_horizontal|bottom"
             android:includeFontPadding="false"
-            android:textColor="@color/mdtp_date_picker_selector"
+            android:textColor="#FFFFFF"
             android:textSize="@dimen/mdtp_selected_date_month_size"
             tools:text="May"/>
 
@@ -55,7 +39,7 @@
             android:duplicateParentState="true"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:textColor="@color/mdtp_date_picker_selector"
+            android:textColor="#FFFFFF"
             android:textSize="@dimen/mdtp_selected_date_day_size"
             tools:text="15"/>
     </com.example.darooyar2.theme.component.PersionDateTime.AccessibleLinearLayout>
@@ -67,7 +51,7 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal|top"
         android:includeFontPadding="false"
-        android:textColor="@color/mdtp_date_picker_selector"
+        android:textColor="#FFFFFF"
         android:textSize="@dimen/mdtp_selected_date_year_size"
         tools:text="2015" />
 

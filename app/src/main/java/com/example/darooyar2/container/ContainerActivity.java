@@ -7,27 +7,22 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.example.darooyar2.R;
-import com.example.darooyar2.common.solarDate.NewPersianDate;
-import com.example.darooyar2.feature.tracker.data.database.medicine.MedicineModel;
-import com.example.darooyar2.feature.tracker.data.database.medicine.MedicineQueryImp;
 import com.example.darooyar2.theme.AppTheme;
 import com.example.darooyar2.theme.Color;
 import com.example.darooyar2.theme.Param;
-import com.example.darooyar2.utils.PersianDate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ContainerActivity extends AppCompatActivity {
 
-    protected final static int PARENT_ID = 27;
+    protected final static int CONTAINER_ID = 27;
+    protected final static int PARENT_ID = 81;
     protected final static int BOTTOM_NAVIGATION_ID = 278;
 
     public ArrayList<BaseFragment> fragmentStack = new ArrayList<>(4);
@@ -37,10 +32,13 @@ public class ContainerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         ConstraintLayout parent = new ConstraintLayout(this);
+        parent.setId(PARENT_ID);
+        setContentView(parent, new ViewGroup.LayoutParams(-1, -1));
+
         ContainerEvent containerEvent = new ContainerEvent(this);
         AppTheme appTheme = AppTheme.getInstance();
 
-        setContentView(parent);
+
         appTheme.setUpStatusBar(this, Color.getBackgroundColor(), false);
 
         int[][] states = new int[][]{new int[]{android.R.attr.state_checked}, new int[]{-android.R.attr.state_checked}};
@@ -58,7 +56,7 @@ public class ContainerActivity extends AppCompatActivity {
         parent.addView(bottomNavigationView, Param.consParam(0, appTheme.getAf(200), -1, 0, 0, 0));
 
         FrameLayout containerView = new FrameLayout(this);
-        containerView.setId(PARENT_ID);
+        containerView.setId(CONTAINER_ID);
         parent.addView(containerView, Param.consParam(0, 0, 0, 0, 0, -BOTTOM_NAVIGATION_ID));
     }
 
@@ -74,7 +72,7 @@ public class ContainerActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         fragmentManager.beginTransaction().setCustomAnimations(openAnimation, exitAnimation)
-                .setReorderingAllowed(true).add(PARENT_ID, fragment, tag).commit();
+                .setReorderingAllowed(true).add(CONTAINER_ID, fragment, tag).commit();
         fragmentStack.add(fragment);
 
         AppLoader.handler.postDelayed(() -> {

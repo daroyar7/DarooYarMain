@@ -18,6 +18,7 @@ package com.example.darooyar2.theme.component.PersionDateTime.date;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -36,8 +37,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.darooyar2.R;
+import com.example.darooyar2.theme.Color;
 import com.example.darooyar2.theme.component.PersionDateTime.HapticFeedbackController;
 import com.example.darooyar2.theme.component.PersionDateTime.TypefaceHelper;
 import com.example.darooyar2.theme.component.PersionDateTime.Utils;
@@ -211,6 +214,15 @@ public class DatePickerDialog extends DialogFragment implements
     outState.putBoolean(KEY_THEME_DARK, mThemeDark);
   }
 
+  @NonNull
+  @Override
+  public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+    // Use a custom dialog style with no background
+    setStyle(DialogFragment.STYLE_NO_FRAME, R.style.Dialog_NoBackground);
+
+    return super.onCreateDialog(savedInstanceState);
+  }
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
@@ -263,8 +275,8 @@ public class DatePickerDialog extends DialogFragment implements
     mYearPickerDescription = res.getString(R.string.mdtp_year_picker_description);
     mSelectYear = res.getString(R.string.mdtp_select_year);
 
-    int bgColorResource = mThemeDark ? R.color.mdtp_date_picker_view_animator_dark_theme : R.color.mdtp_date_picker_view_animator;
-    view.setBackgroundColor(activity.getResources().getColor(bgColorResource));
+//    int bgColorResource = mThemeDark ? R.color.mdtp_date_picker_view_animator_dark_theme : R.color.mdtp_date_picker_view_animator;
+//    view.setBackgroundColor(activity.getResources().getColor(bgColorResource));
 
     mAnimator = view.findViewById(R.id.animator);
     mAnimator.addView(mDayPickerView);

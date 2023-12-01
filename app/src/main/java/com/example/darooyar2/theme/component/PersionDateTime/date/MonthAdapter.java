@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 
 import com.example.darooyar2.theme.component.PersionDateTime.utils.PersianCalendar;
 
@@ -158,6 +159,7 @@ public abstract class MonthAdapter extends BaseAdapter implements MonthView.OnDa
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         MonthView v;
+
         HashMap<String, Integer> drawingParams = null;
         if (convertView != null) {
             v = (MonthView) convertView;
@@ -166,7 +168,7 @@ public abstract class MonthAdapter extends BaseAdapter implements MonthView.OnDa
         } else {
             v = createMonthView(mContext);
             // Set up the new view
-            LayoutParams params = new LayoutParams(
+            FrameLayout.LayoutParams params = new  FrameLayout.LayoutParams(
                     LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             v.setLayoutParams(params);
             v.setClickable(true);
@@ -175,6 +177,7 @@ public abstract class MonthAdapter extends BaseAdapter implements MonthView.OnDa
         if (drawingParams == null) {
             drawingParams = new HashMap<>();
         }
+
         drawingParams.clear();
 
         final int month = position % MONTHS_IN_YEAR;

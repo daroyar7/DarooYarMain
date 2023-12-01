@@ -1,6 +1,7 @@
 package com.example.darooyar2.feature.tracker.presentation.detail.Medicine.add;
 
 import android.content.pm.PackageManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,11 +89,13 @@ public class PutMedicineFragment extends BaseFragment {
 
         TextView tvDuration = new TextView(activity);
         tvDuration.setText("دوره ی مصرف:");
+        tvDuration.setTypeface(appTheme.getRegularTypeface());
         tvDuration.setId(6895);
         parent.addView(tvDuration, Param.consParam(-2, -2, icDuration.getId(), -1, -icDuration.getId(), icDuration.getId(), -1, -1, Dimen.m16, -1));
 
         MaterialSpinner spinner = new MaterialSpinner(activity);
         spinner.setId(idSpinner);
+        spinner.setTypeface(appTheme.getRegularTypeface());
         spinner.setBackground(appTheme.createRoundDrawable(appTheme.getAf(100), Color.getOnPrimaryColor()));
         spinner.setItems(PutMedicineEvent.durationUnits);
         spinner.setGravity(Gravity.CENTER);
@@ -106,24 +109,46 @@ public class PutMedicineFragment extends BaseFragment {
         durationPicker.setId(idDurationPicker);
         durationPicker.setListener(event::setDuration);
         parent.addView(durationPicker, Param.consParam(-2, appTheme.getAf(250), -tvDuration.getId(), -spinner.getId(), -tvDuration.getId(), tvDuration.getId()));
-        // /////////////////////
 
         VoiceDescriptionView voiceDescriptionView = new VoiceDescriptionView(activity, isRecorder);
+
         voiceDescriptionView.setUp(R.drawable.ic_info, "توضیحات:", medicineModel == null ? "v-" + prescriptionId + "-" + System.currentTimeMillis() : medicineModel.getDetail());
         voiceDescriptionView.setId(idFormDetailView);
         parent.addView(voiceDescriptionView, Param.consParam(-1, -2, -durationPicker.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
         MaterialButton btnSubmit = new MaterialButton(activity);
+        btnSubmit.setTypeface(appTheme.getMediumTypeface());
         btnSubmit.setOnClickListener(event);
+        btnSubmit.setTextSize(0, appTheme.getAf(42));
         btnSubmit.setText("ثبت دارو");
         btnSubmit.setId(idBtnSubmit);
-        parent.addView(btnSubmit, Param.consParam(-1, Dimen.m64, -1, 0, 0, 0, -1, Dimen.m40, Dimen.m40, Dimen.m40));
+        btnSubmit.setCornerRadius(appTheme.getAf(25));
+        parent.addView(btnSubmit, Param.consParam(-1, appTheme.getAf(158), -1, 0, 0, 0, -1, Dimen.m40, Dimen.m40, Dimen.m40));
 
         if (!isRecorder) {
             setReadOnly();
             CheckBox checkBoxHsTaken = new CheckBox(activity);
-            checkBoxHsTaken.setChecked(AppLoader.sharedPreferences.getBoolean(medicineModel.getTimeMustUsed() + medicineModel.hashCode() + "", false));
-            checkBoxHsTaken.setText("dfhrf");
+            checkBoxHsTaken.setTypeface(appTheme.getMediumTypeface());
+            if (medicineModel.getTimeMustUsed() + 5 * 60 * 1000 > System.currentTimeMillis()) {
+                checkBoxHsTaken.setChecked(false);
+                checkBoxHsTaken.setEnabled(false);
+            } else {
+                if (AppLoader.sharedPreferences.getBoolean(medicineModel.getTimeMustUsed() + medicineModel.hashCode() + "", false)) {
+                    checkBoxHsTaken.setChecked(true);
+                    checkBoxHsTaken.setEnabled(false);
+                } else {
+                    checkBoxHsTaken.setChecked(false);
+                    checkBoxHsTaken.setEnabled(true);
+                    checkBoxHsTaken.setOnCheckedChangeListener((compoundButton, b) -> {
+                        if (b) {
+                            checkBoxHsTaken.setEnabled(false);
+                            if (listener != null)
+                                listener.onAddData(medicineModel);
+                        }
+                    });
+                }
+            }
+            checkBoxHsTaken.setText("قرصم را خوردم");
             parent.addView(checkBoxHsTaken, Param.consParam(-2, -2, medicineModel.getDetail().equals("") ? -idDurationPicker : -idFormDetailView,
                     -1, 0, -1, Dimen.m24, -1, Dimen.m40, -1));
         }

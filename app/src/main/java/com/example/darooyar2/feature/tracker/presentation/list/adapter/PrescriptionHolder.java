@@ -32,6 +32,7 @@ public class PrescriptionHolder extends RecyclerView.ViewHolder {
         AppTheme appTheme = AppTheme.getInstance();
         this.parent = parent;
         parent.setPadding(-1,-1,-1,Dimen.m16);
+        parent.setElevation(appTheme.getAf(10));
 
         final int TXT_DOCTOR_ID = 484;
         txtDoctorName = new TextView(context);
@@ -53,13 +54,13 @@ public class PrescriptionHolder extends RecyclerView.ViewHolder {
         imgEdit.setImageResource(R.drawable.ic_edit);
         imgEdit.setBackground(AppTheme.createRoundSelectorDrawable(Color.black10Op(),0,appTheme.getAf(100),appTheme.getAf(100)));
         imgEdit.setPadding(appTheme.getAf(20),appTheme.getAf(20),appTheme.getAf(20),appTheme.getAf(20));
-        parent.addView(imgEdit, Param.consParam(appTheme.getAf(90), appTheme.getAf(90), 0, 0, -1, -1, Dimen.m16, Dimen.m24, -1, -1));
+        parent.addView(imgEdit, Param.consParam(appTheme.getAf(90), appTheme.getAf(90), 0, 0, -1, 0, Dimen.m16, Dimen.m24, -1, -1));
 
         imgDelete = new ImageView(context);
         imgDelete.setImageResource(R.drawable.ic_remove);
         imgDelete.setBackground(AppTheme.createRoundSelectorDrawable(Color.black10Op(),0,appTheme.getAf(100),appTheme.getAf(100)));
         imgDelete.setPadding(appTheme.getAf(20),appTheme.getAf(20),appTheme.getAf(20),appTheme.getAf(20));
-        parent.addView(imgDelete, Param.consParam(appTheme.getAf(90), appTheme.getAf(90), 0, -IMG_EDIT_ID, -1, -1, Dimen.m16, Dimen.m24, -1, -1));
+        parent.addView(imgDelete, Param.consParam(appTheme.getAf(90), appTheme.getAf(90), 0, -IMG_EDIT_ID, -1, 0, Dimen.m16, Dimen.m24, -1, -1));
     }
 
     public void setDoctorName(String doctorName) {

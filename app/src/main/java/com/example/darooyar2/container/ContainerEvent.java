@@ -20,7 +20,7 @@ public class ContainerEvent implements NavigationBarView.OnItemSelectedListener 
         prescriptionFragment = new PrescriptionFragment();
 
         fragmentManager = containerActivity.getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(ContainerActivity.PARENT_ID, prescriptionFragment).commit();
+        fragmentManager.beginTransaction().add(ContainerActivity.CONTAINER_ID, prescriptionFragment).commit();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ContainerEvent implements NavigationBarView.OnItemSelectedListener 
         prescriptionFragment.hideFragment(fragmentManager, true);
         if (alertFragment == null) {
             alertFragment = new AlertFragment();
-            fragmentManager.beginTransaction().add(ContainerActivity.PARENT_ID, alertFragment).commit();
+            fragmentManager.beginTransaction().add(ContainerActivity.CONTAINER_ID, alertFragment).commit();
         } else
             alertFragment.showFragment(fragmentManager, true);
     }

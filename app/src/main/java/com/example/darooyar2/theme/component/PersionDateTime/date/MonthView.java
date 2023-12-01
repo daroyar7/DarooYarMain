@@ -37,6 +37,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.customview.widget.ExploreByTouchHelper;
 
 import com.example.darooyar2.R;
+import com.example.darooyar2.theme.Color;
 import com.example.darooyar2.theme.component.PersionDateTime.TypefaceHelper;
 import com.example.darooyar2.theme.component.PersionDateTime.Utils;
 import com.example.darooyar2.theme.component.PersionDateTime.utils.LanguageUtils;

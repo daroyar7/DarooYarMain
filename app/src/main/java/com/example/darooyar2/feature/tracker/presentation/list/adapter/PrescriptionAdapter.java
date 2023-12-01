@@ -47,8 +47,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
             prescriptionModels.remove(prescriptionModel);
             try {
                 PrescriptionQueryImp.getInstance(view.getContext()).deletePrescription(prescriptionModel);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
+            } catch (JSONException ignored) {
             }
             notifyItemRemoved(position);
         });

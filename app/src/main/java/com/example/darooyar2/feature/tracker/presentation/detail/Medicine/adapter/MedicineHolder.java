@@ -29,6 +29,7 @@ public class MedicineHolder extends RecyclerView.ViewHolder {
         Context context = parent.getContext();
         AppTheme appTheme = AppTheme.getInstance();
         this.parent = parent;
+        parent.setElevation(appTheme.getAf(10));
         parent.setPadding(-1,-1,-1,Dimen.m16);
 
         final int TXT_DOCTOR_ID = 484;
@@ -60,21 +61,21 @@ public class MedicineHolder extends RecyclerView.ViewHolder {
         imgEdit.setImageResource(R.drawable.ic_edit);
         imgEdit.setBackground(AppTheme.createRoundSelectorDrawable(Color.black10Op(),0,appTheme.getAf(100),appTheme.getAf(100)));
         imgEdit.setPadding(appTheme.getAf(20),appTheme.getAf(20),appTheme.getAf(20),appTheme.getAf(20));
-        parent.addView(imgEdit, Param.consParam(appTheme.getAf(90), appTheme.getAf(90), 0, 0, -1, -1, Dimen.m16, Dimen.m16, -1, -1));
+        parent.addView(imgEdit, Param.consParam(appTheme.getAf(90), appTheme.getAf(90), 0, 0, -1, 0, Dimen.m16, Dimen.m16, -1, -1));
 
         imgDelete = new ImageView(context);
         imgDelete.setImageResource(R.drawable.ic_remove);
         imgDelete.setBackground(AppTheme.createRoundSelectorDrawable(Color.black10Op(),0,appTheme.getAf(100),appTheme.getAf(100)));
         imgDelete.setPadding(appTheme.getAf(20),appTheme.getAf(20),appTheme.getAf(20),appTheme.getAf(20));
-        parent.addView(imgDelete, Param.consParam(appTheme.getAf(90), appTheme.getAf(90), 0, -IMG_EDIT_ID, -1,-1, Dimen.m16, Dimen.m16, -1, -1));
+        parent.addView(imgDelete, Param.consParam(appTheme.getAf(90), appTheme.getAf(90), 0, -IMG_EDIT_ID, -1,0, Dimen.m16, Dimen.m16, -1, -1));
     }
 
     public void setTvName(String name) {
-        tvName.setText(name);
+        tvName.setText("نام دارو: " + name);
     }
 
     public void setTvDuration(String duration) {
-        tvDuration.setText("دوزه: " + duration);
+        tvDuration.setText("دوره: " + duration);
     }
     public void setTvDate(String duration) {
         tvDate.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);

@@ -17,7 +17,8 @@ import java.util.ArrayList;
 public class AlertFragment extends BaseFragment {
     @Override
     protected ViewGroup onViewFragmentCreate() {
-        parent.setBackgroundColor(Color.getOutlineColor());
+        appTheme.setUpStatusBar(activity, Color.getBackgroundColor(), false);
+        parent.setBackgroundColor(Color.getBackgroundColor());
 
         ArrayList<MedicineModel> medicineModels = MedicineQueryImp.getInstance(activity).getMedicinesToday();
 

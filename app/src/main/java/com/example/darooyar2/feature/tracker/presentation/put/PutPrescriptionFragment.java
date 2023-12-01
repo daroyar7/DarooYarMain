@@ -1,6 +1,5 @@
 package com.example.darooyar2.feature.tracker.presentation.put;
 
-import android.app.DatePickerDialog;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -13,7 +12,6 @@ import com.example.darooyar2.theme.Dimen;
 import com.example.darooyar2.theme.Param;
 import com.example.darooyar2.theme.component.FormFieldView;
 import com.example.darooyar2.theme.component.DatePickerView;
-import com.example.darooyar2.utils.PersianDate;
 import com.google.android.material.button.MaterialButton;
 
 public class PutPrescriptionFragment extends BaseFragment {
@@ -61,10 +59,13 @@ public class PutPrescriptionFragment extends BaseFragment {
         parent.addView(fieldDate, Param.consParam(0, -2, -fieldDoctorName.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
         MaterialButton btnSubmit = new MaterialButton(activity);
+        btnSubmit.setTypeface(appTheme.getMediumTypeface());
         btnSubmit.setOnClickListener(event);
+        btnSubmit.setTextSize(0, appTheme.getAf(42));
         btnSubmit.setText("ثبت نسخه");
         btnSubmit.setId(idBtnSubmit);
-        parent.addView(btnSubmit, Param.consParam(-1, Dimen.m64, -1, 0, 0, 0, -1, Dimen.m40, Dimen.m40, Dimen.m40));
+        btnSubmit.setCornerRadius(appTheme.getAf(25));
+        parent.addView(btnSubmit, Param.consParam(-1, appTheme.getAf(158), -1, 0, 0, 0, -1, Dimen.m40, Dimen.m40, Dimen.m40));
 
         return parent;
     }

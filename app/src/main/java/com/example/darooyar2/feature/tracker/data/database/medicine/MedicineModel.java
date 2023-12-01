@@ -126,9 +126,10 @@ public class MedicineModel extends Model {
             calendar1.setTimeInMillis(startTimeStamp);
             Calendar calendar2 = Calendar.getInstance();
             calendar2.setTimeInMillis(nowTimeStamp);
-            if (calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH)) {
+            if (calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH) && startTimeStamp >  calendar.getTimeInMillis()) {
                 MedicineModel medicineModel = new MedicineModel(name, durationNumber, durationUnit, startDate, startTime, prescriptionId);
                 medicineModel.timeMustUsed = startTimeStamp;
+                medicineModel.detail = detail;
                 medicineModels.add(medicineModel);
             }
             startTimeStamp += periodTime;
