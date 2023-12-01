@@ -7,7 +7,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.darooyar2"
+        applicationId = "com.health.darooyar"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
