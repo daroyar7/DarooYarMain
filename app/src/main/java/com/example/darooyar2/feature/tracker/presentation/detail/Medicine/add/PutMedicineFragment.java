@@ -1,5 +1,6 @@
 package com.example.darooyar2.feature.tracker.presentation.detail.Medicine.add;
 
+import android.content.pm.PackageManager;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.darooyar2.R;
+import com.example.darooyar2.container.AppLoader;
 import com.example.darooyar2.container.BaseFragment;
 import com.example.darooyar2.feature.tracker.data.database.medicine.MedicineModel;
 import com.example.darooyar2.theme.AppTheme;
@@ -120,7 +122,7 @@ public class PutMedicineFragment extends BaseFragment {
         if (!isRecorder) {
             setReadOnly();
             CheckBox checkBoxHsTaken = new CheckBox(activity);
-            checkBoxHsTaken.setChecked(false);
+            checkBoxHsTaken.setChecked(AppLoader.sharedPreferences.getBoolean(medicineModel.getTimeMustUsed() + medicineModel.hashCode() + "", false));
             checkBoxHsTaken.setText("dfhrf");
             parent.addView(checkBoxHsTaken, Param.consParam(-2, -2, medicineModel.getDetail().equals("") ? -idDurationPicker : -idFormDetailView,
                     -1, 0, -1, Dimen.m24, -1, Dimen.m40, -1));
@@ -141,14 +143,14 @@ public class PutMedicineFragment extends BaseFragment {
     }
 
     private void setReadOnly() {
-        ((FormFieldView) parent.findViewById(idFormNameView)).setEnabled(false);
-        ((DatePickerView) parent.findViewById(idFieldDate)).setEnabled(false);
-        ((TimePickerView) parent.findViewById(idFieldTime)).setEnabled(false);
-        ((MaterialSpinner) parent.findViewById(idSpinner)).setEnabled(false);
+        parent.findViewById(idFormNameView).setEnabled(false);
+        parent.findViewById(idFieldDate).setEnabled(false);
+        parent.findViewById(idFieldTime).setEnabled(false);
+        parent.findViewById(idSpinner).setEnabled(false);
         ((DurationPicker) parent.findViewById(idDurationPicker)).disable();
-        ((MaterialButton) parent.findViewById(idBtnSubmit)).setVisibility(View.GONE);
+        parent.findViewById(idBtnSubmit).setVisibility(View.GONE);
         if (medicineModel.getDetail().equals(""))
-            ((VoiceDescriptionView) parent.findViewById(idFormDetailView)).setVisibility(View.GONE);
+            parent.findViewById(idFormDetailView).setVisibility(View.GONE);
     }
 
     @Override

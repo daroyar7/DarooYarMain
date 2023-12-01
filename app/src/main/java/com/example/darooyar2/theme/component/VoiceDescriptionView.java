@@ -1,6 +1,8 @@
 package com.example.darooyar2.theme.component;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.text.Html;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.example.darooyar2.R;
 import com.example.darooyar2.container.AppLoader;
@@ -47,6 +50,7 @@ public class VoiceDescriptionView extends ConstraintLayout {
     private ExoPlayer player;
     private MediaPlayer mediaPlayer;
     private String fileName;
+    public static final int PERMISSION_RECORDING = 14585;
 
     public VoiceDescriptionView(@NonNull Context context, boolean isRecorder) {
         super(context);
@@ -85,9 +89,9 @@ public class VoiceDescriptionView extends ConstraintLayout {
         tvTimer.setTextColor(Color.getOnBackgroundColor());
         addView(tvTimer, Param.consParam(-2, -2, btnRecord.getId(), -1, -btnRecord.getId(), btnRecord.getId(), -1, -1, Dimen.m16, -1));
 
-        Log.i("Sarina", "setUp: "+location);
+        Log.i("Sarina", "setUp: " + location);
         if (!isRecorder) {
-            mediaPlayer=new MediaPlayer();
+            mediaPlayer = new MediaPlayer();
             try {
                 mediaPlayer.setDataSource(location);
                 mediaPlayer.prepare();
@@ -112,12 +116,15 @@ public class VoiceDescriptionView extends ConstraintLayout {
     private OnClickListener onClickListener = v -> {
         if (isRecorder) {
             if (!isRecording) {
-                startRecording();
+                if (PackageManager.PERMISSION_GRANTED !=
+                        ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO)) {
+                    activity.requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSION_RECORDING + 2);
+                } else
+                    startRecording();
             } else {
                 stopRecording();
             }
         } else {
-            //todo handle play pause
             if (mediaPlayer != null) {
                 if (!mediaPlayer.isPlaying()) {
                     btnRecord.setImageResource(R.drawable.ic_pause_state);
@@ -133,6 +140,7 @@ public class VoiceDescriptionView extends ConstraintLayout {
 
         }
     };
+
 
     private void startRecording() {
         isRecording = true;
@@ -170,6 +178,7 @@ public class VoiceDescriptionView extends ConstraintLayout {
 
     private void setupRecorder() {
         try {
+            Log.i("Sarina", "setupRecorder: " + location);
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
@@ -178,7 +187,7 @@ public class VoiceDescriptionView extends ConstraintLayout {
             recorder.prepare();
             recorder.start();
         } catch (Exception ignored) {
-
+            Log.i("Sarina", "setupRecorder Exception: " + ignored);
         }
     }
 
@@ -212,13 +221,7 @@ public class VoiceDescriptionView extends ConstraintLayout {
         String directoryPath = activity.getCacheDir().getAbsolutePath() + "/descriptions/";
 
         File directory = new File(directoryPath);
-        if (!directory.exists()) {
-            if (directory.mkdirs()) {
-                Log.d("Sarina", "Directory created");
-            } else {
-                Log.e("Sarina", "Failed to create directory");
-            }
-        }
+        directory.mkdirs();
 
         return directoryPath + name.trim() + ".mp3";
     }
