@@ -13,6 +13,7 @@ import com.health.darooyar.theme.Param;
 import com.health.darooyar.theme.component.FormFieldView;
 import com.health.darooyar.theme.component.DatePickerView;
 import com.google.android.material.button.MaterialButton;
+import com.health.darooyar.theme.component.Toolbar;
 
 public class PutPrescriptionFragment extends BaseFragment {
 
@@ -27,7 +28,8 @@ public class PutPrescriptionFragment extends BaseFragment {
     public void setListener(OnAddItemListener listener) {
         this.listener = listener;
     }
-    public void itemAdded(PrescriptionModel prescriptionModel){
+
+    public void itemAdded(PrescriptionModel prescriptionModel) {
         listener.onAdd(prescriptionModel);
     }
 
@@ -40,13 +42,19 @@ public class PutPrescriptionFragment extends BaseFragment {
         parent.setBackgroundColor(Color.getBackgroundColor());
         AppTheme.getInstance().setUpStatusBar(activity, Color.getBackgroundColor(), false);
 
+        appTheme.setUpStatusBar(activity, Color.toolbarBackground(), true);
+        Toolbar toolbar = new Toolbar(activity, prescriptionModel == null ? "نسخه\u200cی جدید" : "ویرایش", Color.getOnSecondaryColor(), Color.toolbarBackground(), android.graphics.Color.parseColor("#383838"));
+        toolbar.setId(8457);
+        parent.addView(toolbar, Param.consParam(0, -2, 0, 0, 0, -1));
+
+
         PutPrescriptionEvent event = new PutPrescriptionEvent(this, prescriptionModel);
 
         ImageView imgPrescription = new ImageView(activity);
         imgPrescription.setImageResource(R.drawable.image_add_prescription);
-        imgPrescription.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//        imgPrescription.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imgPrescription.setId(baseId + 468);
-        parent.addView(imgPrescription, Param.consParam(-1, (int) (0.4 * appTheme.heightPixels), 0, 0, 0, -1));
+        parent.addView(imgPrescription, Param.consParam(-2, (int) (0.4 * appTheme.heightPixels), -toolbar.getId(), 0, 0, -1,-1,appTheme.getAf(100),appTheme.getAf(100),-1));
 
         FormFieldView fieldDoctorName = new FormFieldView(activity);
         fieldDoctorName.setUp(R.drawable.ic_doctor, "نام پزشک", prescriptionModel == null ? "" : prescriptionModel.getDoctorName());
@@ -75,7 +83,7 @@ public class PutPrescriptionFragment extends BaseFragment {
         activity.onBackPressed();
     }
 
-    public interface OnAddItemListener{
+    public interface OnAddItemListener {
         void onAdd(PrescriptionModel prescriptionModel);
     }
 }

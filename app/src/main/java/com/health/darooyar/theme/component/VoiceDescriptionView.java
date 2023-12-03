@@ -8,6 +8,7 @@ import android.media.MediaRecorder;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -46,6 +47,7 @@ public class VoiceDescriptionView extends ConstraintLayout {
     private MediaPlayer mediaPlayer;
     private String fileName;
     public static final int PERMISSION_RECORDING = 14585;
+    private boolean noMediaResource = false;
 
     public VoiceDescriptionView(@NonNull Context context, boolean isRecorder) {
         super(context);
@@ -77,7 +79,7 @@ public class VoiceDescriptionView extends ConstraintLayout {
         btnRecord.setColorFilter(Color.getPrimaryColor());
         btnRecord.setBackground(AppTheme.createRoundDrawable(appTheme.getAf(200), appTheme.getAf(200), Color.getOnSecondaryColor()));
         btnRecord.setPadding(Dimen.m24, Dimen.m24, Dimen.m24, Dimen.m24);
-        addView(btnRecord, Param.consParam(appTheme.getAf(210), appTheme.getAf(210), tvTitle.getId(),0, 0, tvTitle.getId(), -1, -1, Dimen.m48, -1));
+        addView(btnRecord, Param.consParam(appTheme.getAf(210), appTheme.getAf(210), tvTitle.getId(), 0, 0, tvTitle.getId(), -1, -1, Dimen.m48, -1));
 
         tvTimer = new TextView(activity);
         tvTimer.setId(idTvTimer);
@@ -92,7 +94,7 @@ public class VoiceDescriptionView extends ConstraintLayout {
                 mediaPlayer.setDataSource(location);
                 mediaPlayer.prepare();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                noMediaResource = true;
             }
 
 
@@ -110,6 +112,10 @@ public class VoiceDescriptionView extends ConstraintLayout {
     }
 
     private OnClickListener onClickListener = v -> {
+        if (noMediaResource) {
+            Toast.makeText(activity, "توضیحاتی برای این دارو وجود ندارد!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (isRecorder) {
             if (!isRecording) {
                 if (PackageManager.PERMISSION_GRANTED !=
@@ -123,6 +129,9 @@ public class VoiceDescriptionView extends ConstraintLayout {
         } else {
             if (mediaPlayer != null) {
                 if (!mediaPlayer.isPlaying()) {
+                    mediaPlayer.setOnCompletionListener(mp -> {
+                        btnRecord.setImageResource(R.drawable.ic_play_state);
+                    });
                     btnRecord.setImageResource(R.drawable.ic_pause_state);
                     mediaPlayer.seekTo(0);
                     mediaPlayer.start();

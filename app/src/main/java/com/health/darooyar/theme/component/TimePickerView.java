@@ -58,7 +58,7 @@ public class TimePickerView extends ConstraintLayout {
         editText.setOnClickListener(v->{
             PersianDate.install();
             TimePickerDialog timePickerDialog = TimePickerDialog.newInstance((view, hourOfDay, minute) -> {
-                        String date = hourOfDay+" : "+minute;
+                        String date = String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute);
                         (editText).setText(MessageFormat.format("{0}", date));
 
             },

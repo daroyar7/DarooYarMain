@@ -36,13 +36,13 @@ public class MedicineQueryImp extends QueryDatabase {
 
     public void putMedicine(MedicineModel model) throws JSONException {
         Log.i("TAG", "setAlarm1: ");
-        put(model, MEDICINE_DATABASE);
+        cacheData =put(model, MEDICINE_DATABASE);
         AlarmSetter.startingAlarm(AppLoader.getAppContext());
     }
 
     public void deleteMedicine(MedicineModel model) throws JSONException {
         AlarmSetter.removeAlarm(AppLoader.getAppContext(), model);
-        delete(model, MEDICINE_DATABASE);
+        cacheData =delete(model, MEDICINE_DATABASE);
         AlarmSetter.startingAlarm(AppLoader.getAppContext());
     }
 

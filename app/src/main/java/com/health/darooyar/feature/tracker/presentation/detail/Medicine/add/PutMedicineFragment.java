@@ -19,6 +19,7 @@ import com.health.darooyar.theme.component.DatePickerView;
 import com.health.darooyar.theme.component.FormFieldView;
 import com.health.darooyar.theme.component.NumberPicker.DurationPicker;
 import com.health.darooyar.theme.component.TimePickerView;
+import com.health.darooyar.theme.component.Toolbar;
 import com.health.darooyar.theme.component.VoiceDescriptionView;
 import com.google.android.material.button.MaterialButton;
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -61,12 +62,17 @@ public class PutMedicineFragment extends BaseFragment {
         parent.setBackgroundColor(Color.getBackgroundColor());
         AppTheme.getInstance().setUpStatusBar(activity, Color.getBackgroundColor(), false);
 
+        appTheme.setUpStatusBar(activity, Color.toolbarBackground(), true);
+        Toolbar toolbar = new Toolbar(activity, isRecorder ? (medicineModel == null ? "داروی جدید" : "ویرایش") : "نمایش", Color.getOnSecondaryColor(), Color.toolbarBackground(), android.graphics.Color.parseColor("#383838"));
+        toolbar.setId(8457);
+        parent.addView(toolbar, Param.consParam(0, -2, 0, 0, 0, -1));
+
         PutMedicineEvent event = new PutMedicineEvent(this, medicineModel, prescriptionId);
 
         FormFieldView formNameView = new FormFieldView(activity);
         formNameView.setId(idFormNameView);
         formNameView.setUp(R.drawable.ic_medicine, "نام دارو", medicineModel == null ? "" : medicineModel.getName());
-        parent.addView(formNameView, Param.consParam(-1, -2, 0, 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
+        parent.addView(formNameView, Param.consParam(-1, -2, -toolbar.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
         DatePickerView fieldDate = new DatePickerView(activity);
         fieldDate.setId(idFieldDate);

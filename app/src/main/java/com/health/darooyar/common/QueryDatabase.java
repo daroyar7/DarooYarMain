@@ -58,7 +58,7 @@ public class QueryDatabase {
             return "";
         }
     }
-    protected void put(Model model ,String CACHE_PATH) throws JSONException {
+    protected JSONArray put(Model model ,String CACHE_PATH) throws JSONException {
         String data=readFile(CACHE_PATH);
         JSONArray cacheData;
         if (data.isEmpty())
@@ -78,19 +78,21 @@ public class QueryDatabase {
                         writeFile(cacheData.toString(), CACHE_PATH);
                     } catch (Exception ignored) {
                     }
-                    return;
+                    return cacheData;
                 }
             }
         }
+        return new JSONArray();
     }
-    protected void delete(Model model ,String CACHE_PATH) throws JSONException {
+    protected JSONArray delete(Model model ,String CACHE_PATH) throws JSONException {
         JSONArray cacheData = new JSONArray(readFile(CACHE_PATH));
         for (int i = 0; i < cacheData.length(); i++) {
             if (cacheData.optJSONObject(i).optLong("id") == model.getId()){
                 cacheData.remove(i);
                 writeFile(cacheData.toString(), CACHE_PATH);
-                return;
+                return cacheData;
             }
         }
+        return new JSONArray();
     }
 }

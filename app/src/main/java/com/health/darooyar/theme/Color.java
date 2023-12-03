@@ -13,6 +13,9 @@ public class Color {
     public static int getOnPrimaryColor() {
         return android.graphics.Color.parseColor("#FFFFFF");
     }
+    public static int toolbarBackground() {
+        return android.graphics.Color.parseColor("#202020");
+    }
 
     public static int getPrimaryContainerColor() {
         return android.graphics.Color.parseColor("#EADDFF");

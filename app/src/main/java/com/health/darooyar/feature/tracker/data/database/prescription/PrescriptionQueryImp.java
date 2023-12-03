@@ -33,11 +33,11 @@ public class PrescriptionQueryImp extends QueryDatabase {
     }
 
     public void putPrescription(PrescriptionModel prescriptionModel) throws JSONException {
-        put(prescriptionModel, PRESCRIPTION_DATABASE);
+        cacheData = put(prescriptionModel, PRESCRIPTION_DATABASE);
     }
 
     public void deletePrescription(PrescriptionModel prescriptionModel) throws JSONException {
-        delete(prescriptionModel, PRESCRIPTION_DATABASE);
+        cacheData = delete(prescriptionModel, PRESCRIPTION_DATABASE);
     }
 
     public ArrayList<PrescriptionModel> getPrescriptions() {

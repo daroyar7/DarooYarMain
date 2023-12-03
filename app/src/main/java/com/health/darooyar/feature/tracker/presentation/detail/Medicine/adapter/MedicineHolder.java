@@ -89,5 +89,8 @@ public class MedicineHolder extends RecyclerView.ViewHolder {
     public void deleteClicked(View.OnClickListener onClickListener){
         imgDelete.setOnClickListener(onClickListener);
     }
+    public void itemClicked(View.OnClickListener onClickListener){
+        parent.setOnClickListener(onClickListener);
+    }
 
 }

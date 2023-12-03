@@ -58,13 +58,27 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
             PutMedicineFragment putMedicineFragment = new PutMedicineFragment();
             putMedicineFragment.setDefaultModel(medicineModel);
             putMedicineFragment.setPrescriptionId(prescriptionId);
+            putMedicineFragment.setListener(this::editItem);
             containerActivity.pushFragment(putMedicineFragment, PutMedicineFragment.class.getName());
         });
 
+        holder.itemClicked(view->{
+            PutMedicineFragment putMedicineFragment = new PutMedicineFragment();
+            putMedicineFragment.setDefaultModel(medicineModel);
+            putMedicineFragment.setPrescriptionId(prescriptionId);
+            putMedicineFragment.setReadOnly(medicineModel.getStartDate(),medicineModel.getStartTime());
+            containerActivity.pushFragment(putMedicineFragment, PutMedicineFragment.class.getName());
+        });
     }
 
     public void addItem(MedicineModel medicineModel) {
         medicineModels.add(0, medicineModel);
+        notifyDataSetChanged();
+    }
+    public void editItem(MedicineModel medicineModel) {
+        int index = medicineModels.indexOf(medicineModel);
+        medicineModels.remove(medicineModel);
+        medicineModels.add(index, medicineModel);
         notifyDataSetChanged();
     }
 

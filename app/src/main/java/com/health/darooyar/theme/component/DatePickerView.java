@@ -65,7 +65,7 @@ public class DatePickerView extends ConstraintLayout {
 
     private OnClickListener onClickListener = v -> {
         PersianCalendar persianCalendar = new PersianCalendar();
-        if (datePickerDialog == null) { //dashtam say mikardam bugesho raf konam ke nashod =(
+        if (datePickerDialog == null) {
             datePickerDialog = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
                         String date = year + "/" + monthOfYear + "/" + dayOfMonth;
                         (editText).setText(MessageFormat.format("{0}", date));
@@ -75,8 +75,8 @@ public class DatePickerView extends ConstraintLayout {
                     persianCalendar.getPersianMonth(),
                     persianCalendar.getPersianDay()
             );
-            datePickerDialog.show(activity.getFragmentManager(), null);
         }
+        datePickerDialog.show(activity.getFragmentManager(), null);
     };
 
     public String getText() {

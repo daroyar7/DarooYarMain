@@ -11,8 +11,11 @@ import com.health.darooyar.theme.component.TimePickerView;
 
 import org.json.JSONException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 public class PutMedicineEvent implements View.OnClickListener {
     PutMedicineFragment fragment;
@@ -48,20 +51,35 @@ public class PutMedicineEvent implements View.OnClickListener {
             ((TimePickerView) fragment.parent.findViewById(fragment.idFieldTime)).setError(isNameFieldEmpty ? "لطفا زمان را وارد کنید." : "");
 
             if (!isNameFieldEmpty && !isTimeFieldEmpty && !isDateFieldEmpty) {
-                medicineModel.setName(name);
-                medicineModel.setDetail(detail == null ? "" : detail);
-                medicineModel.setDurationNumber(duration);
-                medicineModel.setDurationUnit(durationUnit);
-                medicineModel.setStartDate(date);
-                medicineModel.setStartTime(time);
-                medicineModel.setPrescriptionId(medicineModel.getPrescriptionId());
-                try {
-                    MedicineQueryImp.getInstance(fragment.activity).putMedicine(medicineModel);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+                try{
+                    dateFormat.parse(date);
+                    try {
+                        timeFormat.parse(time);
+
+                        medicineModel.setName(name);
+                        medicineModel.setDetail(detail == null ? "" : detail);
+                        medicineModel.setDurationNumber(duration);
+                        medicineModel.setDurationUnit(durationUnit);
+                        medicineModel.setStartDate(date);
+                        medicineModel.setStartTime(time);
+                        medicineModel.setPrescriptionId(medicineModel.getPrescriptionId());
+                        try {
+                            MedicineQueryImp.getInstance(fragment.activity).putMedicine(medicineModel);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                        fragment.itemAdded(medicineModel);
+                        fragment.onBackPressed();
+                    }
+                    catch (ParseException e){
+                        ((DatePickerView) fragment.parent.findViewById(fragment.idFieldTime)).setError("لطفا زمان صحیح را وارد کنید.");
+                    }
+                }catch (ParseException e){
+                    ((DatePickerView) fragment.parent.findViewById(fragment.idFieldDate)).setError("لطفا تاریخ صحیح را وارد کنید.");
                 }
-                fragment.itemAdded(medicineModel);
-                fragment.onBackPressed();
+
             }
         }
     }

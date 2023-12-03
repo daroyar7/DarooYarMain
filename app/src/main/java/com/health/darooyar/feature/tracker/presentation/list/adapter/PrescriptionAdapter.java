@@ -6,6 +6,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.health.darooyar.container.ContainerActivity;
+import com.health.darooyar.feature.tracker.data.database.medicine.MedicineModel;
+import com.health.darooyar.feature.tracker.data.database.medicine.MedicineQueryImp;
 import com.health.darooyar.feature.tracker.data.database.prescription.PrescriptionModel;
 import com.health.darooyar.feature.tracker.presentation.detail.PrescriptionDetailFragment;
 import com.health.darooyar.theme.Color;
@@ -24,10 +26,13 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
 
     private ArrayList<PrescriptionModel> prescriptionModels;
     private ContainerActivity containerActivity;
+    private ItemChangedListeners listener;
 
-    public PrescriptionAdapter(ArrayList<PrescriptionModel> prescriptionModels, ContainerActivity containerActivity) {
+
+    public PrescriptionAdapter(ArrayList<PrescriptionModel> prescriptionModels, ContainerActivity containerActivity,ItemChangedListeners listener) {
         this.prescriptionModels = prescriptionModels;
         this.containerActivity = containerActivity;
+        this.listener=listener;
     }
 
     @Override
@@ -44,12 +49,17 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
         holder.setDoctorName(prescriptionModel.getDoctorName());
         holder.setDate(prescriptionModel.getDate());
         holder.deleteClicked(view -> {
-            prescriptionModels.remove(prescriptionModel);
             try {
+                prescriptionModels.remove(prescriptionModel);
+                ArrayList<MedicineModel> medicineModels = MedicineQueryImp.getInstance(view.getContext()).getMedicines(prescriptionModel.getId());
+                for (int i = 0; i < medicineModels.size(); i++) {
+                    MedicineQueryImp.getInstance(view.getContext()).deleteMedicine(medicineModels.get(i));
+                }
                 PrescriptionQueryImp.getInstance(view.getContext()).deletePrescription(prescriptionModel);
+                listener.onItemChanged(getItemCount());
+                notifyItemRemoved(position);
             } catch (JSONException ignored) {
             }
-            notifyItemRemoved(position);
         });
 
         holder.editClicked(view -> {
@@ -70,6 +80,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
     public void addItem(PrescriptionModel prescriptionModel) {
         this.prescriptionModels.add(0, prescriptionModel);
         notifyDataSetChanged();
+        listener.onItemChanged(getItemCount());
     }
 
     public void editItem(PrescriptionModel prescriptionModel) {
@@ -84,5 +95,8 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionHolder
         return prescriptionModels.size();
     }
 
+    public interface ItemChangedListeners{
+        void onItemChanged(int itemsCount);
+    }
 
 }

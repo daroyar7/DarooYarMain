@@ -10,13 +10,17 @@ import com.health.darooyar.theme.component.FormFieldView;
 
 import org.json.JSONException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class PutPrescriptionEvent implements View.OnClickListener {
 
     private PutPrescriptionFragment fragment;
     private PrescriptionModel prescriptionModel;
 
     public PutPrescriptionEvent(PutPrescriptionFragment fragment, PrescriptionModel prescriptionModel) {
-        this.fragment=fragment;
+        this.fragment = fragment;
         if (prescriptionModel == null)
             this.prescriptionModel = new PrescriptionModel("", "");
         else
@@ -25,8 +29,8 @@ public class PutPrescriptionEvent implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        String date=((DatePickerView)(fragment.parent.findViewById(fragment.idFieldDate))).getText();
-        String doctorName=((FormFieldView)fragment.parent.findViewById(fragment.idFieldDoctorName)).getText();
+        String date = ((DatePickerView) (fragment.parent.findViewById(fragment.idFieldDate))).getText();
+        String doctorName = ((FormFieldView) fragment.parent.findViewById(fragment.idFieldDoctorName)).getText();
         if (v.getId() == fragment.idBtnSubmit) {
             boolean isDateEmpty = date.isEmpty();
             boolean isDoctorNameEmpty = doctorName.isEmpty();
@@ -35,16 +39,24 @@ public class PutPrescriptionEvent implements View.OnClickListener {
             ((FormFieldView) fragment.parent.findViewById(fragment.idFieldDoctorName)).setError(isDoctorNameEmpty ? "لطفا نام را وارد کنید." : "");
 
             if (!isDateEmpty && !isDoctorNameEmpty) {
-                prescriptionModel.setDoctorName(doctorName);
-                prescriptionModel.setDate(date);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 try {
-                    PrescriptionQueryImp.getInstance(fragment.activity).putPrescription(prescriptionModel);
-                    fragment.itemAdded(prescriptionModel);
-                } catch (JSONException e) {
-                    Log.i("TAG", "onClick: " + e);
+                    dateFormat.parse(date);
+
+                    prescriptionModel.setDoctorName(doctorName);
+                    prescriptionModel.setDate(date);
+                    try {
+                        PrescriptionQueryImp.getInstance(fragment.activity).putPrescription(prescriptionModel);
+                        fragment.itemAdded(prescriptionModel);
+                    } catch (JSONException e) {
+                        Log.i("TAG", "onClick: " + e);
+                    }
+                    fragment.onBackPressed();
+                }catch (ParseException e){
+                    ((DatePickerView) fragment.parent.findViewById(fragment.idFieldDate)).setError("لطفا تاریخ صحیح را وارد کنید.");
                 }
-                fragment.onBackPressed();
             }
         }
     }
+
 }
