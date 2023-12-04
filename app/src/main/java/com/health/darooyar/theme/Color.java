@@ -28,6 +28,9 @@ public class Color {
     public static int getSecondaryColor() {
         return android.graphics.Color.parseColor("#625B71");
     }
+    public static int gray() {
+        return android.graphics.Color.parseColor("#818181");
+    }
 
     public static int getOnSecondaryColor() {
         return android.graphics.Color.parseColor("#FFFFFF");

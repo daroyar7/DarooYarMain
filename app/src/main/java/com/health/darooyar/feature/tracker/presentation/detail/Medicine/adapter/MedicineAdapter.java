@@ -9,6 +9,7 @@ import com.health.darooyar.container.ContainerActivity;
 import com.health.darooyar.feature.tracker.data.database.medicine.MedicineModel;
 import com.health.darooyar.feature.tracker.data.database.medicine.MedicineQueryImp;
 import com.health.darooyar.feature.tracker.presentation.detail.Medicine.add.PutMedicineFragment;
+import com.health.darooyar.feature.tracker.presentation.list.adapter.PrescriptionAdapter;
 import com.health.darooyar.theme.Color;
 import com.health.darooyar.theme.Dimen;
 import com.health.darooyar.theme.Param;
@@ -23,11 +24,13 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
     private ArrayList<MedicineModel> medicineModels;
     private ContainerActivity containerActivity;
     private long prescriptionId;
+    private PrescriptionAdapter.ItemChangedListeners listeners;
 
-    public MedicineAdapter(ArrayList<MedicineModel> medicineModels, ContainerActivity containerActivity, long prescriptionId) {
+    public MedicineAdapter(ArrayList<MedicineModel> medicineModels, ContainerActivity containerActivity, long prescriptionId, PrescriptionAdapter.ItemChangedListeners listeners) {
         this.medicineModels = medicineModels;
         this.containerActivity = containerActivity;
         this.prescriptionId = prescriptionId;
+        this.listeners = listeners;
     }
 
     @Override
@@ -49,8 +52,8 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
                 MedicineQueryImp.getInstance(view.getContext()).deleteMedicine(medicineModel);
                 medicineModels.remove(medicineModel);
                 notifyItemRemoved(position);
+                listeners.onItemChanged(getItemCount());
             } catch (JSONException e) {
-                throw new RuntimeException(e);
             }
         });
 
@@ -62,11 +65,11 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
             containerActivity.pushFragment(putMedicineFragment, PutMedicineFragment.class.getName());
         });
 
-        holder.itemClicked(view->{
+        holder.itemClicked(view -> {
             PutMedicineFragment putMedicineFragment = new PutMedicineFragment();
             putMedicineFragment.setDefaultModel(medicineModel);
             putMedicineFragment.setPrescriptionId(prescriptionId);
-            putMedicineFragment.setReadOnly(medicineModel.getStartDate(),medicineModel.getStartTime());
+            putMedicineFragment.setReadOnly(medicineModel.getStartDate(), medicineModel.getStartTime());
             containerActivity.pushFragment(putMedicineFragment, PutMedicineFragment.class.getName());
         });
     }
@@ -74,7 +77,9 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineHolder> {
     public void addItem(MedicineModel medicineModel) {
         medicineModels.add(0, medicineModel);
         notifyDataSetChanged();
+        listeners.onItemChanged(getItemCount());
     }
+
     public void editItem(MedicineModel medicineModel) {
         int index = medicineModels.indexOf(medicineModel);
         medicineModels.remove(medicineModel);

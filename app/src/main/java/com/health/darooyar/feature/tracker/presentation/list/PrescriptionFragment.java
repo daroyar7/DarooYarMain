@@ -46,7 +46,7 @@ public class PrescriptionFragment extends BaseFragment {
 
         recyclerView = new RecyclerView(activity);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        adapter = new PrescriptionAdapter(PrescriptionQueryImp.getInstance(activity).getPrescriptions(), activity,listener);
+        adapter = new PrescriptionAdapter(PrescriptionQueryImp.getInstance(activity).getPrescriptions(), activity, listener);
         recyclerView.setAdapter(adapter);
         parent.addView(recyclerView, Param.consParam(0, 0, 0, 0, 0, 0));
 
@@ -57,7 +57,8 @@ public class PrescriptionFragment extends BaseFragment {
 
         return parent;
     }
-    private PrescriptionAdapter.ItemChangedListeners listener= itemsCount -> {
+
+    private PrescriptionAdapter.ItemChangedListeners listener = itemsCount -> {
         if (itemsCount == 0) {
             loadEmptyState();
         } else
@@ -77,7 +78,7 @@ public class PrescriptionFragment extends BaseFragment {
             TextView tvState = new TextView(activity);
             tvState.setText("می\u200Cتوانید یک نسخه اضافه کنید");
             tvState.setTypeface(appTheme.getMediumTypeface());
-            tvState.setTextColor(Color.getOnBackgroundColor());
+            tvState.setTextColor(Color.gray());
             tvState.setTextSize(0, Dimen.fontSize14);
             emptyStateParent.addView(tvState, Param.consParam(-2, -2, -imgState.getId(), imgState.getId(), imgState.getId(), -1, -appTheme.getAf(280), -1, -1, -1));
         }
@@ -92,13 +93,15 @@ public class PrescriptionFragment extends BaseFragment {
     @Override
     protected void onHideChange(boolean isHide) {
         if (!isHide) {
-            recyclerView.setAdapter(new PrescriptionAdapter(PrescriptionQueryImp.getInstance(activity).getPrescriptions(), activity,listener));
+            adapter = new PrescriptionAdapter(PrescriptionQueryImp.getInstance(activity).getPrescriptions(), activity, listener);
+            recyclerView.setAdapter(adapter);
             appTheme.setUpStatusBar(activity, Color.getBackgroundColor(), false);
-            if (recyclerView.getAdapter().getItemCount() == 0) {
+            if (adapter.getItemCount() == 0) {
                 loadEmptyState();
             } else
                 hideEmptyState();
         }
+        parent.setBackgroundColor(Color.getBackgroundColor());
     }
 
 }
