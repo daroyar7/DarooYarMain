@@ -42,7 +42,7 @@ public class ContainerActivity extends AppCompatActivity {
         appTheme.setUpStatusBar(this, Color.getBackgroundColor(), false);
 
         int[][] states = new int[][]{new int[]{android.R.attr.state_checked}, new int[]{-android.R.attr.state_checked}};
-        int[] colors = new int[]{Color.getOnBackgroundColor(), Color.getSurfaceColor()};
+        int[] colors = new int[]{Color.getOnBackgroundColor(), Color.getOnBackgroundColor()};
         ColorStateList stateList = new ColorStateList(states, colors);
         BottomNavigationView bottomNavigationView = new BottomNavigationView(this);
         bottomNavigationView.setId(BOTTOM_NAVIGATION_ID);
