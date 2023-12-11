@@ -58,7 +58,6 @@ public class AlarmSetter {
 
         long timeTrigger = medicineModel.nearestTaking();
         long tenMin = 10 * 60 * 1000;
-        Log.i("TAG", "setAlarm4: "+timeTrigger);
         if (Build.VERSION.SDK_INT < 31)
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeTrigger, pendingIntent);
         else {

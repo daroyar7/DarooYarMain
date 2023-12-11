@@ -35,29 +35,7 @@ public class ContainerActivity extends AppCompatActivity {
         parent.setId(PARENT_ID);
         setContentView(parent, new ViewGroup.LayoutParams(-1, -1));
 
-        ContainerEvent containerEvent = new ContainerEvent(this);
-        AppTheme appTheme = AppTheme.getInstance();
-
-
-        appTheme.setUpStatusBar(this, Color.getBackgroundColor(), false);
-
-        int[][] states = new int[][]{new int[]{android.R.attr.state_checked}, new int[]{-android.R.attr.state_checked}};
-        int[] colors = new int[]{Color.getOnBackgroundColor(), Color.getOnBackgroundColor()};
-        ColorStateList stateList = new ColorStateList(states, colors);
-        BottomNavigationView bottomNavigationView = new BottomNavigationView(this);
-        bottomNavigationView.setId(BOTTOM_NAVIGATION_ID);
-        bottomNavigationView.setItemIconTintList(null);
-        bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
-        bottomNavigationView.setBackgroundColor(Color.getBackgroundColor());
-        bottomNavigationView.setItemTextColor(stateList);
-        bottomNavigationView.inflateMenu(R.menu.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.navigation_prescription);
-        bottomNavigationView.setOnItemSelectedListener(containerEvent);
-        parent.addView(bottomNavigationView, Param.consParam(0, appTheme.getAf(200), -1, 0, 0, 0));
-
-        FrameLayout containerView = new FrameLayout(this);
-        containerView.setId(CONTAINER_ID);
-        parent.addView(containerView, Param.consParam(0, 0, 0, 0, 0, -BOTTOM_NAVIGATION_ID));
+      pushFragment(new MainFragment(), null);
     }
 
     public void pushFragment(BaseFragment fragment, String tag) {
@@ -72,7 +50,7 @@ public class ContainerActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         fragmentManager.beginTransaction().setCustomAnimations(openAnimation, exitAnimation)
-                .setReorderingAllowed(true).add(CONTAINER_ID, fragment, tag).commit();
+                .setReorderingAllowed(true).add(PARENT_ID, fragment, tag).commit();
         fragmentStack.add(fragment);
 
         AppLoader.handler.postDelayed(() -> {
@@ -111,7 +89,7 @@ public class ContainerActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (fragmentStack.size() >= 1) {
+        if (fragmentStack.size() > 1) {
             popFragment(true);
         } else {
             super.onBackPressed();

@@ -27,6 +27,7 @@ public abstract class BaseFragment extends Fragment {
         if (activity == null)
             return null;
         parent = new ConstraintLayout(activity);
+        parent.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
         parent.setBackgroundColor(Color.getBackgroundColor());
         parent.setMotionEventSplittingEnabled(false);
         parent.setFocusableInTouchMode(true);
