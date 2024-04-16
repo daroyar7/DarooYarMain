@@ -82,7 +82,7 @@ public class QueryDatabase {
                 }
             }
         }
-        return new JSONArray();
+        return cacheData;
     }
     protected JSONArray delete(Model model ,String CACHE_PATH) throws JSONException {
         JSONArray cacheData = new JSONArray(readFile(CACHE_PATH));
