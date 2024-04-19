@@ -1,5 +1,6 @@
 package com.health.darooyar.theme;
 
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -106,6 +107,28 @@ public class Param {
         layoutParams.setMargins(mL, mT, mR, mB);
         return layoutParams;
     }
+
+
+    public static FrameLayout.LayoutParams frameParam(int w, int h) {
+        return new FrameLayout.LayoutParams(w, h);
+    }
+
+    public static FrameLayout.LayoutParams frameParam(int w, int h, int gravity) {
+        return new FrameLayout.LayoutParams(w, h, gravity);
+    }
+
+    public static FrameLayout.LayoutParams frameParam(int w, int h, int mT, int mL, int mR, int mB) {
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(w, h);
+        layoutParams.setMargins(mL, mT, mR, mB);
+        return layoutParams;
+    }
+
+    public static FrameLayout.LayoutParams frameParam(int w, int h, int gravity, int mT, int mL, int mR, int mB) {
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(w, h, gravity);
+        layoutParams.setMargins(mL, mT, mR, mB);
+        return layoutParams;
+    }
+
 
     public static LinearLayout.LayoutParams linearParam(int w, int h, float weight, int mT, int mL, int mR, int mB) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(w, h, weight);

@@ -28,7 +28,8 @@ public class PutMedicineEvent implements View.OnClickListener {
     public PutMedicineEvent(PutMedicineFragment fragment, MedicineModel model , long prescriptionId) {
         this.fragment = fragment;
         if (medicineModel == null)
-            this.medicineModel = new MedicineModel("", 1, "", "", "",prescriptionId);
+            this.medicineModel = new MedicineModel("", 1, "", "", "",prescriptionId, "");
+
         else
             this.medicineModel = model;
     }
@@ -64,6 +65,7 @@ public class PutMedicineEvent implements View.OnClickListener {
                         medicineModel.setDurationUnit(durationUnit);
                         medicineModel.setStartDate(date);
                         medicineModel.setStartTime(time);
+                        medicineModel.setMedicineImage(fragment.getBase64Image());
                         medicineModel.setPrescriptionId(medicineModel.getPrescriptionId());
                         try {
                             MedicineQueryImp.getInstance(fragment.activity).putMedicine(medicineModel);

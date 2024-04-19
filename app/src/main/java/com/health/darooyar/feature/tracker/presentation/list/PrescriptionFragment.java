@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.health.darooyar.R;
 import com.health.darooyar.container.BaseFragment;
+import com.health.darooyar.feature.help.HelpFragment;
 import com.health.darooyar.feature.tracker.data.database.prescription.PrescriptionModel;
 import com.health.darooyar.feature.tracker.data.database.prescription.PrescriptionQueryImp;
+import com.health.darooyar.feature.tracker.presentation.detail.PrescriptionDetailFragment;
 import com.health.darooyar.feature.tracker.presentation.list.adapter.PrescriptionAdapter;
 import com.health.darooyar.theme.Color;
 import com.health.darooyar.theme.Dimen;
@@ -44,11 +46,20 @@ public class PrescriptionFragment extends BaseFragment {
         fabButton.setIcon(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.ic_add, null));
         parent.addView(fabButton, Param.consParam(appTheme.getAf(400), appTheme.getAf(165), -1, -1, 0, 0, -1, -1, Dimen.m40, Dimen.m40));
 
+        ImageView ivHelp = new ImageView(activity);
+        ivHelp.setId(449);
+        ivHelp.setOnClickListener(v -> {
+            HelpFragment helpFragment = new HelpFragment();
+            activity.pushFragment(helpFragment, HelpFragment.class.getName());
+        });
+        ivHelp.setImageResource(R.drawable.ic_help);
+        parent.addView(ivHelp, Param.consParam(appTheme.getAf(64), appTheme.getAf(64), 0, 0, -1, -1, appTheme.getAf(50),Dimen.m40, 0, 0));
+
         recyclerView = new RecyclerView(activity);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         adapter = new PrescriptionAdapter(PrescriptionQueryImp.getInstance(activity).getPrescriptions(), activity, listener);
         recyclerView.setAdapter(adapter);
-        parent.addView(recyclerView, Param.consParam(0, 0, 0, 0, 0, 0));
+        parent.addView(recyclerView, Param.consParam(0, 0, -ivHelp.getId(), 0, 0, 0));
 
         if (adapter.getItemCount() == 0) {
             loadEmptyState();

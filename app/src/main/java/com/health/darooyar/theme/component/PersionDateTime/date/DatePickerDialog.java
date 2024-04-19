@@ -297,7 +297,7 @@ public class DatePickerDialog extends DialogFragment implements
         tryVibrate();
         if (mCallBack != null) {
           mCallBack.onDateSet(DatePickerDialog.this, mPersianCalendar.getPersianYear(),
-            mPersianCalendar.getPersianMonth(), mPersianCalendar.getPersianDay());
+            mPersianCalendar.getPersianMonth() + 1, mPersianCalendar.getPersianDay());
         }
         dismiss();
       }

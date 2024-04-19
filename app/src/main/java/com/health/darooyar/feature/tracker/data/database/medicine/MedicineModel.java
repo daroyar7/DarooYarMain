@@ -1,5 +1,7 @@
 package com.health.darooyar.feature.tracker.data.database.medicine;
 
+import android.util.Log;
+
 import com.health.darooyar.common.solarDate.NewPersianDate;
 import com.health.darooyar.feature.tracker.data.database.Model;
 
@@ -21,14 +23,24 @@ public class MedicineModel extends Model {
     private String startDate;
     private String startTime;
     private long prescriptionId;
+    private String medicineImage;
 
-    public MedicineModel(String name, int durationNumber, String durationUnit, String startDate, String startTime, long prescriptionId) {
+    public MedicineModel(String name, int durationNumber, String durationUnit, String startDate, String startTime, long prescriptionId, String medicineImage) {
         this.name = name;
         this.durationNumber = durationNumber;
         this.durationUnit = durationUnit;
         this.startDate = startDate;
         this.startTime = startTime;
         this.prescriptionId = prescriptionId;
+        this.medicineImage = medicineImage;
+    }
+
+    public String getMedicineImage() {
+        return medicineImage;
+    }
+
+    public void setMedicineImage(String medicineImage) {
+        this.medicineImage = medicineImage;
     }
 
     public long getTimeMustUsed() {
@@ -40,6 +52,11 @@ public class MedicineModel extends Model {
     }
 
     public long getPrescriptionId() {
+        return prescriptionId;
+    }
+
+    @Override
+    public long getId() {
         return prescriptionId;
     }
 
@@ -100,7 +117,7 @@ public class MedicineModel extends Model {
 
         LocalDate persianDate = NewPersianDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy/M/d")).toGregorian();
         int yearStart = persianDate.getYear();
-        int monthStart = persianDate.getMonthValue();
+        int monthStart = persianDate.getMonthValue() - 1;
         int dayStart = persianDate.getDayOfMonth();
         int hourStart = Integer.parseInt(startTime.replace(" ", "").split(":")[0]);
         int minStart = Integer.parseInt(startTime.replace(" ", "").split(":")[1]);
@@ -119,19 +136,34 @@ public class MedicineModel extends Model {
         }
         int periodTime = periodUnit * durationNumber * 1000;
 
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.setTimeInMillis(startTimeStamp);
+        Log.i("TAG", "shouldTakingToday2 startTimeStamp: " + startCalendar);
+
+        Calendar nowCalendar = Calendar.getInstance();
+        nowCalendar.setTimeInMillis(nowTimeStamp);
+        Log.i("TAG", "shouldTakingToday2 nowTimeStamp--: " + nowCalendar);
+
+        Log.i("TAG", "shouldTakingToday startTimeStamp: " + (startTimeStamp / 60 / 60 / 24 / 1000));
+        Log.i("TAG", "shouldTakingToday nowTimeStamp: " + (nowTimeStamp / 60 / 60 / 24 / 1000 + 1));
+        Log.i("TAG", "shouldTakingToday ---------------------------------------------");
         while (startTimeStamp / 60 / 60 / 24 / 1000 <= (nowTimeStamp / 60 / 60 / 24 / 1000 + 1)) {
+            Log.i("TAG", "shouldTakingToday startTimeStamp: " + (startTimeStamp / 60 / 60 / 24 / 1000));
+            Log.i("TAG", "shouldTakingToday nowTimeStamp: " + (nowTimeStamp / 60 / 60 / 24 / 1000 + 1));
+            Log.i("TAG", "shouldTakingToday ---------------------------------------------");
             Calendar calendar1 = Calendar.getInstance();
             calendar1.setTimeInMillis(startTimeStamp);
             Calendar calendar2 = Calendar.getInstance();
             calendar2.setTimeInMillis(nowTimeStamp);
-            if (calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH) && startTimeStamp >  calendar.getTimeInMillis()) {
-                MedicineModel medicineModel = new MedicineModel(name, durationNumber, durationUnit, startDate, startTime, prescriptionId);
+            if (calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH) && startTimeStamp > calendar.getTimeInMillis()) {
+                MedicineModel medicineModel = new MedicineModel(name, durationNumber, durationUnit, startDate, startTime, prescriptionId, medicineImage);
                 medicineModel.timeMustUsed = startTimeStamp;
                 medicineModel.detail = detail;
                 medicineModels.add(medicineModel);
             }
             startTimeStamp += periodTime;
         }
+
         return medicineModels;
     }
 
@@ -144,8 +176,9 @@ public class MedicineModel extends Model {
         String startDate = prescriptionJSON.optString("startDate");
         String startTime = prescriptionJSON.optString("startTime");
         long prescriptionId = prescriptionJSON.optLong("prescriptionId");
+        String medicineImage = prescriptionJSON.optString("medicineImage");
 
-        MedicineModel model = new MedicineModel(name, durationNumber, durationUnit, startDate, startTime, prescriptionId);
+        MedicineModel model = new MedicineModel(name, durationNumber, durationUnit, startDate, startTime, prescriptionId, medicineImage);
         model.setDetail(detail);
         model.setId(id);
         return model;
@@ -171,6 +204,7 @@ public class MedicineModel extends Model {
             jsonObject.put("startDate", startDate);
             jsonObject.put("startTime", startTime);
             jsonObject.put("prescriptionId", prescriptionId);
+            jsonObject.put("medicineImage", medicineImage);
             return jsonObject;
         } catch (Exception e) {
             return new JSONObject();
@@ -180,7 +214,7 @@ public class MedicineModel extends Model {
     public long nearestTaking() {
         LocalDate persianDate = NewPersianDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy/M/d")).toGregorian();
         int yearStart = persianDate.getYear();
-        int monthStart = persianDate.getMonthValue();
+        int monthStart = persianDate.getMonthValue() - 1;
         int dayStart = persianDate.getDayOfMonth();
         int hourStart = Integer.parseInt(startTime.replace(" ", "").split(":")[0]);
         int minStart = Integer.parseInt(startTime.replace(" ", "").split(":")[1]);
@@ -208,7 +242,7 @@ public class MedicineModel extends Model {
             calendar1.setTimeInMillis(startTimeStamp);
             Calendar calendar2 = Calendar.getInstance();
             calendar2.setTimeInMillis(nowTimeStamp);
-            if (calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH)  && startTimeStamp > nowTimeStamp) {
+            if (calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH) && startTimeStamp > nowTimeStamp) {
                 return startTimeStamp;
             }
             startTimeStamp += periodTime;
@@ -216,17 +250,30 @@ public class MedicineModel extends Model {
         return -1;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MedicineModel)) return false;
         MedicineModel that = (MedicineModel) o;
-        return getDurationNumber() == that.getDurationNumber() && getPrescriptionId() == that.getPrescriptionId() && getName().equals(that.getName()) && getDetail().equals(that.getDetail()) && getDurationUnit().equals(that.getDurationUnit()) && getStartDate().equals(that.getStartDate()) && getStartTime().equals(that.getStartTime());
+        return getPrescriptionId() == that.getPrescriptionId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getDetail(), getDurationNumber(), getDurationUnit(), getStartDate(), getStartTime(), getPrescriptionId());
+        return (int) (getPrescriptionId() /1000);
     }
+
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof MedicineModel)) return false;
+//        MedicineModel that = (MedicineModel) o;
+//        return getDurationNumber() == that.getDurationNumber() && getPrescriptionId() == that.getPrescriptionId() && getName().equals(that.getName()) && getDetail().equals(that.getDetail()) && getDurationUnit().equals(that.getDurationUnit()) && getStartDate().equals(that.getStartDate()) && getStartTime().equals(that.getStartTime());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getName(), getDetail(), getDurationNumber(), getDurationUnit(), getStartDate(), getStartTime(), getPrescriptionId());
+//    }
 }

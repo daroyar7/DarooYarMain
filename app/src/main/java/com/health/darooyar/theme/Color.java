@@ -25,15 +25,53 @@ public class Color {
         return android.graphics.Color.parseColor("#21005D");
     }
 
+    public static int btnLoginHover() {
+        return android.graphics.Color.parseColor("#087646");
+    }
+
+
     public static int getSecondaryColor() {
         return android.graphics.Color.parseColor("#625B71");
     }
     public static int gray() {
         return android.graphics.Color.parseColor("#818181");
     }
+    public static int cropImageText() {
+        return android.graphics.Color.parseColor("#2E2E2E") ;
+    }
+
+    public static int btnLoginEnabledText() {
+        return android.graphics.Color.parseColor("#FFFFFF");
+    }
+
+    public static int edtBackground() {
+        return android.graphics.Color.parseColor("#EEEEEE") ;
+    }
+
 
     public static int getOnSecondaryColor() {
         return android.graphics.Color.parseColor("#FFFFFF");
+    }
+
+    public static int bottomSheetBackground() {
+        return android.graphics.Color.parseColor("#FFFFFF");
+    }
+
+    public static int btnTransparentHover() {
+        return android.graphics.Color.parseColor("#DADADA");
+    }
+
+    public static int transparent() {
+        return 0;
+    }
+
+    public static int cropImageBackground() {
+        return  android.graphics.Color.parseColor("#2E2E2E");
+    }
+
+
+    public static int transparentGray() {
+        return android.graphics.Color.parseColor("#B3000000");
     }
 
     public static int getSecondaryContainerColor() {
