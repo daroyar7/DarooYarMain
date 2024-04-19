@@ -55,11 +55,6 @@ public class MedicineModel extends Model {
         return prescriptionId;
     }
 
-    @Override
-    public long getId() {
-        return prescriptionId;
-    }
-
     public void setPrescriptionId(long prescriptionId) {
         this.prescriptionId = prescriptionId;
     }
@@ -260,7 +255,7 @@ public class MedicineModel extends Model {
 
     @Override
     public int hashCode() {
-        return (int) (getPrescriptionId() /1000);
+        return Objects.hash(getPrescriptionId());
     }
 
 
