@@ -22,7 +22,7 @@ public class PutPrescriptionEvent implements View.OnClickListener {
     public PutPrescriptionEvent(PutPrescriptionFragment fragment, PrescriptionModel prescriptionModel) {
         this.fragment = fragment;
         if (prescriptionModel == null)
-            this.prescriptionModel = new PrescriptionModel("", "");
+            this.prescriptionModel = new PrescriptionModel("", "", "");
         else
             this.prescriptionModel = prescriptionModel;
     }
@@ -31,18 +31,18 @@ public class PutPrescriptionEvent implements View.OnClickListener {
     public void onClick(View v) {
         String date = ((DatePickerView) (fragment.parent.findViewById(fragment.idFieldDate))).getText();
         String doctorName = ((FormFieldView) fragment.parent.findViewById(fragment.idFieldDoctorName)).getText();
+        String prescriptionName = ((FormFieldView) fragment.parent.findViewById(fragment.idFieldPrescriptionName)).getText();
         if (v.getId() == fragment.idBtnSubmit) {
             boolean isDateEmpty = date.isEmpty();
-            boolean isDoctorNameEmpty = doctorName.isEmpty();
 
             ((DatePickerView) fragment.parent.findViewById(fragment.idFieldDate)).setError(isDateEmpty ? "لطفا تاریخ را وارد کنید." : "");
-            ((FormFieldView) fragment.parent.findViewById(fragment.idFieldDoctorName)).setError(isDoctorNameEmpty ? "لطفا نام را وارد کنید." : "");
 
-            if (!isDateEmpty && !isDoctorNameEmpty) {
+            if (!isDateEmpty) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 try {
                     dateFormat.parse(date);
 
+                    prescriptionModel.setPrescriptionName(prescriptionName);
                     prescriptionModel.setDoctorName(doctorName);
                     prescriptionModel.setDate(date);
                     try {

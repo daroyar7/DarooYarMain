@@ -18,7 +18,8 @@ import com.health.darooyar.theme.component.Toolbar;
 public class PutPrescriptionFragment extends BaseFragment {
 
     private int baseId = 5464;
-    protected final int idFieldDoctorName = baseId + 1;
+    protected final int idFieldPrescriptionName = baseId + 1;
+    protected final int idFieldDoctorName = idFieldPrescriptionName + 1;
     protected final int idFieldDate = idFieldDoctorName + 1;
     protected final int idBtnSubmit = idFieldDate + 1;
 
@@ -47,19 +48,23 @@ public class PutPrescriptionFragment extends BaseFragment {
         toolbar.setId(8457);
         parent.addView(toolbar, Param.consParam(0, -2, 0, 0, 0, -1));
 
-
         PutPrescriptionEvent event = new PutPrescriptionEvent(this, prescriptionModel);
 
         ImageView imgPrescription = new ImageView(activity);
         imgPrescription.setImageResource(R.drawable.image_add_prescription);
-//        imgPrescription.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imgPrescription.setId(baseId + 468);
         parent.addView(imgPrescription, Param.consParam(-2, (int) (0.4 * appTheme.heightPixels), -toolbar.getId(), 0, 0, -1,-1,appTheme.getAf(100),appTheme.getAf(100),-1));
+
+
+        FormFieldView fieldPrescriptionName = new FormFieldView(activity);
+        fieldPrescriptionName.setUp(R.drawable.ic_prescription, "نام نسخه", prescriptionModel == null ? "" : prescriptionModel.getPrescriptionName());
+        fieldPrescriptionName.setId(idFieldPrescriptionName);
+        parent.addView(fieldPrescriptionName, Param.consParam(0, -2, -imgPrescription.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
         FormFieldView fieldDoctorName = new FormFieldView(activity);
         fieldDoctorName.setUp(R.drawable.ic_doctor, "نام پزشک", prescriptionModel == null ? "" : prescriptionModel.getDoctorName());
         fieldDoctorName.setId(idFieldDoctorName);
-        parent.addView(fieldDoctorName, Param.consParam(0, -2, -imgPrescription.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
+        parent.addView(fieldDoctorName, Param.consParam(0, -2, -fieldPrescriptionName.getId(), 0, 0, -1, Dimen.m24, Dimen.m40, Dimen.m40, -1));
 
         DatePickerView fieldDate = new DatePickerView(activity);
         fieldDate.setId(idFieldDate);
