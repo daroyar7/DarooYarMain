@@ -25,13 +25,15 @@ public class PutMedicineEvent implements View.OnClickListener {
     String durationUnit = durationUnits.get(0);
     protected static ArrayList<String> durationUnits = new ArrayList<>(Arrays.asList("ساعت", "روز", "هفته"));
 
-    public PutMedicineEvent(PutMedicineFragment fragment, MedicineModel model , long prescriptionId) {
+    public PutMedicineEvent(PutMedicineFragment fragment, MedicineModel model, long prescriptionId) {
         this.fragment = fragment;
-        if (medicineModel == null)
-            this.medicineModel = new MedicineModel("", 1, "", "", "",prescriptionId, "");
-
-        else
+        if (model == null) {
+            Log.i("Sarina", "onViewFragmentCreate: in PutMedicineEvent null" + (medicineModel == null ? "null" : medicineModel.getId()));
+            this.medicineModel = new MedicineModel("", 1, "", "", "", prescriptionId, "");
+        } else {
+            Log.i("Sarina", "onViewFragmentCreate: in PutMedicineEvent not null" + (medicineModel == null ? "null" : medicineModel.getId()));
             this.medicineModel = model;
+        }
     }
 
     @Override
@@ -41,7 +43,7 @@ public class PutMedicineEvent implements View.OnClickListener {
             String detail = fragment.getDescriptionLink();
             String date = ((DatePickerView) fragment.parent.findViewById(fragment.idFieldDate)).getText();
             String time = ((TimePickerView) fragment.parent.findViewById(fragment.idFieldTime)).getText();
-            Log.i("TAG", "onClick: "+time);
+            Log.i("TAG", "onClick: " + time);
 
             boolean isNameFieldEmpty = name.isEmpty();
             boolean isDateFieldEmpty = date.isEmpty();
@@ -54,7 +56,7 @@ public class PutMedicineEvent implements View.OnClickListener {
             if (!isNameFieldEmpty && !isTimeFieldEmpty && !isDateFieldEmpty) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
-                try{
+                try {
                     dateFormat.parse(date);
                     try {
                         timeFormat.parse(time);
@@ -67,6 +69,7 @@ public class PutMedicineEvent implements View.OnClickListener {
                         medicineModel.setStartTime(time);
                         medicineModel.setMedicineImage(fragment.getBase64Image());
                         medicineModel.setPrescriptionId(medicineModel.getPrescriptionId());
+                        medicineModel.setId(medicineModel.getId());
                         try {
                             MedicineQueryImp.getInstance(fragment.activity).putMedicine(medicineModel);
                         } catch (JSONException e) {
@@ -74,11 +77,10 @@ public class PutMedicineEvent implements View.OnClickListener {
                         }
                         fragment.itemAdded(medicineModel);
                         fragment.onBackPressed();
-                    }
-                    catch (ParseException e){
+                    } catch (ParseException e) {
                         ((DatePickerView) fragment.parent.findViewById(fragment.idFieldTime)).setError("لطفا زمان صحیح را وارد کنید.");
                     }
-                }catch (ParseException e){
+                } catch (ParseException e) {
                     ((DatePickerView) fragment.parent.findViewById(fragment.idFieldDate)).setError("لطفا تاریخ صحیح را وارد کنید.");
                 }
 

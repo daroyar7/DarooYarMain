@@ -19,12 +19,12 @@ public class QueryDatabase {
 
     private String cachePath;
 
-    public QueryDatabase(Context context){
+    public QueryDatabase(Context context) {
         cachePath = context.getCacheDir().getAbsolutePath() + "/database";
         new File(cachePath).mkdirs();
     }
 
-    protected void writeFile(String data, String path){
+    protected void writeFile(String data, String path) {
         try {
             File file = new File(cachePath + path);
             FileWriter writer = new FileWriter(file);
@@ -36,7 +36,7 @@ public class QueryDatabase {
         }
     }
 
-    protected String readFile(String path){
+    protected String readFile(String path) {
         String applicationText;
         InputStream inputStream;
         try {
@@ -58,36 +58,37 @@ public class QueryDatabase {
             return "";
         }
     }
-    protected JSONArray put(Model model ,String CACHE_PATH) throws JSONException {
-        String data=readFile(CACHE_PATH);
+
+    protected JSONArray put(Model model, String CACHE_PATH) throws JSONException {
+        String data = readFile(CACHE_PATH);
         JSONArray cacheData;
         if (data.isEmpty())
-            cacheData= new JSONArray();
+            cacheData = new JSONArray();
         else
-            cacheData=new JSONArray(data);
-        if (model.getId() == 0) {
-            model.createId();
-            JSONObject jsonObject = model.toJSON();
-            cacheData.put(jsonObject);
-            writeFile(cacheData.toString(), CACHE_PATH);
-        }else {
-            for (int i = 0; i < cacheData.length(); i++) {
-                if (cacheData.optJSONObject(i).optLong("id") == model.getId()){
-                    try {
-                        cacheData.put(i, model.toJSON());
-                        writeFile(cacheData.toString(), CACHE_PATH);
-                    } catch (Exception ignored) {
-                    }
+            cacheData = new JSONArray(data);
+
+        for (int i = 0; i < cacheData.length(); i++) {
+            if (cacheData.optJSONObject(i).optLong("id") == model.getId()) {
+                try {
+                    cacheData.put(i, model.toJSON());
+                    writeFile(cacheData.toString(), CACHE_PATH);
+                } catch (Exception ignored) {
                     return cacheData;
                 }
+                return cacheData;
             }
         }
+        model.createId();
+        JSONObject jsonObject = model.toJSON();
+        cacheData.put(jsonObject);
+        writeFile(cacheData.toString(), CACHE_PATH);
         return cacheData;
     }
-    protected JSONArray delete(Model model ,String CACHE_PATH) throws JSONException {
+
+    protected JSONArray delete(Model model, String CACHE_PATH) throws JSONException {
         JSONArray cacheData = new JSONArray(readFile(CACHE_PATH));
         for (int i = 0; i < cacheData.length(); i++) {
-            if (cacheData.optJSONObject(i).optLong("id") == model.getId()){
+            if (cacheData.optJSONObject(i).optLong("id") == model.getId()) {
                 cacheData.remove(i);
                 writeFile(cacheData.toString(), CACHE_PATH);
                 return cacheData;

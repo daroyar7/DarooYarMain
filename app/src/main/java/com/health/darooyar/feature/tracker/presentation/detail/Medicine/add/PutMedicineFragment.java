@@ -79,6 +79,7 @@ public class PutMedicineFragment extends BaseFragment {
 
     public void setDefaultModel(MedicineModel medicineModel) {
         this.medicineModel = medicineModel;
+        Log.i("Sarina", "onViewFragmentCreate: " + (medicineModel == null ? "null" : medicineModel.getId()));
         base64Image = medicineModel.getMedicineImage();
     }
 
@@ -92,6 +93,7 @@ public class PutMedicineFragment extends BaseFragment {
         toolbar.setId(8457);
         parent.addView(toolbar, Param.consParam(0, -2, 0, 0, 0, -1));
 
+        Log.i("Sarina", "onViewFragmentCreate: " + (medicineModel == null ? "null" : medicineModel.getId()));
         PutMedicineEvent event = new PutMedicineEvent(this, medicineModel, prescriptionId);
 
         FormFieldView formNameView = new FormFieldView(activity);

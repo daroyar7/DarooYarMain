@@ -35,14 +35,16 @@ public class MedicineQueryImp extends QueryDatabase {
     }
 
     public void putMedicine(MedicineModel model) throws JSONException {
+        ensureCacheData();
         Log.i("TAG", "setAlarm1: ");
-        cacheData =put(model, MEDICINE_DATABASE);
+        cacheData = put(model, MEDICINE_DATABASE);
         AlarmSetter.startingAlarm(AppLoader.getAppContext());
     }
 
     public void deleteMedicine(MedicineModel model) throws JSONException {
+        ensureCacheData();
         AlarmSetter.removeAlarm(AppLoader.getAppContext(), model);
-        cacheData =delete(model, MEDICINE_DATABASE);
+        cacheData = delete(model, MEDICINE_DATABASE);
         AlarmSetter.startingAlarm(AppLoader.getAppContext());
     }
 
@@ -52,6 +54,7 @@ public class MedicineQueryImp extends QueryDatabase {
     }
 
     public ArrayList<MedicineModel> getMedicinesToday() {
+        ensureCacheData();
         ArrayList<MedicineModel> medicineModels = getMedicines();
         ArrayList<MedicineModel> medicineModelsToday = new ArrayList<>();
         for (int i = 0; i < medicineModels.size(); i++)
